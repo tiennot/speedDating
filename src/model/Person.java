@@ -16,7 +16,7 @@ public class Person {
 	//Characteristics of the person
 	private int wave;
 	private int age;
-	private Sex sex;
+	private Sex sex; 
 	private Race race;
 	private Field field;
 	//Interests in 17 activities
@@ -43,6 +43,17 @@ public class Person {
 	public void addDate(Date date){
 		this.dates.add(date);
 	}
+	
+	/**
+	 * 
+	 * @return On renvoie juste un ensemble d'attribut qui montre comment chaque chose a evolue. 
+	 * On peut comparer n'importe quels ensemble d'attributs comme cela. 
+	 */
+	public AttrBag looksForChange1_s(){
+		return looksFor_1.AttrBagDifference(looksFor_s);
+	}
+	
+	
 	
 	//Getters and setters
 	public int getIid() {
@@ -165,4 +176,5 @@ public class Person {
 	public void setInterests(InterestsBag interests) {
 		this.interests = interests;
 	}
+	
 }
