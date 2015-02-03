@@ -19,6 +19,12 @@ public class Person {
 	private Sex sex; 
 	private Race race;
 	private Field field;
+	private int mnSAT;
+	private byte imprace, imprelig, exphappy;
+	
+	private Goal goal;
+	private Frequency date, goOut;
+	
 	//Interests in 17 activities
 	private InterestsBag interests;
 	//Dates this person has had during the night

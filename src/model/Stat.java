@@ -6,7 +6,11 @@ import model.constants.Sex;
 
 public class Stat {
 	
+	//Liste exhaustive des personnes presentes dans le dataset
 	private ArrayList<Person> personList ;
+	
+	//Liste exhaustive des Dates effectue dans le dataset
+	private ArrayList<Date> dateList;
 
 	public Stat(ArrayList<Person> personList) {
 		this.personList = personList;
@@ -41,6 +45,23 @@ public class Stat {
 			}
 		}
 		return list;
+	}
+	
+	/**
+	 * 
+	 * @param age
+	 * @param sex
+	 * @return les interets moyens des personnes de l'age et du sex choisi
+	 */
+	public InterestsBag getPreferences(int age, Sex sex){
+		ArrayList<Person> list = this.getPersonAgeSex(age, sex);
+		InterestsBag interests = new InterestsBag();
+		for (int i=0; i<list.size(); i++){
+			interests.addInterestsBag(list.get(i).getInterests()); //On ajoute les interets de tout le monde
+		}
+		interests.intToDouble(); // On passe en double pour avoir des valeurs exactes quand on divise.
+		interests.divise(list.size());
+		return interests;
 	}
 
 }

@@ -1,5 +1,7 @@
 package controller;
 
+import java.io.IOException;
+
 import processing.core.*;
 import view.MainWindow;
 
@@ -14,7 +16,14 @@ public class SpeedDating extends PApplet {
 		mw.draw();
 	}
 	  
-	public static void main(String args[]) {
+	public static void main(String args[]){
+		Loader loader = new Loader();
+		try {
+			loader.load();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		PApplet.main(new String[] {"controller.SpeedDating" });
 	}
 }

@@ -26,25 +26,42 @@ public class AttrBag {
 
 	//Constructor (with ratings on 10)
 	public AttrBag(int attr, int sinc, int intel, int fun, int amb, int shar){
-		this(attr, sinc, intel, fun, amb, shar, false);
+		this(attr, sinc, intel, fun, amb, shar, false,false);
+	}
+	
+	//Constructor from row data 
+	/**
+	 * 
+	 * @param data row data
+	 * @param offset 
+	 * @param on100 true if the scale is 
+	 * @param noShar true if there is no "Shared interests" data. Ex : measureUp 
+	 */
+	public AttrBag(String[] data, int offset, boolean on100, boolean noShar){
+		this(Integer.parseInt(data[offset]),
+				Integer.parseInt(data[offset+1]),
+				Integer.parseInt(data[offset+2]),
+				Integer.parseInt(data[offset+3]),
+				Integer.parseInt(data[offset+4]),
+				Integer.parseInt(data[offset+5]), on100, noShar);
 	}
 	
 	//Constructor (with ratings on 100 if boolean is true)
-	public AttrBag(int attr, int sinc, int intel, int fun, int amb, int shar, boolean on100){
+	public AttrBag(int attr, int sinc, int intel, int fun, int amb, int shar, boolean on100, boolean noShar){
 		if(on100 || attr>10 || sinc>10 || intel>10 || fun>10 || amb>10 || shar>10){
 			this.attr = (int) (meanRating*(((double)attr) /100.));
 			this.sinc = (int) (meanRating*(((double)sinc) /100.));
 			this.intel = (int) (meanRating*(((double)intel) /100.));
 			this.fun = (int) (meanRating*(((double)fun) /100.));
 			this.amb = (int) (meanRating*(((double)amb) /100.));
-			this.shar = (int) (meanRating*(((double)shar) /100.));
+			if(!noShar){this.shar = (int) (meanRating*(((double)shar) /100.));}
 		}else{
 			this.attr = attr;
 			this.sinc = sinc;
 			this.intel = intel;
 			this.fun = fun;
 			this.amb = amb;
-			this.shar = shar;
+			if(!noShar){this.shar = shar;}
 		}
 	}
 
@@ -65,6 +82,7 @@ public class AttrBag {
 	/**
 	 * 
 	 * @return C'est juste une fonction de cout. (Exemple, valeur absolue, norme 2, etc ... )
+	 * Ca peut aussi être une bonne idée de prendre juste la différence, pour avoir l'evolution positive/negative. Enfin, il suffira juste de changer la fonction.
 	 */
 	public int costFunction(int a, int b){
 		return Math.abs(a-b) ;
