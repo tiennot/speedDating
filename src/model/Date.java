@@ -23,6 +23,8 @@ public class Date {
 	private byte herProb ;
 	private boolean met;
 	
+	//TODO : Constructeur + Getter/setter 
+	
 	//Match method
 	public boolean match(){
 		return hisDec && herDec;
