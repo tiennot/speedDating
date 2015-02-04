@@ -14,6 +14,14 @@ public class Date {
 	private double intCorr; //Interests correlation -1 to 1
 	private boolean hisDec; //Decision of the man
 	private boolean herDec; //Decision of the woman
+	private int int_corr; //Correlation
+	private AttrBag hisScorecard ; 
+	private AttrBag herScoreCard ;
+	private byte heLikes ; 
+	private byte sheLikes ;
+	private byte hisProb;
+	private byte herProb ;
+	private boolean met;
 	
 	//Match method
 	public boolean match(){
