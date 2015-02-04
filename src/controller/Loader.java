@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 
-import jdk.internal.jfr.events.FileWriteEvent;
+
 import model.AttrBag;
 import model.InterestsBag;
 import model.Person;
@@ -51,10 +51,10 @@ public class Loader {
 			 */
 			int iid = Integer.parseInt(values[0]);
 			if(iidPersons.containsKey(iid)){ //On connait cette personne
-				//Il faut récupérer les informations relative au Date
+				//Il faut rï¿½cupï¿½rer les informations relative au Date
 			}
-			else{
-				//Il faut récupérer toutes les données utiles du dataset
+			else{ 
+				//Il faut rï¿½cupï¿½rer toutes les donnï¿½es utiles du dataset
 				Sex sex = new Sex(Boolean.parseBoolean(values[2]));
 				int wave = Integer.parseInt(values[5]);
 				int age = Integer.parseInt(values[33]);
@@ -78,7 +78,7 @@ public class Loader {
 				AttrBag otherPerceivesYou_1 = new AttrBag(values, 93, on100,true);
 				//Pour le Date 
 				byte dec = Byte.parseByte(values[97]);
-				//Toujours sur 10 apparemment. à vérifier.
+				//Toujours sur 10 apparemment. ï¿½ vï¿½rifier.
 				AttrBag notes = new AttrBag(values, 98, false,false);
 				
 				byte like = Byte.parseByte(values[104]);
