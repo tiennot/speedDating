@@ -10,8 +10,10 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 
 import model.AttrBag;
+import model.Date;
 import model.InterestsBag;
 import model.Person;
+import model.ScoreCard;
 import model.constants.Field;
 import model.constants.Frequency;
 import model.constants.Goal;
@@ -50,6 +52,7 @@ public class Loader {
 			 */
 			int iid = Integer.parseInt(values[0]);
 			// Il faut r�cup�rer toutes les donn�es utiles du dataset
+			// TODO : Checker si "parseboolean" marche bien ? 
 			Sex sex = new Sex(Boolean.parseBoolean(values[2]));
 			int wave = Integer.parseInt(values[5]);
 			boolean on100 = wave < 6 || wave > 9;
@@ -64,8 +67,11 @@ public class Loader {
 			AttrBag attr_o = new AttrBag(values, 24, on100, false);
 			
 			//Ils sont pas dans le pdf ... Mais vu leur nom, c'est vraisemblablement ça.
-			byte like1 = Byte.parseByte(values[104]);
-			byte prob1 = Byte.parseByte(values[105]);
+			byte like_o = Byte.parseByte(values[30]);
+			byte prob_o = Byte.parseByte(values[31]);
+			boolean met_o = ScoreCard.intToBool(1-Integer.parseInt(values[32]));
+			//Scorecard of partner : 
+			ScoreCard scoreCard_o = new ScoreCard(ScoreCard.intToBool(dec_o), attr_o, like_o, prob_o, met_o);
 			
 			int age = Integer.parseInt(values[33]);
 			Field field = new Field(Byte.parseByte(values[35]));
@@ -87,13 +93,17 @@ public class Loader {
 			AttrBag otherPerceivesYou_1 = new AttrBag(values, 93, on100, true);
 			// Pour le Date
 			byte dec = Byte.parseByte(values[97]);
-			// Toujours sur 10 apparemment. � v�rifier.
+			// TODO: Toujours sur 10 apparemment. A verifier.
 			AttrBag notes = new AttrBag(values, 98, false, false);
 
 			byte like = Byte.parseByte(values[104]);
 			byte prob = Byte.parseByte(values[105]);
 			// yes=1 & no=0
 			int met = (1 - (Integer.parseInt(values[105]) - 1));
+			
+			//Scorecard of the person
+			ScoreCard scoreCard = new ScoreCard(ScoreCard.intToBool(dec), notes, like, prob, ScoreCard.intToBool(met));
+			
 			int match_es = Integer.parseInt(values[107]);
 
 			// Pour la Person
@@ -110,10 +120,8 @@ public class Loader {
 			AttrBag oppSexLooksFor_2 = new AttrBag(values, 140, on100, false);
 			AttrBag measureUp_2 = new AttrBag(values, 146, on100, true);
 			AttrBag otherPerceivesYou_2 = new AttrBag(values, 151, on100, true);
-
-			//TODO :Il faut juste instancier le Date ici
 			
-			if (!iidPersons.containsKey(iid)) { // Si on  ne connait pas cette personne
+			if (!iidPersons.containsKey(iid)) { // If we don't know the person
 				// On ajoute la nouvelle personne à la liste des personnes.
 				iidPersons.put(iid, new Person(iid, wave, age, sex, race,
 						field, mnSAT, imprace, imprelig, expHappy, goal, date,
@@ -123,6 +131,10 @@ public class Loader {
 						oppSexLooksFor_2, measureUp_2, otherPerceivesYou_2));
 				
 			}
+			
+			Date thisDate = new Date(iidPersons.get(iid),iidPersons.get(pid),position,order, int_corr, scoreCard, scoreCard_o);
+			iidPersons.get(iid).addDate(thisDate);
+			iidPersons.get(pid).addDate(thisDate);
 		}
 		br.close();
 	}
