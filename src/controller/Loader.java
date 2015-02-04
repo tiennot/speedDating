@@ -51,16 +51,19 @@ public class Loader {
 			 * Significant amount of work to be done right here
 			 */
 			int iid = Integer.parseInt(values[0]);
-			// Il faut r�cup�rer toutes les donn�es utiles du dataset
+			// Il faut recuperer toutes les donnees utiles du dataset
 			// TODO : Checker si "parseboolean" marche bien ? 
 			Sex sex = new Sex(Boolean.parseBoolean(values[2]));
 			int wave = Integer.parseInt(values[5]);
 			boolean on100 = wave < 6 || wave > 9;
+			//TODO : Unused 
 			int round = Integer.parseInt(values[6]);
 			int position = Integer.parseInt(values[7]);
-			int positin1 = Integer.parseInt(values[8]);
+			//TODO : Unused
+			Integer positin1 = this.parseInteg(values[8]);
 			int order = Integer.parseInt(values[9]);
 			int pid = Integer.parseInt(values[11]);
+			//Unused -> Suppress ? 
 			byte match = Byte.parseByte(values[12]);
 			double int_corr = Double.parseDouble(values[13]);
 			byte dec_o = Byte.parseByte(values[23]);
@@ -137,5 +140,14 @@ public class Loader {
 			iidPersons.get(pid).addDate(thisDate);
 		}
 		br.close();
+	}
+	
+	public static Integer parseInteg(String s){
+		if(!s.equals("")){
+			return Integer.parseInt(s);
+		}
+		else{
+			return null;
+		}
 	}
 }
