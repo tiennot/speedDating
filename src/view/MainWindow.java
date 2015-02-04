@@ -15,7 +15,8 @@ public class MainWindow {
 	private PApplet p;
 	private int width, height;
 	PImage background, blurBackground;
-	boolean hasActiveDetailWindow;
+	DetailWindow activeDetailWindow = null;
+	boolean mousePressedHandled = false;
 	
 	//The two cursors for ages
 	private Cursor ageKaty;
@@ -30,14 +31,25 @@ public class MainWindow {
 	Smiley halfwayTomSmiley;
 	
 	//The detail Windows
+	XywhObject interestsTrigger;
 	DetailWindow interestsWindow;
 		
 	//Our two main colors
 	public static int PINK;
 	public static int BLUE;
 	
+	/*
+	 * Pretty simple constructor
+	 */
 	public MainWindow(PApplet p){
 		this.p = p;
+	}
+	
+	/*
+	 * Easy method that tells if we are currently in a detail window
+	 */
+	public boolean hasActiveDetailWindow(){
+		return this.activeDetailWindow != null;
 	}
 	
 	
@@ -45,7 +57,10 @@ public class MainWindow {
 	 * Called to refresh display
 	 */
 	public void draw(){
-		if(p.mousePressed || this.hasActiveDetailWindow){
+		if(this.mousePressedHandled && !p.mousePressed){
+			this.mousePressedHandled = false;
+		}
+		if(this.hasActiveDetailWindow()){
 			p.image(blurBackground, 0, 0);
 			interestsWindow.draw();
 		}else{
@@ -83,8 +98,18 @@ public class MainWindow {
 			System.out.println(p.mouseX);
 		}
 		halfwayTomSmiley.draw();
+		
+		//Handles trigger zones for detail windows
+		if(p.mousePressed && this.interestsTrigger.over()){
+			//"Opens" the interest detail window
+			this.setActiveDetailWindow(interestsWindow);
+			this.setMousePressedHandled(true);
+		}
 	}
 	
+	/*
+	 * Should be called from PApplet p setup method
+	 */
 	public void setup(){
 		//Sets up height and width (16/9 ratio)
 		width = 960;
@@ -109,14 +134,33 @@ public class MainWindow {
 	    ageTom.setValue(30);
 	    
 	    //Initializes age labels
-	    labelKaty = new TextLabel(p, 320, 50, 16, PINK, p.RIGHT);
-	    labelTom = new TextLabel(p, 205, 80, 16, BLUE, p.LEFT);
+	    labelKaty = new TextLabel(p, 325, 45, 100, 30, 16, PINK, p.RIGHT, p.CENTER);
+	    labelTom = new TextLabel(p, 205, 60, 100, 30, 16, BLUE, p.LEFT, p.CENTER);
 	    
 	    //Smileys
 	    halfwayKatySmiley = new Smiley(p, 352, 436, PINK, Smiley.HAPPY);
 	    halfwayTomSmiley = new Smiley(p, 212, 436, BLUE, Smiley.SAD);
 	    
 	    //The detail windows
-	    interestsWindow = new DetailWindow(p, this, width-150, height-150);
+	    interestsWindow = new DetailWindow(p, this, width-150, height-150, "Interests by gender");
+	    interestsTrigger = new XywhObject(p, 140, 20, 220, 100);
+	}
+
+	public DetailWindow getActiveDetailWindow() {
+		return activeDetailWindow;
+	}
+
+	public void setActiveDetailWindow(DetailWindow activeDetailWindow) {
+		if(!this.mousePressedHandled){
+			this.activeDetailWindow = activeDetailWindow;
+		}
+	}
+
+	public boolean isMousePressedHandled() {
+		return mousePressedHandled;
+	}
+
+	public void setMousePressedHandled(boolean mousePressedHandled) {
+		this.mousePressedHandled = mousePressedHandled;
 	}
 }
