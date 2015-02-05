@@ -201,18 +201,18 @@ public class Loader {
 	}
 	
 	int nbrPersons(int age, Sex sex) {
-		return -1;
+		return stat.numberPerson(age, sex);
 	}
 	
 	int personsThatMatched(int age, Sex sex) {
-		return -1;
+		
 	}
 	
 	int[] predictionRateYesAnswers(int age, Sex sex) {
 		return new int[0];
 	}
 	
-	int[] avgSelfRate(int age, Sex sex) {
+	int[] avgSelfRate(int age, Sex sex, Step step) {
 		return new int[0];
 	}
 
