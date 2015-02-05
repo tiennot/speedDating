@@ -2,7 +2,7 @@ package model;
 
 public class ScoreCard {
 	
-	private boolean dec; //1 = yes, 0= no
+	private boolean dec; //Decision : 1 = yes, 0= no
 	private AttrBag attrBag;
 	private int like ;
 	private int prob;

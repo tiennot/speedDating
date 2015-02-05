@@ -26,6 +26,7 @@ import model.constants.Interest;
 import model.constants.Interests;
 import model.constants.Race;
 import model.constants.Sex;
+import model.constants.SpeedDatingKey;
 
 /*
  * The loader class role is to take the CSV file and instantiate all the
@@ -106,6 +107,7 @@ public class Loader {
 		
 	}
 	
+	
 	// The main method
 	public void load() throws IOException {
 		// Material for reading the file
@@ -123,71 +125,72 @@ public class Loader {
 			 */
 			
 			
-			int iid = Loader.parseInteg(values[0]);
-			// Il faut recuperer toutes les donnees utiles du dataset
-			// TODO : Checker si "parseboolean" marche bien ? 
-			Sex sex = new Sex(Loader.parseBool(values[2]));
-			int wave = Loader.parseInteg(values[5]);
+			int iid = Parser.parseInteg(values[SpeedDatingKey.iid]);
+			Sex sex = new Sex(Parser.parseBool(values[SpeedDatingKey.gender]));
+			int wave = Parser.parseInteg(values[SpeedDatingKey.wave]);
+			
+			//Wave 6 to 9 are different for the ratings 
 			boolean on100 = wave < 6 || wave > 9;
-			int round = Loader.parseInteg(values[6]);
-			int position = Loader.parseInteg(values[7]);
-			int positin1 = Loader.parseInteg(values[8]);
-			int order = Loader.parseInteg(values[9]);
-			int pid = Loader.parseInteg(values[11]);
-			byte match = Loader.parseByte2(values[12]);
-			double int_corr = Double.parseDouble(values[13]);
-			byte dec_o = Loader.parseByte2(values[23]);
-			AttrBag attr_o = new AttrBag(values, 24, on100, false);
+			
+			int round = Parser.parseInteg(values[SpeedDatingKey.round]);
+			int position = Parser.parseInteg(values[SpeedDatingKey.position]);
+			int positin1 = Parser.parseInteg(values[SpeedDatingKey.positin1]);
+			int order = Parser.parseInteg(values[SpeedDatingKey.order]);
+			int pid = Parser.parseInteg(values[SpeedDatingKey.pid]);
+			int match = Parser.parseInteg(values[SpeedDatingKey.match]);
+			double int_corr = Double.parseDouble(values[SpeedDatingKey.int_corr]);
+			int dec_o = Parser.parseInteg(values[SpeedDatingKey.dec_o]);
+			AttrBag attr_o = new AttrBag(values, SpeedDatingKey.attr_o, on100, false);
 			
 			//Ils sont pas dans le pdf ... Mais vu leur nom, c'est vraisemblablement ca.
-			byte like_o = Loader.parseByte2(values[30]);
-			byte prob_o = Loader.parseByte2(values[31]);
+			int like_o = Parser.parseInteg(values[SpeedDatingKey.like_o]);
+			int prob_o = Parser.parseInteg(values[SpeedDatingKey.prob_o]);
 			//In the dataset, met_o = 1 if not met, and met_o = 2 if met ... 
 			//A little math is needed here
-			boolean met_o = Loader.intToBool(1-(Loader.parseInteg(values[32])-1));
+			boolean met_o = Parser.intToBool(1-(Parser.parseInteg(values[SpeedDatingKey.met_o])-1));
 			//Scorecard of partner : 
 			ScoreCard scoreCard_o = new ScoreCard(ScoreCard.intToBool(dec_o), attr_o, like_o, prob_o, met_o);
 			
-			int age = Loader.parseInteg(values[33]);
-			Field field = new Field(Loader.parseByte2(values[35]));
-			int mnSAT = Loader.parseInteg(values[37]);
-			Race race = new Race(Loader.parseByte2(values[39]));
-			byte imprace = Loader.parseByte2(values[40]);
-			byte imprelig = Loader.parseByte2(values[41]);
-			Goal goal = new Goal(Loader.parseByte2(values[45]));
-			Frequency date = new Frequency(Loader.parseByte2(values[46]));
-			Frequency goOut = new Frequency(Loader.parseByte2(values[47]));
+			int age = Parser.parseInteg(values[33]);
+			Field field = new Field(Parser.parseByte2(values[35]));
+			int mnSAT = Parser.parseInteg(values[37]);
+			Race race = new Race(Parser.parseByte2(values[39]));
+			byte imprace = Parser.parseByte2(values[40]);
+			byte imprelig = Parser.parseByte2(values[41]);
+			Goal goal = new Goal(Parser.parseByte2(values[45]));
+			Frequency date = new Frequency(Parser.parseByte2(values[46]));
+			Frequency goOut = new Frequency(Parser.parseByte2(values[47]));
 			// Career
 			InterestsBag interests = new InterestsBag(values, 50);
-			byte expHappy = Loader.parseByte2(values[67]);
-			byte expnum = Loader.parseByte2(values[68]);
+			byte expHappy = Parser.parseByte2(values[67]);
+			byte expnum = Parser.parseByte2(values[68]);
 			AttrBag looksFor_1 = new AttrBag(values, 69, on100, false);
 			AttrBag fellowLooksFor_1 = new AttrBag(values, 75, on100, false);
 			AttrBag oppSexlookFor_1 = new AttrBag(values, 81, on100, false);
 			AttrBag measureUp_1 = new AttrBag(values, 87, on100, true);
 			AttrBag otherPerceivesYou_1 = new AttrBag(values, 93, on100, true);
 			// Pour le Date
-			byte dec = Loader.parseByte2(values[97]);
+			byte dec = Parser.parseByte2(values[97]);
 			// TODO: Toujours sur 10 apparemment. A verifier.
 			AttrBag notes = new AttrBag(values, 98, false, false);
 
-			byte like = Loader.parseByte2(values[104]);
-			byte prob = Loader.parseByte2(values[105]);
+			byte like = Parser.parseByte2(values[104]);
+			byte prob = Parser.parseByte2(values[105]);
 			// yes=1 & no=0
-			int met = (1 - (Loader.parseInteg(values[105]) - 1));
+			int met = (1 - (Parser.parseInteg(values[105]) - 1));
 			
 			//Scorecard of the person
 			ScoreCard scoreCard = new ScoreCard(ScoreCard.intToBool(dec), notes, like, prob, ScoreCard.intToBool(met));
 			
-			int match_es = Loader.parseInteg(values[107]);
+			int match_es = Parser.parseInteg(values[107]);
 
 			// Pour la Person
 			AttrBag looksFor_s = new AttrBag(values, 108, on100, false);
 			AttrBag measureUp_s = new AttrBag(values, 114, on100, true);
 
-			int satis_2 = Loader.parseInteg(values[119]);
-			int longueur = Loader.parseInteg(values[120]);
-			int numDates = Loader.parseInteg(values[121]);
+			int satis_2 = Parser.parseInteg(values[119]);
+			int longueur = Parser.parseInteg(values[120]);
+			int numDates = Parser.parseInteg(values[121]);
 
 			AttrBag importance = new AttrBag(values, 122, on100, false);
 			AttrBag looksFor_2 = new AttrBag(values, 128, on100, false);
@@ -215,64 +218,6 @@ public class Loader {
 		br.close();
 	}
 
-
-	//All those methods return -10 if the string = "", 
-	//Otherwise, it's the same (more or less) as Class.parseClass(..)
-	/**
-	 * 
-	 * @param s
-	 * @return 
-	 */
-	public static int parseInteg(String s){
-		if(s.equals("")){
-			return -10;
-		}
-		else{
-			return (int) Double.parseDouble(s);
-		}
-	}
-	
-	/**
-	 * 
-	 * @param s
-	 * @return
-	 */
-	public static byte parseByte2(String s){
-		if(s.equals("")){
-			return -10;
-		}
-		else{
-			return (byte)Double.parseDouble(s);
-		}
-	}
-	
-	public static Boolean parseBool(String s){
-		if(s.equals("")){
-			return null;
-		}
-		else{
-			return Boolean.parseBoolean(s);
-		}
-	}
-	// End of Parsing methods
-	
-	/**
-	 * 
-	 * @param i
-	 * @return 0 -> false ; 1 -> yes (easy right?) 
-	 * @throws ClassFormatException
-	 */
-	public static boolean intToBool(int i) throws ClassFormatException{
-		if(i==0){
-			return false;
-		}
-		else if(i==1){
-			return true; 
-		}
-		else{
-			throw new ClassFormatException();
-		}
-	}
 	
 
 	HashMap<Interest, Integer> avgInterestRateList(int age, Sex sex) {
