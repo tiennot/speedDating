@@ -2,6 +2,8 @@ package model;
 
 import java.util.ArrayList;
 
+import controller.Parser;
+
 /*
  * Represents the 17 interests of a person
  */
@@ -57,7 +59,7 @@ public class InterestsBag {
 	 */
 	public InterestsBag(String[] interests, int offset){
 		for(int i=0; i<17; i++){
-			this.interestsInt[i]= Integer.parseInt(interests[i+offset]);
+			this.interestsInt[i]= Parser.parseInteg(interests[i+offset]);
 		}
 	}
 

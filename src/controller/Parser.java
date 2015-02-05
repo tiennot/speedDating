@@ -20,7 +20,9 @@ public class Parser {
 				return -10;
 			}
 			else{
-				return (int) Double.parseDouble(s);
+				int result = (int) Double.parseDouble(s);
+				if(Double.parseDouble(s) != result){System.out.println("Attention dans parseInteg");}
+				return result;
 			}
 		}
 		
@@ -34,7 +36,9 @@ public class Parser {
 				return -10;
 			}
 			else{
-				return (byte)Double.parseDouble(s);
+				byte result = (byte) Double.parseDouble(s);
+				if(Double.parseDouble(s) != result){System.out.println("Attention dans parseByte");}
+				return result;
 			}
 		}
 		

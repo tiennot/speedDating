@@ -19,12 +19,11 @@ public class SpeedDating extends PApplet {
 	public static void main(String args[]){
 		Loader loader = new Loader();
 		try {
-			loader.writeConstantClass(2);
-			loader.load();
+			loader.printer();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		PApplet.main(new String[] {"controller.SpeedDating" });
+		//PApplet.main(new String[] {"controller.SpeedDating" });
 	}
 }
