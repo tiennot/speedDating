@@ -6,7 +6,7 @@ import model.constants.Interests;
 import model.constants.Sex;
 import processing.core.PApplet;
 import processing.core.PImage;
-import visualizations.VInterests;
+import view.visualizations.VInterests;
 
 
 /*
@@ -133,7 +133,7 @@ public class MainWindow {
 	/*
 	 * Should be called from PApplet p setup method
 	 */
-	public void setup(){
+	public void setup(){		
 		//Sets up height and width (16/9 ratio)
 		width = 960;
 		height = 540;
