@@ -1,7 +1,12 @@
 package view;
 
+import java.util.Random;
+
+import model.constants.Interests;
+import model.constants.Sex;
 import processing.core.PApplet;
 import processing.core.PImage;
+import visualizations.VInterests;
 
 
 /*
@@ -26,13 +31,23 @@ public class MainWindow {
 	private TextLabel labelKaty;
 	private TextLabel labelTom;
 	
+	//Interests icons for Tom and Katy
+	private InterestIcon interestTom;
+	private InterestIcon interestKaty;
+	
 	//Smileys
 	Smiley halfwayKatySmiley;
 	Smiley halfwayTomSmiley;
 	
+	//Pie charts
+	TextLabel endPieLabel;
+	PieChart endPieChartTom;
+	PieChart endPieChartKaty;
+	
 	//The detail Windows
 	XywhObject interestsTrigger;
 	DetailWindow interestsWindow;
+	VInterests interestsVisualization;
 		
 	//Our two main colors
 	public static int PINK;
@@ -83,27 +98,35 @@ public class MainWindow {
 		//Interaction with the age cursors
 		if(p.mousePressed && ageKaty.over()){
 			ageKaty.setValue(ageKaty.getValueForMousePos());
+			this.randomizedData();
 		}
 		else if(p.mousePressed && ageTom.over()){
 			ageTom.setValue(ageTom.getValueForMousePos());
+			this.randomizedData();
 		}
 		
 		//Draws Tom & Katy's labels
 		labelTom.draw("Tom, "+ageTom.getValue());
 		labelKaty.draw("Katy, "+ageKaty.getValue());
 		
+		//Draws Tom & Katy's interests
+		interestTom.draw();
+		interestKaty.draw();
+		
 		//Draws smileys
 		halfwayKatySmiley.draw();
-		if(halfwayKatySmiley.over()){
-			System.out.println(p.mouseX);
-		}
 		halfwayTomSmiley.draw();
 		
+		//Draws pie charts
+		endPieLabel.draw();
+		endPieChartKaty.draw();
+		endPieChartTom.draw();
+
 		//Handles trigger zones for detail windows
 		if(p.mousePressed && this.interestsTrigger.over()){
 			//"Opens" the interest detail window
-			this.setActiveDetailWindow(interestsWindow);
-			this.setMousePressedHandled(true);
+			setActiveDetailWindow(interestsWindow);
+			setMousePressedHandled(true);
 		}
 	}
 	
@@ -134,16 +157,26 @@ public class MainWindow {
 	    ageTom.setValue(30);
 	    
 	    //Initializes age labels
-	    labelKaty = new TextLabel(p, 325, 45, 100, 30, 16, PINK, p.RIGHT, p.CENTER);
+	    labelKaty = new TextLabel(p, 220, 30, 100, 30, 16, PINK, p.RIGHT, p.CENTER);
 	    labelTom = new TextLabel(p, 205, 60, 100, 30, 16, BLUE, p.LEFT, p.CENTER);
+	    
+	    //Initializes interests icons
+	    interestTom = new InterestIcon(p, 55, 96, Interests.TVSPORTS, Sex.MALE);
+	    interestKaty = new InterestIcon(p, 417, 42, Interests.MOVIES, Sex.FEMALE);
 	    
 	    //Smileys
 	    halfwayKatySmiley = new Smiley(p, 352, 436, PINK, Smiley.HAPPY);
 	    halfwayTomSmiley = new Smiley(p, 212, 436, BLUE, Smiley.SAD);
 	    
-	    //The detail windows
-	    interestsWindow = new DetailWindow(p, this, width-150, height-150, "Interests by gender");
+	    //Pie charts
+	    endPieLabel = new TextLabel(p, 775, 400, 170, 20, 14, p.color(150,150,150), p.CENTER, "Chances of match");
+	    endPieChartKaty = new PieChart(p, 805, 422, 50, PINK);
+	    endPieChartTom = new PieChart(p, 865, 422, 50, BLUE);
+	    
+	    //The interest detail window
+	    interestsWindow = new DetailWindow(p, this, width-100, height-100, "Interests by gender");
 	    interestsTrigger = new XywhObject(p, 140, 20, 220, 100);
+	    interestsVisualization = new VInterests(p, interestsWindow);
 	}
 
 	public DetailWindow getActiveDetailWindow() {
@@ -162,5 +195,16 @@ public class MainWindow {
 
 	public void setMousePressedHandled(boolean mousePressedHandled) {
 		this.mousePressedHandled = mousePressedHandled;
+	}
+	
+	//For debug purposes only
+	public void randomizedData(){
+		Random rand = new Random();
+		this.interestKaty.setInterest((byte) (rand.nextInt((16 - 0) + 1)));
+		this.interestTom.setInterest((byte) (rand.nextInt((16 - 0) + 1)));
+		this.halfwayKatySmiley.setHumor((byte) (rand.nextInt((3 - 0) + 1)+1));
+		this.halfwayTomSmiley.setHumor((byte) (rand.nextInt((3 - 0) + 1)+1));
+		this.endPieChartKaty.setValue(rand.nextFloat());
+		this.endPieChartTom.setValue(rand.nextFloat());
 	}
 }

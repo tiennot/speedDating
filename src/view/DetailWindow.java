@@ -2,6 +2,7 @@ package view;
 
 import processing.core.PApplet;
 import processing.core.PImage;
+import visualizations.Visualization;
 
 /*
  * This class represents a window for a specific visualization, which should be
@@ -20,7 +21,7 @@ public class DetailWindow extends XywhObject{
 	TextLabel description;
 	
 	//Object for the visualization itself
-	XywhObject visualization;
+	Visualization visualization = null;
 	
 	//Constructor
 	public DetailWindow(PApplet p, MainWindow parent,  int w, int h, String title){
@@ -35,8 +36,6 @@ public class DetailWindow extends XywhObject{
 		leftTitle = new TextLabel(p, x+15, y+55, 250, 30, 22, parent.BLUE, p.LEFT, p.CENTER, title);
 		//Stuff for description
 		description = new TextLabel(p, x+15, y+100, 250, h-120, 12, p.color(0,0,0));
-		//Creates the new visualization
-		visualization = new XywhObject(p, x+300, y+15, w-300-15, h-15-15);
 	}
 	
 	public void draw(){
@@ -54,12 +53,15 @@ public class DetailWindow extends XywhObject{
 		leftTitle.draw();
 		
 		//Draw description
-		description.draw("A dot represent the number of people who rated one of the 17 interest with a given mark (from 1 to 10 from center to edges on a scale of 10). We can see that men are more likely to express interest in things such as sport, TV and concert while women are strongly attracted by diner and art. It’s interesting to see not only the differences between the two opposite sexes but also the repartition of interests among people generally speaking. Also keep in mind that people don’t necessarily tell the truth.");
+		description.draw("A dot represents the number of people who rated one of the 17 interest with a given mark (from 1 to 10 from center to edges on a scale of 10). We can see that men are more likely to express interest in things such as sport, TV and concert while women are strongly attracted by diner and art. It’s interesting to see not only the differences between the two opposite sexes but also the repartition of interests among people generally speaking. Also keep in mind that people don’t necessarily tell the truth.");
 		
 		//Draws separator line
 		p.stroke(p.color(150,150,150));
 		p.line(x+285, y+30, x+285, y+h-30);
-		visualization.drawRect();
+		
+		//Draws the visualization
+		if(visualization != null) visualization.draw();
+		
 		//Handles window exit
 		if(p.mousePressed && (backTracker.over() || !this.over()) ){
 			//Goes back to parent
@@ -68,4 +70,17 @@ public class DetailWindow extends XywhObject{
 		}
 	}
 
+	public XywhObject getVisualization() {
+		return visualization;
+	}
+
+	public void setVisualization(Visualization visualization) {
+		this.visualization = visualization;
+		//Sets the visualization to the right dimensions
+		//so it fits the detail window
+		visualization.setX(x+300);
+		visualization.setY(y+15);
+		visualization.setW(w-300-15);
+		visualization.setH(h-15-15);
+	}
 }

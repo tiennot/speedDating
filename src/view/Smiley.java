@@ -42,4 +42,12 @@ public class Smiley extends XywhObject{
 	public boolean over(){
 		return ((p.mouseX-x)*(p.mouseX-x) + (p.mouseY-y)*(p.mouseY-y)) <= ((w/2+1)*(w/2+1));
 	}
+
+	public byte getHumor() {
+		return humor;
+	}
+
+	public void setHumor(byte humor) {
+		this.humor = humor;
+	}
 }
