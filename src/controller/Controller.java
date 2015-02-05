@@ -51,6 +51,7 @@ public class Controller implements ControllerInterface {
 	//renvoie un enum (ChangementDePerception) qui indique combien la perception a changé
 	public ChangementDePerception hasPerceptionOfOhtersChanged(Sex sex) {
 		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
