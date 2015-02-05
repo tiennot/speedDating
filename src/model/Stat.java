@@ -82,5 +82,9 @@ public class Stat {
 		
 		return sum / ansNbr;
 	}
+	
+	public int numberPerson(int age, Sex sex) {
+		return this.getPersonAgeSex(age, sex).size();
+	}
 
 }
