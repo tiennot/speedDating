@@ -295,8 +295,8 @@ public class Loader {
 		return stat.numberOfPersonThatMatched(age, sex);
 	}
 	
-	int[] predictionRateYesAnswers(int age, Sex sex) {
-		return new int[0];
+	ArrayList<Integer> predictionRateYesAnswers(int age, Sex sex) {
+		return stat.predictionRateYesAnswers(age,sex);
 	}
 	
 	int[] avgSelfRate(int age, Sex sex, Step step) {

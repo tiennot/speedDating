@@ -103,5 +103,24 @@ public class Stat {
 		
 		return n;
 	}
+	
+	public ArrayList<Integer> predictionRateYesAnswers(int age, Sex sex) {
+		ArrayList<Person> list = this.getPersonAgeSex(age, sex);
+		ArrayList<Integer> array = new ArrayList<Integer>();
+		for(int i = 0 ; i < list.size() ; i++) {
+			ArrayList<Date> dates = list.get(i).dates;
+			Sex currSex = list.get(i).getSex();
+			for(int j = 0 ; j < dates.size() ; j ++) {
+				//if man
+				if(currSex == Sex.MALE) {
+					array.add(dates.get(i).getHisScoreCard().getProb());
+				} else { //woman
+					array.add(dates.get(i).getHerScoreCard().getProb());
+				}
+			}
+		}
+		
+		return array;
+	}
 
 }
