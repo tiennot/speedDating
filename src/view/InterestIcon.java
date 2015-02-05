@@ -13,7 +13,7 @@ import processing.core.PImage;
 public class InterestIcon extends XywhObject{
 
 	//See models.constants.Interests
-	byte interest = Interests.CONCERTS;
+	int interest = Interests.CONCERTS;
 	//See models.constants.Sex
 	Sex sex = Sex.FEMALE;
 	PImage icon;
@@ -21,10 +21,10 @@ public class InterestIcon extends XywhObject{
 	//Constructor
 	public InterestIcon(PApplet p, int x, int y) {
 		super(p, x, y, 50, 50);
-	}
+	} 
 	
 	//Overloaded constructor
-	public InterestIcon(PApplet p, int x, int y, byte interest, Sex sex) {
+	public InterestIcon(PApplet p, int x, int y, int interest, Sex sex) {
 		super(p, x, y, 50, 50);
 		this.setInterest(interest);
 		this.setSex(sex);
@@ -40,11 +40,11 @@ public class InterestIcon extends XywhObject{
 		this.icon = p.loadImage("data/interests-icons/" + (interest+1) + (sex==Sex.MALE ? "m" : "w") + ".png");
 	}
 	
-	public byte getInterest() {
+	public int getInterest() {
 		return interest;
 	}
 
-	public void setInterest(byte interest) {
+	public void setInterest(int interest) {
 		this.interest = interest;
 		loadIcon();
 	}

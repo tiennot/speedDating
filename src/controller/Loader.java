@@ -3,12 +3,16 @@ package controller;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import com.sun.org.apache.bcel.internal.classfile.ClassFormatException;
+
 import model.AttrBag;
 import model.Date;
 import model.InterestsBag;
@@ -27,8 +31,11 @@ import model.constants.Sex;
  * The loader class role is to take the CSV file and instantiate all the
  * java object with the right data
  * 
+ * WARNING : If the value is -10, it means it is not in the csv !!!
+ * 
  */
 public class Loader {
+	
 	// File path
 	private String filePath = "data/SpeedDating.csv";
 	// The HashMap for keeping track of the persons with their iid;
@@ -40,6 +47,65 @@ public class Loader {
 		super();
 	}
 
+	/**
+	 * writes in the SpeedDatingKey file. In data folder. 
+	 * @param number : Determines the csv files we get the data from, and the txt file in which we write
+	 * @throws IOException
+	 */
+	public void writeSpeedDatingKey(int number) throws IOException{
+		
+		BufferedReader br = new BufferedReader(new FileReader("data/SpeedDating"+number+".csv"));
+		String line = "";
+		String splitter = ";";
+		// the first time, it's only the names of the columns
+		String nameString = br.readLine();
+		String[] names = nameString.split(splitter);
+		System.out.println("Longeur: "+ names.length);
+		String pathname = "data/SpeedDatingKey"+ number+".txt" ;
+		File file = new File(pathname);
+		if(!file.exists()){
+			file.createNewFile();
+		}
+		PrintWriter pw = new PrintWriter(file);
+		for(int i=0; i<names.length; i++){
+			pw.write(names[i]+ " " + i + "\n" );
+		}
+		pw.close();
+		br.close();
+		
+	}
+	
+	/**
+	 * Writes in the class SpeedDatingKey.java from the row data.
+	 * @param number which csv file should we get the data from ?
+	 * @throws IOException
+	 */
+	public void writeConstantClass(int number) throws IOException{
+		
+		BufferedReader br = new BufferedReader(new FileReader("data/SpeedDating"+number+".csv"));
+		String line = "";
+		String splitter = ";";
+		// the first time, it's only the names of the columns
+		String nameString = br.readLine();
+		String[] names = nameString.split(splitter);
+		
+		String pathname = "src/model/constants/SpeedDatingKey.java" ;
+		File file = new File(pathname);
+		if(!file.exists()){
+			file.createNewFile();
+		}
+		PrintWriter pw = new PrintWriter(file);
+		pw.write("package model.constants;\n\npublic class SpeedDatingKey{ \n\n");
+		
+		for(int i=0; i<names.length; i++){
+			pw.write("\tpublic static final int "+ names[i]+ " = " + i + ";\n" );
+		}
+		pw.write("}");
+		pw.close();
+		br.close();
+		
+	}
+	
 	// The main method
 	public void load() throws IOException {
 		// Material for reading the file
@@ -55,114 +121,73 @@ public class Loader {
 			/*
 			 * Significant amount of work to be done right here
 			 */
-			int iid = Integer.parseInt(values[0]);
-			if(iidPersons.containsKey(iid)){ //On connait cette personne
-				//Il faut recuperer les informations relative au Date
-			}
-			else{ 
-				//Il faut recuperer toutes les donnees utiles du dataset
-				Sex sex = new Sex(Boolean.parseBoolean(values[2]));
-				int wave = Integer.parseInt(values[5]);
-				int age = Integer.parseInt(values[33]);
-				Field field = new Field(Byte.parseByte(values[35]));
-				int mnSAT = Integer.parseInt(values[37]);
-				Race race = new Race(Byte.parseByte(values[39]));
-				byte imprace = Byte.parseByte(values[40]);
-				byte imprelig = Byte.parseByte(values[41]);
-				Goal goal = new Goal(Byte.parseByte(values[45]));
-				Frequency date = new Frequency(Byte.parseByte(values[46]));
-				Frequency goOut = new Frequency(Byte.parseByte(values[47]));
-				//Career 
-				InterestsBag interests = new InterestsBag(values,50);
-				byte expHappy = Byte.parseByte(values[67]);
-				byte expnum = Byte.parseByte(values[68]);
-				boolean on100 = wave<6 || wave>9 ;
-				AttrBag looksFor_1 = new AttrBag(values, 69, on100,false);
-				AttrBag fellowLooksFor_1 = new AttrBag(values, 75, on100,false);
-				AttrBag oppSexlookFor_1 = new AttrBag(values, 81, on100,false);
-				AttrBag measureUp_1 = new AttrBag(values, 87, on100,true);
-				AttrBag otherPerceivesYou_1 = new AttrBag(values, 93, on100,true);
-				//Pour le Date 
-				byte dec = Byte.parseByte(values[97]);
-				//Toujours sur 10 apparemment. a verifier.
-				AttrBag notes = new AttrBag(values, 98, false,false);
-				
-				byte like = Byte.parseByte(values[104]);
-				byte prob = Byte.parseByte(values[105]);
-				//yes=1 & no=0
-				int met = (1-(Integer.parseInt(values[105])-1));
-				int match_es = Integer.parseInt(values[107]);
-				
-				//Pour la Person
-				AttrBag looksFor_s = new AttrBag(values, 108, on100, false);
-				AttrBag measureUp_s = new AttrBag(values, 114, on100, true);
-				
-				int satis_2 = Integer.parseInt(values[119]);
-				int longueur = Integer.parseInt(values[120]);
-				int numDates = Integer.parseInt(values[121]);
-			}
+			
+			
+			int iid = Loader.parseInteg(values[0]);
 			// Il faut recuperer toutes les donnees utiles du dataset
 			// TODO : Checker si "parseboolean" marche bien ? 
-			Sex sex = new Sex(Boolean.parseBoolean(values[2]));
-			int wave = Integer.parseInt(values[5]);
+			Sex sex = new Sex(Loader.parseBool(values[2]));
+			int wave = Loader.parseInteg(values[5]);
 			boolean on100 = wave < 6 || wave > 9;
-			int round = Integer.parseInt(values[6]);
-			int position = Integer.parseInt(values[7]);
-			int positin1 = Integer.parseInt(values[8]);
-			int order = Integer.parseInt(values[9]);
-			int pid = Integer.parseInt(values[11]);
-			byte match = Byte.parseByte(values[12]);
+			int round = Loader.parseInteg(values[6]);
+			int position = Loader.parseInteg(values[7]);
+			int positin1 = Loader.parseInteg(values[8]);
+			int order = Loader.parseInteg(values[9]);
+			int pid = Loader.parseInteg(values[11]);
+			byte match = Loader.parseByte2(values[12]);
 			double int_corr = Double.parseDouble(values[13]);
-			byte dec_o = Byte.parseByte(values[23]);
+			byte dec_o = Loader.parseByte2(values[23]);
 			AttrBag attr_o = new AttrBag(values, 24, on100, false);
 			
 			//Ils sont pas dans le pdf ... Mais vu leur nom, c'est vraisemblablement ca.
-			byte like_o = Byte.parseByte(values[30]);
-			byte prob_o = Byte.parseByte(values[31]);
-			boolean met_o = ScoreCard.intToBool(1-Integer.parseInt(values[32]));
+			byte like_o = Loader.parseByte2(values[30]);
+			byte prob_o = Loader.parseByte2(values[31]);
+			//In the dataset, met_o = 1 if not met, and met_o = 2 if met ... 
+			//A little math is needed here
+			boolean met_o = Loader.intToBool(1-(Loader.parseInteg(values[32])-1));
 			//Scorecard of partner : 
 			ScoreCard scoreCard_o = new ScoreCard(ScoreCard.intToBool(dec_o), attr_o, like_o, prob_o, met_o);
 			
-			int age = Integer.parseInt(values[33]);
-			Field field = new Field(Byte.parseByte(values[35]));
-			int mnSAT = Integer.parseInt(values[37]);
-			Race race = new Race(Byte.parseByte(values[39]));
-			byte imprace = Byte.parseByte(values[40]);
-			byte imprelig = Byte.parseByte(values[41]);
-			Goal goal = new Goal(Byte.parseByte(values[45]));
-			Frequency date = new Frequency(Byte.parseByte(values[46]));
-			Frequency goOut = new Frequency(Byte.parseByte(values[47]));
+			int age = Loader.parseInteg(values[33]);
+			Field field = new Field(Loader.parseByte2(values[35]));
+			int mnSAT = Loader.parseInteg(values[37]);
+			Race race = new Race(Loader.parseByte2(values[39]));
+			byte imprace = Loader.parseByte2(values[40]);
+			byte imprelig = Loader.parseByte2(values[41]);
+			Goal goal = new Goal(Loader.parseByte2(values[45]));
+			Frequency date = new Frequency(Loader.parseByte2(values[46]));
+			Frequency goOut = new Frequency(Loader.parseByte2(values[47]));
 			// Career
 			InterestsBag interests = new InterestsBag(values, 50);
-			byte expHappy = Byte.parseByte(values[67]);
-			byte expnum = Byte.parseByte(values[68]);
+			byte expHappy = Loader.parseByte2(values[67]);
+			byte expnum = Loader.parseByte2(values[68]);
 			AttrBag looksFor_1 = new AttrBag(values, 69, on100, false);
 			AttrBag fellowLooksFor_1 = new AttrBag(values, 75, on100, false);
 			AttrBag oppSexlookFor_1 = new AttrBag(values, 81, on100, false);
 			AttrBag measureUp_1 = new AttrBag(values, 87, on100, true);
 			AttrBag otherPerceivesYou_1 = new AttrBag(values, 93, on100, true);
 			// Pour le Date
-			byte dec = Byte.parseByte(values[97]);
+			byte dec = Loader.parseByte2(values[97]);
 			// TODO: Toujours sur 10 apparemment. A verifier.
 			AttrBag notes = new AttrBag(values, 98, false, false);
 
-			byte like = Byte.parseByte(values[104]);
-			byte prob = Byte.parseByte(values[105]);
+			byte like = Loader.parseByte2(values[104]);
+			byte prob = Loader.parseByte2(values[105]);
 			// yes=1 & no=0
-			int met = (1 - (Integer.parseInt(values[105]) - 1));
+			int met = (1 - (Loader.parseInteg(values[105]) - 1));
 			
 			//Scorecard of the person
 			ScoreCard scoreCard = new ScoreCard(ScoreCard.intToBool(dec), notes, like, prob, ScoreCard.intToBool(met));
 			
-			int match_es = Integer.parseInt(values[107]);
+			int match_es = Loader.parseInteg(values[107]);
 
 			// Pour la Person
 			AttrBag looksFor_s = new AttrBag(values, 108, on100, false);
 			AttrBag measureUp_s = new AttrBag(values, 114, on100, true);
 
-			int satis_2 = Integer.parseInt(values[119]);
-			int longueur = Integer.parseInt(values[120]);
-			int numDates = Integer.parseInt(values[121]);
+			int satis_2 = Loader.parseInteg(values[119]);
+			int longueur = Loader.parseInteg(values[120]);
+			int numDates = Loader.parseInteg(values[121]);
 
 			AttrBag importance = new AttrBag(values, 122, on100, false);
 			AttrBag looksFor_2 = new AttrBag(values, 128, on100, false);
@@ -170,6 +195,8 @@ public class Loader {
 			AttrBag oppSexLooksFor_2 = new AttrBag(values, 140, on100, false);
 			AttrBag measureUp_2 = new AttrBag(values, 146, on100, true);
 			AttrBag otherPerceivesYou_2 = new AttrBag(values, 151, on100, true);
+			
+			System.out.println("Fini la ligne !");
 			
 			if (!iidPersons.containsKey(iid)) { // If we don't know the person
 				// On ajoute la nouvelle personne a la liste des personnes.
@@ -187,7 +214,70 @@ public class Loader {
 		}
 		br.close();
 	}
+
+
+	//All those methods return -10 if the string = "", 
+	//Otherwise, it's the same (more or less) as Class.parseClass(..)
+	/**
+	 * 
+	 * @param s
+	 * @return 
+	 */
+	public static int parseInteg(String s){
+		if(s.equals("")){
+			return -10;
+		}
+		else{
+			return (int) Double.parseDouble(s);
+		}
+	}
 	
+	/**
+	 * 
+	 * @param s
+	 * @return
+	 */
+	public static byte parseByte2(String s){
+		if(s.equals("")){
+			return -10;
+		}
+		else{
+			return (byte)Double.parseDouble(s);
+		}
+	}
+	
+	public static Boolean parseBool(String s){
+		if(s.equals("")){
+			return null;
+		}
+		else{
+			return Boolean.parseBoolean(s);
+		}
+	}
+	// End of Parsing methods
+	
+	/**
+	 * 
+	 * @param i
+	 * @return 0 -> false ; 1 -> yes (easy right?) 
+	 * @throws ClassFormatException
+	 */
+	public static boolean intToBool(int i) throws ClassFormatException{
+		if(i==0){
+			return false;
+		}
+		else if(i==1){
+			return true; 
+		}
+		else{
+			throw new ClassFormatException();
+		}
+	}
+	
+
+	HashMap<Interests, Integer> avgInterestRateList(int age, Sex sex) {
+		return null;
+
 	HashMap<Interest, Integer> avgInterestRateList(int age, Sex sex) {
 		HashMap<Interest, Integer> hash = new HashMap<Interest, Integer>(); 
 		int count = 0;
@@ -198,6 +288,7 @@ public class Loader {
 		}
 		
 		return hash;
+
 	}
 	
 	int nbrPersons(int age, Sex sex) {
