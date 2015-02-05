@@ -5,7 +5,7 @@ public class ScoreCard {
 	private boolean dec; //Decision : 1 = yes, 0= no
 	private AttrBag attrBag;
 	private int like ;
-	private int prob;
+	private int prob; // Probability that the other one says yes
 	private boolean met ;  
 
 	//Constructors
