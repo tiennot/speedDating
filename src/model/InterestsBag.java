@@ -9,8 +9,8 @@ public class InterestsBag {
 	//Interests values
 	private int[] interestsInt = new int[17];
 	
-	/* Probleme avec les entiers si l'on veut représenter des moyennes etc... 
-	 * Solution : on utilise une liste de double. Plus lourd en mémoire, mais on essaye au max de pas l'utiliser.  
+	/* Probleme avec les entiers si l'on veut reprï¿½senter des moyennes etc... 
+	 * Solution : on utilise une liste de double. Plus lourd en mï¿½moire, mais on essaye au max de pas l'utiliser.  
 	 */
 	private double[] interestsDouble = new double[17];
 	
@@ -51,7 +51,7 @@ public class InterestsBag {
 	}
 	
 	/**
-	 * Constructeur avec offset, à utiliser pour loader les data (String-> int)
+	 * Constructeur avec offset, a utiliser pour loader les data (String-> int)
 	 * @param interests
 	 * @param offset
 	 */
@@ -82,7 +82,7 @@ public class InterestsBag {
 	}
 	
 	/**
-	 * Copy les données du vecteur "Int" dans le "Double". 
+	 * Copy les donnï¿½es du vecteur "Int" dans le "Double". 
 	 */
 	public void intToDouble(){
 		for(int i =0; i<17; i++){

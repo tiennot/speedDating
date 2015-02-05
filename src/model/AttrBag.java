@@ -67,7 +67,7 @@ public class AttrBag {
 
 	/**
 	 * 
-	 * @param anotherOne Autre paquet d'attribut avec lequel on compare celui là. 
+	 * @param anotherOne Autre paquet d'attribut avec lequel on compare celui lï¿½. 
 	 * @return On applique la fonction de cout sur chaque attribut
 	 */
 	public AttrBag AttrBagDifference(AttrBag anotherOne){
@@ -82,7 +82,7 @@ public class AttrBag {
 	/**
 	 * 
 	 * @return C'est juste une fonction de cout. (Exemple, valeur absolue, norme 2, etc ... )
-	 * Ca peut aussi être une bonne idée de prendre juste la différence, pour avoir l'evolution positive/negative. Enfin, il suffira juste de changer la fonction.
+	 * Ca peut aussi ï¿½tre une bonne idï¿½e de prendre juste la diffï¿½rence, pour avoir l'evolution positive/negative. Enfin, il suffira juste de changer la fonction.
 	 */
 	public int costFunction(int a, int b){
 		return Math.abs(a-b) ;
