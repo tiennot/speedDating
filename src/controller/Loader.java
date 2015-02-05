@@ -57,7 +57,7 @@ public class Loader {
 		
 		BufferedReader br = new BufferedReader(new FileReader("data/SpeedDating"+number+".csv"));
 		String line = "";
-		String splitter = ";";
+		String splitter = ",";
 		// the first time, it's only the names of the columns
 		String nameString = br.readLine();
 		String[] names = nameString.split(splitter);
@@ -85,7 +85,7 @@ public class Loader {
 		
 		BufferedReader br = new BufferedReader(new FileReader("data/SpeedDating"+number+".csv"));
 		String line = "";
-		String splitter = ";";
+		String splitter = ",";
 		// the first time, it's only the names of the columns
 		String nameString = br.readLine();
 		String[] names = nameString.split(splitter);
@@ -107,7 +107,42 @@ public class Loader {
 		
 	}
 	
+	/**
+	 * Only to understand the dataset... No other purpose. 
+	 * @throws IOException
+	 */
+	public void printer() throws IOException{
+		BufferedReader br = new BufferedReader(new FileReader("data/SpeedDating.csv"));
+		String line = "";
+		String splitter = ",";
+		int lineCount = 1;  
+		System.out.println(br.readLine().split(splitter).length);
+		int min = 1000;
+		while ((line = br.readLine()) != null){
+			String[] values = line.split(splitter);
+			lineCount++;
+			/*
+			 * Test in here
+			 */
+			if(values.length>195){
+				System.out.println(lineCount);
+			}
+			/*
+			 * Stop here
+			 */
+		}
+		br.close();
+	}
 	
+	/*
+	 * TODO : Attention toutes les lignes ont pas la même taille.
+	 * Le minimum est atteint à la ligne 840. 
+	 * Il vaut 96 cellules... 
+	 */
+	
+	/*
+	 * TODO SpeedDating4.csv
+	 */
 	// The main method
 	public void load() throws IOException {
 		// Material for reading the file
@@ -151,53 +186,67 @@ public class Loader {
 			//Scorecard of partner : 
 			ScoreCard scoreCard_o = new ScoreCard(ScoreCard.intToBool(dec_o), attr_o, like_o, prob_o, met_o);
 			
-			int age = Parser.parseInteg(values[33]);
-			Field field = new Field(Parser.parseByte2(values[35]));
-			int mnSAT = Parser.parseInteg(values[37]);
-			Race race = new Race(Parser.parseByte2(values[39]));
-			byte imprace = Parser.parseByte2(values[40]);
-			byte imprelig = Parser.parseByte2(values[41]);
-			Goal goal = new Goal(Parser.parseByte2(values[45]));
-			Frequency date = new Frequency(Parser.parseByte2(values[46]));
-			Frequency goOut = new Frequency(Parser.parseByte2(values[47]));
-			// Career
-			InterestsBag interests = new InterestsBag(values, 50);
-			byte expHappy = Parser.parseByte2(values[67]);
-			byte expnum = Parser.parseByte2(values[68]);
-			AttrBag looksFor_1 = new AttrBag(values, 69, on100, false);
-			AttrBag fellowLooksFor_1 = new AttrBag(values, 75, on100, false);
-			AttrBag oppSexlookFor_1 = new AttrBag(values, 81, on100, false);
-			AttrBag measureUp_1 = new AttrBag(values, 87, on100, true);
-			AttrBag otherPerceivesYou_1 = new AttrBag(values, 93, on100, true);
-			// Pour le Date
-			byte dec = Parser.parseByte2(values[97]);
+			int age = Parser.parseInteg(values[SpeedDatingKey.age]);
+			Field field = new Field(Parser.parseByte2(values[SpeedDatingKey.field]));
+			int mnSAT = Parser.parseInteg(values[SpeedDatingKey.mn_sat]);
+			Race race = new Race(Parser.parseByte2(values[SpeedDatingKey.race]));
+			byte imprace = Parser.parseByte2(values[SpeedDatingKey.imprace]);
+			byte imprelig = Parser.parseByte2(values[SpeedDatingKey.imprelig]);
+			Goal goal = new Goal(Parser.parseByte2(values[SpeedDatingKey.goal]));
+			Frequency date = new Frequency(Parser.parseByte2(values[SpeedDatingKey.date]));
+			Frequency goOut = new Frequency(Parser.parseByte2(values[SpeedDatingKey.go_out]));
+			// TODO Career
+			InterestsBag interests = new InterestsBag(values, SpeedDatingKey.sports);
+			byte expHappy = Parser.parseByte2(values[SpeedDatingKey.exphappy]);
+			byte expnum = Parser.parseByte2(values[SpeedDatingKey.expnum]);
+			AttrBag looksFor_1 = new AttrBag(values, SpeedDatingKey.attr1_1, on100, false);
+			AttrBag fellowLooksFor_1 = new AttrBag(values, SpeedDatingKey.attr4_1, on100, false);
+			AttrBag oppSexlookFor_1 = new AttrBag(values, SpeedDatingKey.attr2_1, on100, false);
+			AttrBag measureUp_1 = new AttrBag(values, SpeedDatingKey.attr3_1, on100, true);
+			AttrBag otherPerceivesYou_1 = new AttrBag(values, SpeedDatingKey.attr5_1, on100, true);
+			byte dec = Parser.parseByte2(values[SpeedDatingKey.dec]);
 			// TODO: Toujours sur 10 apparemment. A verifier.
-			AttrBag notes = new AttrBag(values, 98, false, false);
-
-			byte like = Parser.parseByte2(values[104]);
-			byte prob = Parser.parseByte2(values[105]);
-			// yes=1 & no=0
-			int met = (1 - (Parser.parseInteg(values[105]) - 1));
-			
+			AttrBag notes = new AttrBag(values, SpeedDatingKey.attr, false, false);
+			byte like = Parser.parseByte2(values[SpeedDatingKey.like]);
+			byte prob = Parser.parseByte2(values[SpeedDatingKey.prob]);
+			// Same as before : yes=1 & no=0
+			int met = (1 - (Parser.parseInteg(values[SpeedDatingKey.met]) - 1));
 			//Scorecard of the person
-			ScoreCard scoreCard = new ScoreCard(ScoreCard.intToBool(dec), notes, like, prob, ScoreCard.intToBool(met));
+			ScoreCard scoreCard = new ScoreCard(Parser.intToBool(dec), notes, like, prob, Parser.intToBool(met));
 			
-			int match_es = Parser.parseInteg(values[107]);
+			//TODO : Where can we put this ?
+			int match_es = Parser.parseInteg(values[SpeedDatingKey.match_es]);
 
 			// Pour la Person
-			AttrBag looksFor_s = new AttrBag(values, 108, on100, false);
-			AttrBag measureUp_s = new AttrBag(values, 114, on100, true);
+			AttrBag looksFor_s = new AttrBag(values, SpeedDatingKey.attr1_s, on100, false);
+			AttrBag measureUp_s = new AttrBag(values, SpeedDatingKey.attr3_s, on100, true);
 
-			int satis_2 = Parser.parseInteg(values[119]);
-			int longueur = Parser.parseInteg(values[120]);
-			int numDates = Parser.parseInteg(values[121]);
+			int satis_2 = Parser.parseInteg(values[SpeedDatingKey.satis_2]);
+			int longueur = Parser.parseInteg(values[SpeedDatingKey.length]);
+			int numDates = Parser.parseInteg(values[SpeedDatingKey.numdat_2]);
 
-			AttrBag importance = new AttrBag(values, 122, on100, false);
-			AttrBag looksFor_2 = new AttrBag(values, 128, on100, false);
-			AttrBag fellowLooksFor_2 = new AttrBag(values, 134, on100, false);
-			AttrBag oppSexLooksFor_2 = new AttrBag(values, 140, on100, false);
-			AttrBag measureUp_2 = new AttrBag(values, 146, on100, true);
-			AttrBag otherPerceivesYou_2 = new AttrBag(values, 151, on100, true);
+			AttrBag importance = new AttrBag(values, SpeedDatingKey.attr7_2, on100, false);
+			AttrBag looksFor_2 = new AttrBag(values, SpeedDatingKey.attr1_2, on100, false);
+			AttrBag fellowLooksFor_2 = new AttrBag(values, SpeedDatingKey.attr4_2, on100, false);
+			AttrBag oppSexLooksFor_2 = new AttrBag(values, SpeedDatingKey.attr2_2, on100, false);
+			AttrBag measureUp_2 = new AttrBag(values, SpeedDatingKey.attr3_2, on100, true);
+			AttrBag otherPerceivesYou_2 = new AttrBag(values, SpeedDatingKey.attr5_2, on100, true);
+			
+			//TIME 3 
+			int youCall = Parser.parseInteg(values[SpeedDatingKey.you_call]);
+			int themCall = Parser.parseInteg(values[SpeedDatingKey.them_cal]);
+			
+			boolean date_3 = Parser.intToBool(1-(Parser.parseInteg(values[SpeedDatingKey.date_3])-1));
+			//TODO : Quelle difference entre numdat_3 et num_in_3 ? 
+			int numDate3 = Parser.parseInteg(values[SpeedDatingKey.numdat_3]);
+			int numIn3 = Parser.parseInteg(values[SpeedDatingKey.num_in_3]);
+			
+			AttrBag looksFor_3 = new AttrBag(values, SpeedDatingKey.attr1_3, on100, false);
+			AttrBag importance_3 = new AttrBag(values, SpeedDatingKey.attr7_3, on100, false);
+			AttrBag fellowLooksFor_3 = new AttrBag(values, SpeedDatingKey.attr4_3, on100, false);
+			AttrBag oppSexLooksFor_3 = new AttrBag(values, SpeedDatingKey.attr2_3, on100, false);
+			AttrBag measureUp_3 = new AttrBag(values, SpeedDatingKey.attr3_3, on100, true);
+			AttrBag  otherPerceivesYou_3 = new AttrBag(values, SpeedDatingKey.attr5_3, on100, true);
 			
 			System.out.println("Fini la ligne !");
 			
