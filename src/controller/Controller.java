@@ -3,6 +3,8 @@ package controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.sun.xml.internal.ws.api.streaming.XMLStreamReaderFactory.Default;
+
 import model.AttrBag;
 import model.constants.Sex;
 
@@ -64,8 +66,22 @@ public class Controller implements ControllerInterface {
 	//renvoie un enum(Satisfaction) qui donne la satisfaction sur toute la nuit.
 
 	public Satisfaction getSatisfactionOverall(Sex sex) {
-		// TODO Auto-generated method stub
-		return null;
+		int satisfaction = loader.avgSatisfactionRate(age, sex);
+		switch (satisfaction){
+		case 10 : ;
+		case 9: return Satisfaction.Tres_satisfait;
+		case 8:;
+		case 7:; return Satisfaction.Satisfait; 
+		case 6:;
+		case 5:; return Satisfaction.Moyennement_Satisfait;
+		case 4:;
+		case 3: return Satisfaction.Peu_Satisfait;
+		case 2:;
+		case 1:;
+		case 0: return Satisfaction.Tres_Peu_Satisfait;
+		default : return Satisfaction.Tres_Peu_Satisfait;
+		}
+		
 	}
 
 	//On règle l'âge sur lequel on filtre
