@@ -31,13 +31,16 @@ public class Controller implements ControllerInterface {
 	//how many yes halfway
 	public double getMatchPercentage(String gender) {
 		// TODO Auto-generated method stub
-		return 0;
+		int totalNumberOfPeople=0;
+		int numberOfPeopleThatMatched=0;
+		return totalNumberOfPeople/numberOfPeopleThatMatched;
 	}
 
 	@Override
 	//Renvoie le nombre de yes que la personne pense avoir obtenu (réponse supérieure à 5) dans la nuit (si on ne fait pas halfway).
 	public int getAmountOfYess(String gender) {
 		// TODO Auto-generated method stub
+		
 		return 0;
 	}
 
