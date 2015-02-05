@@ -274,7 +274,6 @@ public class Loader {
 		}
 	}
 	
-
 	HashMap<Interest, Integer> avgInterestRateList(int age, Sex sex) {
 		HashMap<Interest, Integer> hash = new HashMap<Interest, Integer>(); 
 		int count = 0;
@@ -293,7 +292,7 @@ public class Loader {
 	}
 	
 	int personsThatMatched(int age, Sex sex) {
-		return -1;
+		return stat.numberOfPersonWhoMatched();
 	}
 	
 	int[] predictionRateYesAnswers(int age, Sex sex) {

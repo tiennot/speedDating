@@ -86,5 +86,22 @@ public class Stat {
 	public int numberPerson(int age, Sex sex) {
 		return this.getPersonAgeSex(age, sex).size();
 	}
+	
+	public int numberOfPersonThatMatched(int age, Sex sex) {
+		ArrayList<Person> list = this.getPersonAgeSex(age, sex);
+		int n = 0;
+		
+		for(int i = 0 ; i < list.size() ; i++) {
+			ArrayList<Date> dates = list.get(i).dates;
+			for(int j = 0 ; j < dates.size() ; j++) {
+				if(dates.get(i).match()) {
+					n++;
+					break;
+				}
+			}
+		}
+		
+		return n;
+	}
 
 }
