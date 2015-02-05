@@ -2,7 +2,7 @@ package view;
 
 import processing.core.PApplet;
 import processing.core.PImage;
-import visualizations.Visualization;
+import view.visualizations.Visualization;
 
 /*
  * This class represents a window for a specific visualization, which should be
