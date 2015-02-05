@@ -14,9 +14,11 @@ import model.Date;
 import model.InterestsBag;
 import model.Person;
 import model.ScoreCard;
+import model.Stat;
 import model.constants.Field;
 import model.constants.Frequency;
 import model.constants.Goal;
+import model.constants.Interest;
 import model.constants.Interests;
 import model.constants.Race;
 import model.constants.Sex;
@@ -31,6 +33,8 @@ public class Loader {
 	private String filePath = "data/SpeedDating.csv";
 	// The HashMap for keeping track of the persons with their iid;
 	private HashMap<Integer, Person> iidPersons = new HashMap<Integer, Person>();
+	
+	private Stat stat;
 
 	public Loader() {
 		super();
@@ -184,8 +188,16 @@ public class Loader {
 		br.close();
 	}
 	
-	HashMap<Interests, Integer> avgInterestRateList(int age, Sex sex) {
-		return null;
+	HashMap<Interest, Integer> avgInterestRateList(int age, Sex sex) {
+		HashMap<Interest, Integer> hash = new HashMap<Interest, Integer>(); 
+		int count = 0;
+		
+		for(Interest i : Interest.values()) {
+			hash.put(i, stat.avgInterestRate(age, sex, count));
+			count++;
+		}
+		
+		return hash;
 	}
 	
 	int nbrPersons(int age, Sex sex) {
