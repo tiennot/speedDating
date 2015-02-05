@@ -8,6 +8,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.sun.org.apache.bcel.internal.classfile.ClassFormatException;
@@ -20,6 +21,7 @@ import model.ScoreCard;
 import model.constants.Field;
 import model.constants.Frequency;
 import model.constants.Goal;
+import model.constants.Interests;
 import model.constants.Race;
 import model.constants.Sex;
 
@@ -209,6 +211,7 @@ public class Loader {
 		br.close();
 	}
 	
+
 	//All those methods return -10 if the string = "", 
 	//Otherwise, it's the same (more or less) as Class.parseClass(..)
 	/**
@@ -267,4 +270,33 @@ public class Loader {
 		}
 	}
 	
+
+	HashMap<Interests, Integer> avgInterestRateList(int age, Sex sex) {
+		return null;
+	}
+	
+	int nbrPersons(int age, Sex sex) {
+		return -1;
+	}
+	
+	int personsThatMatched(int age, Sex sex) {
+		return -1;
+	}
+	
+	int[] predictionRateYesAnswers(int age, Sex sex) {
+		return new int[0];
+	}
+	
+	int[] avgSelfRate(int age, Sex sex) {
+		return new int[0];
+	}
+
+	int[] avgSearchRates(int age, Sex sex) {
+		return new int[0];
+	}
+	
+	int avgSatisfactionRate(int age, Sex sex) {
+		return -1;
+	}
+
 }

@@ -6,7 +6,7 @@ import model.constants.Interests;
 import model.constants.Sex;
 import processing.core.PApplet;
 import processing.core.PImage;
-import visualizations.VInterests;
+import view.visualizations.VInterests;
 
 
 /*
@@ -133,7 +133,7 @@ public class MainWindow {
 	/*
 	 * Should be called from PApplet p setup method
 	 */
-	public void setup(){
+	public void setup(){		
 		//Sets up height and width (16/9 ratio)
 		width = 960;
 		height = 540;
@@ -161,7 +161,7 @@ public class MainWindow {
 	    labelTom = new TextLabel(p, 205, 60, 100, 30, 16, BLUE, p.LEFT, p.CENTER);
 	    
 	    //Initializes interests icons
-	    interestTom = new InterestIcon(p, 55, 96, Interests.TVSPORTS, Sex.MALE);
+	    interestTom = new InterestIcon(p, 55, 96, Interests.TVSPORTS, Sex.MALE); 
 	    interestKaty = new InterestIcon(p, 417, 42, Interests.MOVIES, Sex.FEMALE);
 	    
 	    //Smileys

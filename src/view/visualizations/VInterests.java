@@ -1,4 +1,4 @@
-package visualizations;
+package view.visualizations;
 
 import processing.core.PApplet;
 import view.DetailWindow;
