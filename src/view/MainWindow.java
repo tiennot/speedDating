@@ -161,7 +161,7 @@ public class MainWindow {
 	    labelTom = new TextLabel(p, 205, 60, 100, 30, 16, BLUE, p.LEFT, p.CENTER);
 	    
 	    //Initializes interests icons
-	    interestTom = new InterestIcon(p, 55, 96, Interests.TVSPORTS, Sex.MALE); 
+	    interestTom = new InterestIcon(p, 55, 96, Interests.TVSPORTS, Sex.MALE);
 	    interestKaty = new InterestIcon(p, 417, 42, Interests.MOVIES, Sex.FEMALE);
 	    
 	    //Smileys
