@@ -292,7 +292,7 @@ public class Loader {
 	}
 	
 	int personsThatMatched(int age, Sex sex) {
-		return stat.numberOfPersonWhoMatched();
+		return stat.numberOfPersonThatMatched(age, sex);
 	}
 	
 	int[] predictionRateYesAnswers(int age, Sex sex) {
