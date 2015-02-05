@@ -7,6 +7,6 @@ public class Sex {
 		this.sex = sex;
 	}
 	//Static constants
-	public static final Sex MALE = new Sex(false);
-	public static final Sex FEMALE = new Sex(true);
+	public static final Sex MALE = new Sex(true);
+	public static final Sex FEMALE = new Sex(false);
 }

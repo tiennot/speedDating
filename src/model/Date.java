@@ -12,13 +12,27 @@ public class Date {
 	private int stationNumber; //Where they met
 	private int orderNumber; //Order number of the date. 1 means first date of the night, etc.
 	private double intCorr; //Interests correlation -1 to 1
-	private boolean hisDec; //Decision of the man
-	private boolean herDec; //Decision of the woman
+	private ScoreCard hisScoreCard ; 
+	private ScoreCard herScoreCard ;
+	
+	//TODO : Constructeur + Getter/setter 
+	public Date(Person man, Person woman, int stationNumber, int orderNumber,
+			double intCorr, ScoreCard hisScoreCard, ScoreCard herScoreCard) {
+		super();
+		this.man = man;
+		this.woman = woman;
+		this.stationNumber = stationNumber;
+		this.orderNumber = orderNumber;
+		this.intCorr = intCorr;
+		this.hisScoreCard = hisScoreCard;
+		this.herScoreCard = herScoreCard;
+	}
 	
 	//Match method
 	public boolean match(){
-		return hisDec && herDec;
+		return hisScoreCard.getDec() && herScoreCard.getDec();
 	}
+
 
 	//Getters and setters
 	public Person getMan() {
@@ -61,19 +75,21 @@ public class Date {
 		this.intCorr = intCorr;
 	}
 
-	public boolean isHisDec() {
-		return hisDec;
+	public final ScoreCard getHisScoreCard() {
+		return hisScoreCard;
 	}
 
-	public void setHisDec(boolean hisDec) {
-		this.hisDec = hisDec;
+	public final void setHisScoreCard(ScoreCard hisScoreCard) {
+		this.hisScoreCard = hisScoreCard;
 	}
 
-	public boolean isHerDec() {
-		return herDec;
+	public final ScoreCard getHerScoreCard() {
+		return herScoreCard;
 	}
 
-	public void setHerDec(boolean herDec) {
-		this.herDec = herDec;
-	}	
+	public final void setHerScoreCard(ScoreCard herScoreCard) {
+		this.herScoreCard = herScoreCard;
+	}
+
+	
 }

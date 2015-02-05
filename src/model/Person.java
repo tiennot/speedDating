@@ -16,9 +16,15 @@ public class Person {
 	//Characteristics of the person
 	private int wave;
 	private int age;
-	private Sex sex;
+	private Sex sex; 
 	private Race race;
 	private Field field;
+	private int mnSAT;
+	private byte imprace, imprelig, exphappy;
+	
+	private Goal goal;
+	private Frequency date, goOut;
+	
 	//Interests in 17 activities
 	private InterestsBag interests;
 	//Dates this person has had during the night
@@ -44,6 +50,55 @@ public class Person {
 		this.dates.add(date);
 	}
 	
+	/**
+	 * 
+	 * @return On renvoie juste un ensemble d'attribut qui montre comment chaque chose a evolue. 
+	 * On peut comparer n'importe quels ensemble d'attributs comme cela. 
+	 */
+	public AttrBag looksForChange1_s(){
+		return looksFor_1.AttrBagDifference(looksFor_s);
+	}
+	
+	
+	//Constructeur de base
+	public Person(int iid, int wave, int age, Sex sex, Race race, Field field,
+			int mnSAT, byte imprace, byte imprelig, byte exphappy, Goal goal,
+			Frequency date, Frequency goOut, InterestsBag interests,
+			AttrBag looksFor_1, AttrBag fellowLooksFor_1,
+			AttrBag oppSexLooksFor_1, AttrBag measureUp_1,
+			AttrBag otherPerceivesYou_1, AttrBag looksFor_s,
+			AttrBag measureUp_s, AttrBag looksFor_2, AttrBag fellowLooksFor_2,
+			AttrBag oppSexLooksFor_2, AttrBag measureUp_2,
+			AttrBag otherPerceivesYou_2) {
+		super();
+		this.iid = iid;
+		this.wave = wave;
+		this.age = age;
+		this.sex = sex;
+		this.race = race;
+		this.field = field;
+		this.mnSAT = mnSAT;
+		this.imprace = imprace;
+		this.imprelig = imprelig;
+		this.exphappy = exphappy;
+		this.goal = goal;
+		this.date = date;
+		this.goOut = goOut;
+		this.interests = interests;
+		this.looksFor_1 = looksFor_1;
+		this.fellowLooksFor_1 = fellowLooksFor_1;
+		this.oppSexLooksFor_1 = oppSexLooksFor_1;
+		this.measureUp_1 = measureUp_1;
+		this.otherPerceivesYou_1 = otherPerceivesYou_1;
+		this.looksFor_s = looksFor_s;
+		this.measureUp_s = measureUp_s;
+		this.looksFor_2 = looksFor_2;
+		this.fellowLooksFor_2 = fellowLooksFor_2;
+		this.oppSexLooksFor_2 = oppSexLooksFor_2;
+		this.measureUp_2 = measureUp_2;
+		this.otherPerceivesYou_2 = otherPerceivesYou_2;
+	}
+
 	//Getters and setters
 	public int getIid() {
 		return iid;
@@ -165,4 +220,5 @@ public class Person {
 	public void setInterests(InterestsBag interests) {
 		this.interests = interests;
 	}
+	
 }
