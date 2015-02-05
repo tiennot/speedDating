@@ -7,8 +7,8 @@ import processing.core.PApplet;
  * by its x & y positions, its width and its height
  */
 public class XywhObject {
-	PApplet p;
-	int x, y, h, w;
+	protected PApplet p;
+	protected int x, y, h, w;
 	
 	//Constructor
 	public XywhObject(PApplet p, int x, int y, int w, int h){
@@ -29,5 +29,21 @@ public class XywhObject {
 		p.noStroke();
 		p.fill(p.color(222,40,57,125));
 		p.rect(x, y, w, h);
+	}
+
+	public void setH(int h) {
+		this.h = h;
+	}
+
+	public void setW(int w) {
+		this.w = w;
+	}
+
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public void setY(int y) {
+		this.y = y;
 	}
 }

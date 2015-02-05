@@ -8,8 +8,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
-
-
+//<<<<<<< HEAD
+//
+//
+//=======
+//>>>>>>> f54bdb28f01352f23be97642a3a60cd2b7ec0a30
 import model.AttrBag;
 import model.Date;
 import model.InterestsBag;
@@ -52,6 +55,7 @@ public class Loader {
 			 * Significant amount of work to be done right here
 			 */
 			int iid = Integer.parseInt(values[0]);
+
 
 //			if(iidPersons.containsKey(iid)){ //On connait cette personne
 //				//Il faut r�cup�rer les informations relative au Date
@@ -98,7 +102,55 @@ public class Loader {
 //				int longueur = Integer.parseInt(values[120]);
 //				int numDates = Integer.parseInt(values[121]);
 
-			// Il faut r�cup�rer toutes les donn�es utiles du dataset
+//			// Il faut r�cup�rer toutes les donn�es utiles du dataset
+//=======
+//			if(iidPersons.containsKey(iid)){ //On connait cette personne
+//				//Il faut recuperer les informations relative au Date
+//			}
+//			else{ 
+//				//Il faut recuperer toutes les donnees utiles du dataset
+//				Sex sex = new Sex(Boolean.parseBoolean(values[2]));
+//				int wave = Integer.parseInt(values[5]);
+//				int age = Integer.parseInt(values[33]);
+//				Field field = new Field(Byte.parseByte(values[35]));
+//				int mnSAT = Integer.parseInt(values[37]);
+//				Race race = new Race(Byte.parseByte(values[39]));
+//				byte imprace = Byte.parseByte(values[40]);
+//				byte imprelig = Byte.parseByte(values[41]);
+//				Goal goal = new Goal(Byte.parseByte(values[45]));
+//				Frequency date = new Frequency(Byte.parseByte(values[46]));
+//				Frequency goOut = new Frequency(Byte.parseByte(values[47]));
+//				//Career 
+//				InterestsBag interests = new InterestsBag(values,50);
+//				byte expHappy = Byte.parseByte(values[67]);
+//				byte expnum = Byte.parseByte(values[68]);
+//				boolean on100 = wave<6 || wave>9 ;
+//				AttrBag looksFor_1 = new AttrBag(values, 69, on100,false);
+//				AttrBag fellowLooksFor_1 = new AttrBag(values, 75, on100,false);
+//				AttrBag oppSexlookFor_1 = new AttrBag(values, 81, on100,false);
+//				AttrBag measureUp_1 = new AttrBag(values, 87, on100,true);
+//				AttrBag otherPerceivesYou_1 = new AttrBag(values, 93, on100,true);
+//				//Pour le Date 
+//				byte dec = Byte.parseByte(values[97]);
+//				//Toujours sur 10 apparemment. a verifier.
+//				AttrBag notes = new AttrBag(values, 98, false,false);
+//				
+//				byte like = Byte.parseByte(values[104]);
+//				byte prob = Byte.parseByte(values[105]);
+//				//yes=1 & no=0
+//				int met = (1-(Integer.parseInt(values[105])-1));
+//				int match_es = Integer.parseInt(values[107]);
+//				
+//				//Pour la Person
+//				AttrBag looksFor_s = new AttrBag(values, 108, on100, false);
+//				AttrBag measureUp_s = new AttrBag(values, 114, on100, true);
+//				
+//				int satis_2 = Integer.parseInt(values[119]);
+//				int longueur = Integer.parseInt(values[120]);
+//				int numDates = Integer.parseInt(values[121]);
+//			}
+//			// Il faut recuperer toutes les donnees utiles du dataset
+//>>>>>>> f54bdb28f01352f23be97642a3a60cd2b7ec0a30
 			// TODO : Checker si "parseboolean" marche bien ? 
 			Sex sex = new Sex(Boolean.parseBoolean(values[2]));
 			int wave = Integer.parseInt(values[5]);
@@ -113,7 +165,7 @@ public class Loader {
 			byte dec_o = Byte.parseByte(values[23]);
 			AttrBag attr_o = new AttrBag(values, 24, on100, false);
 			
-			//Ils sont pas dans le pdf ... Mais vu leur nom, c'est vraisemblablement ça.
+			//Ils sont pas dans le pdf ... Mais vu leur nom, c'est vraisemblablement ca.
 			byte like_o = Byte.parseByte(values[30]);
 			byte prob_o = Byte.parseByte(values[31]);
 			boolean met_o = ScoreCard.intToBool(1-Integer.parseInt(values[32]));
@@ -169,7 +221,7 @@ public class Loader {
 			AttrBag otherPerceivesYou_2 = new AttrBag(values, 151, on100, true);
 			
 			if (!iidPersons.containsKey(iid)) { // If we don't know the person
-				// On ajoute la nouvelle personne à la liste des personnes.
+				// On ajoute la nouvelle personne a la liste des personnes.
 				iidPersons.put(iid, new Person(iid, wave, age, sex, race,
 						field, mnSAT, imprace, imprelig, expHappy, goal, date,
 						goOut, interests, looksFor_1, fellowLooksFor_1,
@@ -177,7 +229,6 @@ public class Loader {
 						looksFor_s, measureUp_s, looksFor_2, fellowLooksFor_2,
 						oppSexLooksFor_2, measureUp_2, otherPerceivesYou_2));
 
-				
 			}
 			
 			Date thisDate = new Date(iidPersons.get(iid),iidPersons.get(pid),position,order, int_corr, scoreCard, scoreCard_o);
