@@ -32,19 +32,26 @@ public class Controller implements ControllerInterface {
 		
 		int totalNumberOfPeople=loader.nbrPersons(age, sex);
 		int numberOfPeopleThatMatched=loader.personsThatMatched(age, sex);
-		return totalNumberOfPeople/numberOfPeopleThatMatched;
+		return (double)totalNumberOfPeople/(double)numberOfPeopleThatMatched;
 	}
 
 	//Renvoie le nombre de yes que la personne pense avoir obtenu (réponse supérieure à 5) dans la nuit (si on ne fait pas halfway).
 	public int getAmountOfYess(Sex sex) {
 		int[] array = loader.predictionRateYesAnswers(age, sex);
-		
-		return 0;
+		int totalNumberOfYes = 0;
+		for (int i =0; i< array.length; i++){
+			if (array[i]>5){
+				totalNumberOfYes +=1;
+			}
+		}
+		int totalNumberOfPeople=loader.nbrPersons(age, sex);
+		return totalNumberOfYes/totalNumberOfPeople;
 	}
 
 	//renvoie un enum (ChangementDePerception) qui indique combien la perception a changé
 	public ChangementDePerception hasPerceptionOfOhtersChanged(Sex sex) {
 		// TODO Auto-generated method stub
+		
 		return null;
 	}
 

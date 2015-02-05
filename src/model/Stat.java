@@ -2,6 +2,8 @@ package model;
 
 import java.util.ArrayList;
 
+import model.constants.Interest;
+import model.constants.Interests;
 import model.constants.Sex;
 
 public class Stat {
@@ -19,7 +21,7 @@ public class Stat {
 	/**
 	 * 
 	 * @param age
-	 * @return liste des personnes qui ont l'age donné en paramètre
+	 * @return liste des personnes qui ont l'age donnï¿½ en paramï¿½tre
 	 */
 	public ArrayList<Person> getPersonAge(int age){
 		ArrayList<Person> list = new ArrayList<Person>();
@@ -35,7 +37,7 @@ public class Stat {
 	 * 
 	 * @param age
 	 * @param sex
-	 * @return liste des personnes qui ont l'age et le sex demandé
+	 * @return liste des personnes qui ont l'age et le sex demandï¿½
 	 */
 	public ArrayList<Person> getPersonAgeSex(int age, Sex sex){
 		ArrayList<Person> list = new ArrayList<Person>();
@@ -62,6 +64,23 @@ public class Stat {
 		interests.intToDouble(); // On passe en double pour avoir des valeurs exactes quand on divise.
 		interests.divise(list.size());
 		return interests;
+	}
+	
+	public int avgInterestRate(int age, Sex sex, int interest) {
+		int sum = 0;
+		int ansNbr = 0;
+		int rate;
+		ArrayList<Person> list = this.getPersonAgeSex(age, sex);
+		
+		for (int i = 0 ; i < list.size() ; i++) {
+			rate = (int)(list.get(i).getInterests().getInterests())[interest];
+			if(rate >= 0) {
+				sum += rate;
+				ansNbr++;
+			}
+		}
+		
+		return sum / ansNbr;
 	}
 
 }
