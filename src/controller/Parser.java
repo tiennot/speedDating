@@ -69,6 +69,17 @@ public class Parser {
 			return Boolean.parseBoolean(s);
 		}
 	}
+	
+	public static Boolean parseBool(String[] table, int index) {
+		Boolean result = null;
+		try{
+			result = Parser.parseBool(table[index]);
+			return result;
+		}
+		catch(IndexOutOfBoundsException e){
+			return result;
+		}
+	}
 
 	public static double parseDouble2(String s) {
 		if (s.equals("")) {
