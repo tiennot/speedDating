@@ -4,94 +4,107 @@ import com.sun.org.apache.bcel.internal.classfile.ClassFormatException;
 
 public class Parser {
 	/**
-	 * Static class
-	 * Only a list of parsing methods
+	 * Static class Only a list of parsing methods
 	 */
+
+	// All those methods return -10 if the string = "",
+	// Otherwise, it's the same (more or less) as Class.parseClass(..)
+	/**
+	 * 
+	 * @param s
+	 * @return parsed int
+	 */
+	public static int parseInteg(String s) {
+		if (s.equals("")) {
+			return -10;
+		} else {
+			int result = (int) Double.parseDouble(s);
+			if (Double.parseDouble(s) != result) {
+				Loader.erreurCount++;
+				System.out.println("Attention dans parseInteg");
+			}
+			return result;
+		}
+	}
 	
-	//All those methods return -10 if the string = "", 
-		//Otherwise, it's the same (more or less) as Class.parseClass(..)
-		/**
-		 * 
-		 * @param s
-		 * @return 
-		 */
-		public static int parseInteg(String s){
-			if(s.equals("")){
-				return -10;
-			}
-			else{
-				int result = (int) Double.parseDouble(s);
-				if(Double.parseDouble(s) != result){
-					Loader.erreurCount++;
-					System.out.println("Attention dans parseInteg");
-				}
-				return result;
-			}
+	/**
+	 * Same as parseInteg(String s) 
+	 * But catches IndexOutOfBounds
+	 * @param table
+	 * @param index
+	 * @return parsed int
+	 */
+	public static int parseInteg(String[] table, int index){
+		int result = -10;
+		try{
+			result = Parser.parseInteg(table[index]);
+			return result ;
 		}
-		
-		/**
-		 * 
-		 * @param s
-		 * @return
-		 */
-		public static byte parseByte2(String s){
-			if(s.equals("")){
-				return -10;
-			}
-			else{
-				byte result = (byte) Double.parseDouble(s);
-				if(Double.parseDouble(s) != result){System.out.println("Attention dans parseByte");}
-				return result;
-			}
+		catch(IndexOutOfBoundsException e){
+			return result ;
 		}
-		
-		public static Boolean parseBool(String s){
-			if(s.equals("")){
-				return null;
+	}
+
+	/**
+	 * 
+	 * @param s
+	 * @return
+	 */
+	public static byte parseByte2(String s) {
+		if (s.equals("")) {
+			return -10;
+		} else {
+			byte result = (byte) Double.parseDouble(s);
+			if (Double.parseDouble(s) != result) {
+				System.out.println("Attention dans parseByte");
 			}
-			else{
-				return Boolean.parseBoolean(s);
-			}
+			return result;
 		}
-		
-		public static double parseDouble2(String s){
-			if(s.equals("")){
-				return -10;
-			}
-			else{
-				return Double.parseDouble(s);
-			}
+	}
+
+	public static Boolean parseBool(String s) {
+		if (s.equals("")) {
+			return null;
+		} else {
+			return Boolean.parseBoolean(s);
 		}
-		// End of Parsing methods
-		
-		/**
-		 * 
-		 * @param i
-		 * @return 0 -> false ; 1 -> yes (easy right?) 
-		 * @throws ClassFormatException
-		 */
-		public static Boolean intToBool(int i) throws ClassFormatException{
-			if(i==0){
-				return false;
-			}
-			else if(i==1){
-				return true; 
-			}
-			else{
-				Loader.erreurCount ++;
-				return null;
-			}
+	}
+
+	public static double parseDouble2(String s) {
+		if (s.equals("")) {
+			return -10;
+		} else {
+			return Double.parseDouble(s);
 		}
-		
-		/**
-		 * Specific method for "Text" values in the data set 
-		 * To be used with : 
-		 * - mnSAT 
-		 * - (to be completed)
-		 * @param s
-		 * @return
-		 */
-		public static int parseTextFormat(String s){
+	}
+
+	// End of Parsing methods
+
+	/**
+	 * 
+	 * @param i
+	 * @return 0 -> false ; 1 -> yes (easy right?)
+	 * @throws ClassFormatException
+	 */
+	public static Boolean intToBool(int i) throws ClassFormatException {
+		if (i == 0) {
+			return false;
+		} else if (i == 1) {
+			return true;
+		} else {
+			Loader.erreurCount++;
+			return null;
+		}
+	}
+
+	/**
+	 * Specific method for "Text" values in the data set To be used with : -
+	 * mnSAT - (to be completed)
+	 * 
+	 * @param s
+	 * @return
+	 */
+	public static int parseTextFormat(String s) {
 		if (!s.equals("")) {
 			String ss = s.substring(1, s.length() - 2);// Cut off the '"' at the
 														// beginning/end
@@ -108,13 +121,12 @@ public class Parser {
 				String sss = ss.substring(0, index).concat(
 						ss.substring(index + 1)); // Get the "," out of the
 													// string
-				return Parser.parseInteg(sss); 
+				return Parser.parseInteg(sss);
 			}
-		}
-		else{//
+		} else {//
 			return -10;
 		}
-			
-		}
+
+	}
 
 }

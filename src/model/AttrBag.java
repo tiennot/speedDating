@@ -34,19 +34,19 @@ public class AttrBag {
 	
 	//Constructor from row data 
 	/**
-	 * 
+	 * Catches IndexOutOfBounds
 	 * @param data row data
 	 * @param offset 
 	 * @param on100 true if the scale is 
 	 * @param noShar true if there is no "Shared interests" data. Ex : measureUp 
 	 */
 	public AttrBag(String[] data, int offset, boolean on100, boolean noShar){
-		this(Parser.parseInteg(data[offset]),
-				Parser.parseInteg(data[offset+1]),
-				Parser.parseInteg(data[offset+2]),
-				Parser.parseInteg(data[offset+3]),
-				Parser.parseInteg(data[offset+4]),
-				Parser.parseInteg(data[offset+5]), on100, noShar);
+		this(Parser.parseInteg(data,offset),
+				Parser.parseInteg(data,offset+1),
+				Parser.parseInteg(data,offset+2),
+				Parser.parseInteg(data,offset+3),
+				Parser.parseInteg(data,offset+4),
+				Parser.parseInteg(data,offset+5), on100, noShar);
 	}
 	
 	//Constructor (with ratings on 100 if boolean is true)

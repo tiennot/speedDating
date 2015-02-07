@@ -54,14 +54,23 @@ public class InterestsBag {
 	
 	/**
 	 * Constructeur avec offset, a utiliser pour loader les data (String-> int)
-	 * @param interests
-	 * @param offset
+	 * <strong>Catches IndexOutOfBoundExceptions<strong>
+	 * @param interests It is the row data
+	 * @param offset Where to begin in the table
 	 */
-	public InterestsBag(String[] interests, int offset){
-		for(int i=0; i<17; i++){
-			this.interestsInt[i]= Parser.parseInteg(interests[i+offset]);
+	public InterestsBag(String[] interests, int offset) {
+		for (int i = 0; i < 17; i++) {
+			this.interestsInt[i] = -10;
+		}
+		try {
+			for (int i = 0; i < 17; i++) {
+				this.interestsInt[i] = Parser.parseInteg(interests[i + offset]);
+			}
+		} catch (IndexOutOfBoundsException e) {
+
 		}
 	}
+	
 
 	/**
 	 * Methode qui permet d'ajouter deux InterestsBag
