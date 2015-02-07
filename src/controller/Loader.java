@@ -38,7 +38,8 @@ import model.constants.SpeedDatingKey;
 public class Loader {
 	
 	// File path
-	private String filePath = "data/SpeedDating.csv";
+	private final String FilePath = "data/SpeedDatingExcel.txt";
+	private final String Delimitter = "\t";
 	// The HashMap for keeping track of the persons with their iid;
 	private HashMap<Integer, Person> iidPersons = new HashMap<Integer, Person>();
 	
@@ -50,19 +51,18 @@ public class Loader {
 
 	/**
 	 * writes in the SpeedDatingKey file. In data folder. 
-	 * @param number : Determines the csv files we get the data from, and the txt file in which we write
+	 * @param id : Determines the file we get the data from, and the txt file in which we write
 	 * @throws IOException
 	 */
-	public void writeSpeedDatingKey(int number) throws IOException{
+	public void writeSpeedDatingKey(String id) throws IOException{
 		
-		BufferedReader br = new BufferedReader(new FileReader("data/SpeedDating"+number+".csv"));
+		BufferedReader br = new BufferedReader(new FileReader("data/SpeedDatingExcel.txt"));
 		String line = "";
-		String splitter = ",";
 		// the first time, it's only the names of the columns
 		String nameString = br.readLine();
-		String[] names = nameString.split(splitter);
+		String[] names = nameString.split(this.Delimitter);
 		System.out.println("Longeur: "+ names.length);
-		String pathname = "data/SpeedDatingKey"+ number+".txt" ;
+		String pathname = "data/SpeedDatingKey"+ id+".txt" ;
 		File file = new File(pathname);
 		if(!file.exists()){
 			file.createNewFile();
@@ -78,17 +78,15 @@ public class Loader {
 	
 	/**
 	 * Writes in the class SpeedDatingKey.java from the row data.
-	 * @param number which csv file should we get the data from ?
 	 * @throws IOException
 	 */
-	public void writeConstantClass(int number) throws IOException{
+	public void writeConstantClass() throws IOException{
 		
-		BufferedReader br = new BufferedReader(new FileReader("data/SpeedDating"+number+".csv"));
+		BufferedReader br = new BufferedReader(new FileReader(this.FilePath));
 		String line = "";
-		String splitter = ",";
 		// the first time, it's only the names of the columns
 		String nameString = br.readLine();
-		String[] names = nameString.split(splitter);
+		String[] names = nameString.split(this.Delimitter);
 		
 		String pathname = "src/model/constants/SpeedDatingKey.java" ;
 		File file = new File(pathname);
@@ -112,19 +110,20 @@ public class Loader {
 	 * @throws IOException
 	 */
 	public void printer() throws IOException{
-		BufferedReader br = new BufferedReader(new FileReader("data/SpeedDating.csv"));
+		BufferedReader br = new BufferedReader(new FileReader("data/SpeedDatingExcel.txt"));
 		String line = "";
-		String splitter = ",";
 		int lineCount = 1;  
-		System.out.println(br.readLine().split(splitter).length);
+		System.out.println(br.readLine().split(this.Delimitter).length);
 		int min = 1000;
+		int count = 0;
 		while ((line = br.readLine()) != null){
-			String[] values = line.split(splitter);
+			String[] values = line.split(this.Delimitter);
 			lineCount++;
 			/*
 			 * Test in here
 			 */
-			if(values.length>195){
+			
+			if(values.length<195){
 				System.out.println(lineCount);
 			}
 			/*
@@ -136,17 +135,14 @@ public class Loader {
 	
 	/*
 	 * TODO : Attention toutes les lignes ont pas la même taille.
-	 * Le minimum est atteint à la ligne 840. 
+	 * Le minimum est atteint a la ligne 840. 
 	 * Il vaut 96 cellules... 
 	 */
 	
-	/*
-	 * TODO SpeedDating4.csv
-	 */
 	// The main method
 	public void load() throws IOException {
 		// Material for reading the file
-		BufferedReader br = new BufferedReader(new FileReader(filePath));
+		BufferedReader br = new BufferedReader(new FileReader(this.FilePath));
 		String line = "";
 		String splitter = ",";
 		// the first time, it's only the names of the columns

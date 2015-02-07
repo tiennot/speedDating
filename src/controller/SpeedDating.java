@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 
+import model.constants.SpeedDatingKey;
 import processing.core.*;
 import view.MainWindow;
 
@@ -19,7 +20,7 @@ public class SpeedDating extends PApplet {
 	public static void main(String args[]){
 		Loader loader = new Loader();
 		try {
-			loader.printer();
+			loader.writeConstantClass();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
