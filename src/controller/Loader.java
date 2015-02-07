@@ -11,7 +11,6 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.sun.org.apache.bcel.internal.classfile.ClassFormatException;
 
 import model.AttrBag;
 import model.Date;
@@ -161,7 +160,6 @@ public class Loader {
 			 * Significant amount of work to be done right here
 			 */
 			
-			System.out.println("Longueur : " + values.length);
 			int iid = Parser.parseInteg(values,SpeedDatingKey.iid); 
 			Sex sex = new Sex(Parser.parseBool(values[SpeedDatingKey.gender]));
 			int wave = Parser.parseInteg(values,SpeedDatingKey.wave);
@@ -232,9 +230,7 @@ public class Loader {
 			int expHappy = Parser.parseInteg(values,SpeedDatingKey.exphappy);
 			
 			int expnum = Parser.parseInteg(values,SpeedDatingKey.expnum);
-			if(lineCount==4649){
-				System.out.println();
-			}
+			
 			AttrBag looksFor_1 = new AttrBag(values, SpeedDatingKey.attr1_1, on100, false);
 			
 			AttrBag fellowLooksFor_1 = new AttrBag(values, SpeedDatingKey.attr4_1, on100, false);
@@ -261,13 +257,14 @@ public class Loader {
 			 *Tout fonctionne jusqu'ici (inclus)
 			 */
 			
-			if(false){ //For testing purpose obviously
+			
 			//Scorecard of the person
 			ScoreCard scoreCard = new ScoreCard(dec, notes, like, prob, met);
 			
 			//TODO : Where can we put this ?
 			int match_es = Parser.parseInteg(values,SpeedDatingKey.match_es);
 
+			
 			// Pour la Person
 			AttrBag looksFor_s = new AttrBag(values, SpeedDatingKey.attr1_s, on100, false);
 			
@@ -281,42 +278,58 @@ public class Loader {
 			
 			AttrBag importance = new AttrBag(values, SpeedDatingKey.attr7_2, on100, false);
 			
-			System.out.println("erreur : " + Loader.erreurCount);
-			
 			//TODO : Pour une raison inconnue, ces valeurs sont avec virgules ...
 			AttrBag looksFor_2 = new AttrBag(values, SpeedDatingKey.attr1_2, on100, false);
-			System.out.println("erreur : " + Loader.erreurCount);
+			
 			AttrBag fellowLooksFor_2 = new AttrBag(values, SpeedDatingKey.attr4_2, on100, false);
+			
 			AttrBag oppSexLooksFor_2 = new AttrBag(values, SpeedDatingKey.attr2_2, on100, false);
+			
 			AttrBag measureUp_2 = new AttrBag(values, SpeedDatingKey.attr3_2, on100, true);
+			
 			AttrBag otherPerceivesYou_2 = new AttrBag(values, SpeedDatingKey.attr5_2, on100, true);
 			
 			//TIME 3 
 			int youCall = Parser.parseInteg(values,SpeedDatingKey.you_call);
+			
 			int themCall = Parser.parseInteg(values,SpeedDatingKey.them_cal);
-			boolean date_3 = Parser.parseBool(values[SpeedDatingKey.date_3]);
+			if(lineCount==22){
+				System.out.println();
+			}
+			
+			Boolean date_3 = Parser.parseBool(values,SpeedDatingKey.date_3);
 			
 			//TODO : Quelle difference entre numdat_3 et num_in_3 ? 
 			int numDate3 = Parser.parseInteg(values,SpeedDatingKey.numdat_3);
+			
 			int numIn3 = Parser.parseInteg(values,SpeedDatingKey.num_in_3);
 			
 			AttrBag looksFor_3 = new AttrBag(values, SpeedDatingKey.attr1_3, on100, false);
+			
 			AttrBag importance_3 = new AttrBag(values, SpeedDatingKey.attr7_3, on100, false);
+			
 			AttrBag fellowLooksFor_3 = new AttrBag(values, SpeedDatingKey.attr4_3, on100, false);
+			
 			AttrBag oppSexLooksFor_3 = new AttrBag(values, SpeedDatingKey.attr2_3, on100, false);
+			
 			AttrBag measureUp_3 = new AttrBag(values, SpeedDatingKey.attr3_3, on100, true);
+			
 			AttrBag  otherPerceivesYou_3 = new AttrBag(values, SpeedDatingKey.attr5_3, on100, true);
-			}
-			System.out.println("Fini la ligne : " + lineCount);
+			
+			
 			
 			if (!iidPersons.containsKey(iid)) { // If we don't know the person
 				// On ajoute la nouvelle personne a la liste des personnes.
 				iidPersons.put(iid, new Person(iid));				
 			}
 			
-//			Date thisDate = new Date(iidPersons.get(iid),iidPersons.get(pid),position,order, int_corr, scoreCard, scoreCard_o);
-//			iidPersons.get(iid).addDate(thisDate);
-//			iidPersons.get(pid).addDate(thisDate);
+			/*
+			 * TODO : Instancier les Date ...
+			 * Probleme : Quand j'instancie la personne 1, je ne connais pas encore son partenaire... 
+			 * Donc difficile d'instancier un date avec une seule personne. 
+			 */
+			
+			System.out.println("Fini la ligne : " + lineCount);
 			System.out.println("Erreur : " + Loader.erreurCount);
 			Loader.erreurCount =0;
 		}

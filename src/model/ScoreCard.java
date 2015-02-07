@@ -2,7 +2,7 @@ package model;
 
 public class ScoreCard {
 	
-	private boolean dec; //Decision : 1 = yes, 0= no
+	private Boolean dec; //Decision : 1 = yes, 0= no
 	private AttrBag attrBag;
 	private int like ;
 	private int prob; // Probability that the other one says yes
@@ -13,7 +13,7 @@ public class ScoreCard {
 		super();
 	}
 	
-	public ScoreCard(boolean dec, AttrBag attrBag, int like, int prob, Boolean met) {
+	public ScoreCard(Boolean dec, AttrBag attrBag, int like, int prob, Boolean met) {
 		super();
 		this.dec = dec;
 		this.attrBag = attrBag;

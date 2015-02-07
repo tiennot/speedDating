@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 
+import model.ScoreCard;
 import model.constants.SpeedDatingKey;
 import processing.core.*;
 import view.MainWindow;
