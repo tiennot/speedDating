@@ -19,6 +19,7 @@ import model.InterestsBag;
 import model.Person;
 import model.ScoreCard;
 import model.Stat;
+import model.constants.Career;
 import model.constants.Field;
 import model.constants.Frequency;
 import model.constants.Goal;
@@ -64,7 +65,7 @@ public class Loader {
 		String nameString = br.readLine();
 		String[] names = nameString.split(this.Delimitter);
 		System.out.println("Longeur: "+ names.length);
-		String pathname = "data/SpeedDatingKey"+ id+".txt" ;
+		String pathname = "data/SpeedDating"+ id+".txt" ;
 		File file = new File(pathname);
 		if(!file.exists()){
 			file.createNewFile();
@@ -116,22 +117,19 @@ public class Loader {
 		String line = "";
 		int lineCount = 1;  
 		System.out.println("Nombre de colonnes en temps normal :" + br.readLine().split(this.Delimitter).length);
-		
+		long taillemoy = 0;
 		while ((line = br.readLine()) != null){
 			String[] values = line.split(this.Delimitter);
 			lineCount++;
 			/*
 			 * Test in here
 			 */
-			
-			if(values.length== 49){
-				System.out.println("min at " + lineCount);
-				
-			}
+			taillemoy += values.length;
 			/*
 			 * Stop here
 			 */
 		}
+		System.out.println(((double)taillemoy)/(lineCount-1));
 		br.close();
 	}
 	
@@ -144,6 +142,7 @@ public class Loader {
 	 * Some lines do not have any values for the columns. Therefore I just put
 	 * -10 for number values (int double ...) And null for other (Boolean,
 	 * AttrBag ...)
+	 * Mean length is 168.7 
 	 * @throws IOException 
 	 */
 	public void load() throws IOException {
@@ -163,79 +162,79 @@ public class Loader {
 			 */
 			
 			System.out.println("Longueur : " + values.length);
-			int iid = Parser.parseInteg(values[SpeedDatingKey.iid]); 
+			int iid = Parser.parseInteg(values,SpeedDatingKey.iid); 
 			Sex sex = new Sex(Parser.parseBool(values[SpeedDatingKey.gender]));
-			int wave = Parser.parseInteg(values[SpeedDatingKey.wave]);
+			int wave = Parser.parseInteg(values,SpeedDatingKey.wave);
 			
 			
 			//Wave 6 to 9 are different for the ratings 
 			boolean on100 = wave < 6 || wave > 9; 
-			int round = Parser.parseInteg(values[SpeedDatingKey.round]);
+			int round = Parser.parseInteg(values,SpeedDatingKey.round);
 			
-			int position = Parser.parseInteg(values[SpeedDatingKey.position]);
+			int position = Parser.parseInteg(values,SpeedDatingKey.position);
 			
-			int positin1 = Parser.parseInteg(values[SpeedDatingKey.positin1]);
+			int positin1 = Parser.parseInteg(values,SpeedDatingKey.positin1);
 			
-			int order = Parser.parseInteg(values[SpeedDatingKey.order]);
+			int order = Parser.parseInteg(values,SpeedDatingKey.order);
 			
-			int pid = Parser.parseInteg(values[SpeedDatingKey.pid]);
+			int pid = Parser.parseInteg(values,SpeedDatingKey.pid);
 			
-			int match = Parser.parseInteg(values[SpeedDatingKey.match]); 
+			int match = Parser.parseInteg(values,SpeedDatingKey.match); 
 			
 			double int_corr = Parser.parseDouble2(values[SpeedDatingKey.int_corr]); 
 			
-			int dec_o = Parser.parseInteg(values[SpeedDatingKey.dec_o]);
+			int dec_o = Parser.parseInteg(values,SpeedDatingKey.dec_o);
 			
 			//Not really usefull if we have the pid ... But meanwhile ... 
 			AttrBag attr_o = new AttrBag(values, SpeedDatingKey.attr_o, on100, false);
 			
 			//Ils sont pas dans le pdf ... Mais vu leur nom, c'est vraisemblablement ca.
-			int like_o = Parser.parseInteg(values[SpeedDatingKey.like_o]);
+			int like_o = Parser.parseInteg(values,SpeedDatingKey.like_o);
 			
-			int prob_o = Parser.parseInteg(values[SpeedDatingKey.prob_o]);
+			int prob_o = Parser.parseInteg(values,SpeedDatingKey.prob_o);
 			
 			//In the dataset, met_o = 1 if not met, and met_o = 2 if met ... 
 			//A little math is needed here
 			
-			Boolean met_o = Parser.intToBool(1-(Parser.parseInteg(values[SpeedDatingKey.met_o])-1)); 
-			
+			Boolean met_o = Parser.intToBool(1-(Parser.parseInteg(values,SpeedDatingKey.met_o)-1)); 
 			
 			//Scorecard of partner : 
 			ScoreCard scoreCard_o = new ScoreCard(Parser.intToBool(dec_o), attr_o, like_o, prob_o, met_o);
 			
-			int age = Parser.parseInteg(values[SpeedDatingKey.age]);
+			int age = Parser.parseInteg(values,SpeedDatingKey.age);
 			
-			Field field = new Field(Parser.parseByte2(values[SpeedDatingKey.field_cd]));
-			if(lineCount==3410){
-				System.out.println();
-			}
+			Field field = new Field(Parser.parseInteg(values,SpeedDatingKey.field_cd));
+			
 			int mnSAT = Parser.parseTextFormat(values[SpeedDatingKey.mn_sat]);
 			
-			Race race = new Race(Parser.parseByte2(values[SpeedDatingKey.race]));
+			Race race = new Race(Parser.parseInteg(values,SpeedDatingKey.race));
 			
-			int imprace = Parser.parseInteg(values[SpeedDatingKey.imprace]);
+			int imprace = Parser.parseInteg(values,SpeedDatingKey.imprace);
 			
-			int imprelig = Parser.parseInteg(values[SpeedDatingKey.imprelig]);
+			int imprelig = Parser.parseInteg(values,SpeedDatingKey.imprelig);
 			
-			Goal goal = new Goal(Parser.parseInteg(values[SpeedDatingKey.goal]));
+			Goal goal = new Goal(Parser.parseInteg(values,SpeedDatingKey.goal));
 			
-			Frequency date = new Frequency(Parser.parseInteg(values[SpeedDatingKey.date]));
+			Frequency date = new Frequency(Parser.parseInteg(values,SpeedDatingKey.date));
 			
-			Frequency goOut = new Frequency(Parser.parseInteg(values[SpeedDatingKey.go_out]));//Tout fonctionne jusqu'ici (inclus)
+			Frequency goOut = new Frequency(Parser.parseInteg(values,SpeedDatingKey.go_out));
 			
-			// TODO Career
+				
+				/*
+				 * Some lines do not go further than here ... 
+				 */
 			
-			/*
-			 * Some lines do not go further than this point ...
-			 */
 			
-			if(false){ //For testing purpose obviously
+			Career career = new Career(Parser.parseInteg(values,SpeedDatingKey.career_c)) ;	
+			
 			InterestsBag interests = new InterestsBag(values, SpeedDatingKey.sports);
 			
-			int expHappy = Parser.parseInteg(values[SpeedDatingKey.exphappy]);
+			int expHappy = Parser.parseInteg(values,SpeedDatingKey.exphappy);
 			
-			byte expnum = Parser.parseByte2(values[SpeedDatingKey.expnum]);
-			
+			int expnum = Parser.parseInteg(values,SpeedDatingKey.expnum);
+			if(lineCount==4649){
+				System.out.println();
+			}
 			AttrBag looksFor_1 = new AttrBag(values, SpeedDatingKey.attr1_1, on100, false);
 			
 			AttrBag fellowLooksFor_1 = new AttrBag(values, SpeedDatingKey.attr4_1, on100, false);
@@ -246,38 +245,44 @@ public class Loader {
 			
 			AttrBag otherPerceivesYou_1 = new AttrBag(values, SpeedDatingKey.attr5_1, on100, true);
 			
-			byte dec = Parser.parseByte2(values[SpeedDatingKey.dec]);
+			Boolean dec = Parser.intToBool(Parser.parseInteg(values,SpeedDatingKey.dec));
 			
 			// TODO: Toujours sur 10 apparemment. A verifier.
 			AttrBag notes = new AttrBag(values, SpeedDatingKey.attr, false, false);
 			
-			byte like = Parser.parseByte2(values[SpeedDatingKey.like]);
+			int like = Parser.parseInteg(values,SpeedDatingKey.like);
 			
-			byte prob = Parser.parseByte2(values[SpeedDatingKey.prob]);
+			int prob = Parser.parseInteg(values,SpeedDatingKey.prob);
+			
 			// Same as before : yes=1 & no=0
+			Boolean met = Parser.intToBool(Parser.parseInteg(values,SpeedDatingKey.met));
 			
-			int met = (1 - (Parser.parseInteg(values[SpeedDatingKey.met]) - 1));
+			/*
+			 *Tout fonctionne jusqu'ici (inclus)
+			 */
 			
+			if(false){ //For testing purpose obviously
 			//Scorecard of the person
-			ScoreCard scoreCard = new ScoreCard(Parser.intToBool(dec), notes, like, prob, Parser.intToBool(met));
+			ScoreCard scoreCard = new ScoreCard(dec, notes, like, prob, met);
 			
 			//TODO : Where can we put this ?
-			int match_es = Parser.parseInteg(values[SpeedDatingKey.match_es]);
+			int match_es = Parser.parseInteg(values,SpeedDatingKey.match_es);
 
 			// Pour la Person
 			AttrBag looksFor_s = new AttrBag(values, SpeedDatingKey.attr1_s, on100, false);
 			
 			AttrBag measureUp_s = new AttrBag(values, SpeedDatingKey.attr3_s, on100, true);
 
-			int satis_2 = Parser.parseInteg(values[SpeedDatingKey.satis_2]);
+			int satis_2 = Parser.parseInteg(values,SpeedDatingKey.satis_2);
 			
-			int longueur = Parser.parseInteg(values[SpeedDatingKey.length]);
+			int longueur = Parser.parseInteg(values,SpeedDatingKey.length);
 			
-			int numDates = Parser.parseInteg(values[SpeedDatingKey.numdat_2]);
+			int numDates = Parser.parseInteg(values,SpeedDatingKey.numdat_2);
 			
 			AttrBag importance = new AttrBag(values, SpeedDatingKey.attr7_2, on100, false);
 			
 			System.out.println("erreur : " + Loader.erreurCount);
+			
 			//TODO : Pour une raison inconnue, ces valeurs sont avec virgules ...
 			AttrBag looksFor_2 = new AttrBag(values, SpeedDatingKey.attr1_2, on100, false);
 			System.out.println("erreur : " + Loader.erreurCount);
@@ -287,13 +292,13 @@ public class Loader {
 			AttrBag otherPerceivesYou_2 = new AttrBag(values, SpeedDatingKey.attr5_2, on100, true);
 			
 			//TIME 3 
-			int youCall = Parser.parseInteg(values[SpeedDatingKey.you_call]);
-			int themCall = Parser.parseInteg(values[SpeedDatingKey.them_cal]);
+			int youCall = Parser.parseInteg(values,SpeedDatingKey.you_call);
+			int themCall = Parser.parseInteg(values,SpeedDatingKey.them_cal);
 			boolean date_3 = Parser.parseBool(values[SpeedDatingKey.date_3]);
 			
 			//TODO : Quelle difference entre numdat_3 et num_in_3 ? 
-			int numDate3 = Parser.parseInteg(values[SpeedDatingKey.numdat_3]);
-			int numIn3 = Parser.parseInteg(values[SpeedDatingKey.num_in_3]);
+			int numDate3 = Parser.parseInteg(values,SpeedDatingKey.numdat_3);
+			int numIn3 = Parser.parseInteg(values,SpeedDatingKey.num_in_3);
 			
 			AttrBag looksFor_3 = new AttrBag(values, SpeedDatingKey.attr1_3, on100, false);
 			AttrBag importance_3 = new AttrBag(values, SpeedDatingKey.attr7_3, on100, false);
