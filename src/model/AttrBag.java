@@ -1,6 +1,7 @@
 package model;
 
 import controller.Loader;
+import controller.Parser;
 
 /*
  * AttrBag is a class meant to describe a set of ratings for the 6 attributes:
@@ -40,12 +41,12 @@ public class AttrBag {
 	 * @param noShar true if there is no "Shared interests" data. Ex : measureUp 
 	 */
 	public AttrBag(String[] data, int offset, boolean on100, boolean noShar){
-		this(Loader.parseInteg(data[offset]),
-				Loader.parseInteg(data[offset+1]),
-				Loader.parseInteg(data[offset+2]),
-				Loader.parseInteg(data[offset+3]),
-				Loader.parseInteg(data[offset+4]),
-				Loader.parseInteg(data[offset+5]), on100, noShar);
+		this(Parser.parseInteg(data[offset]),
+				Parser.parseInteg(data[offset+1]),
+				Parser.parseInteg(data[offset+2]),
+				Parser.parseInteg(data[offset+3]),
+				Parser.parseInteg(data[offset+4]),
+				Parser.parseInteg(data[offset+5]), on100, noShar);
 	}
 	
 	//Constructor (with ratings on 100 if boolean is true)

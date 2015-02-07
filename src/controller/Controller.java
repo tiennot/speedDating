@@ -39,10 +39,10 @@ public class Controller implements ControllerInterface {
 
 	//Renvoie le nombre de yes que la personne pense avoir obtenu (réponse supérieure à 5) dans la nuit (si on ne fait pas halfway).
 	public int getAmountOfYess(Sex sex) {
-		int[] array = loader.predictionRateYesAnswers(age, sex);
+		ArrayList<Integer> array = loader.predictionRateYesAnswers(age, sex);
 		int totalNumberOfYes = 0;
-		for (int i =0; i< array.length; i++){
-			if (array[i]>5){
+		for (int i =0; i< array.size(); i++){
+			if (array.get(i)>5){
 				totalNumberOfYes +=1;
 			}
 		}
