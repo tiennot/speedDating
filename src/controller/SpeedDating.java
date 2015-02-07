@@ -18,6 +18,7 @@ public class SpeedDating extends PApplet {
 	}
 	  
 	public static void main(String args[]){
+		
 		Loader loader = new Loader();
 		try {
 //			loader.printer();

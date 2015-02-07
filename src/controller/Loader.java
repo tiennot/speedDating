@@ -140,7 +140,12 @@ public class Loader {
 	 * Il vaut 49 cellules... 
 	 */
 	
-	// The main method
+	/**
+	 * Some lines do not have any values for the columns. Therefore I just put
+	 * -10 for number values (int double ...) And null for other (Boolean,
+	 * AttrBag ...)
+	 * @throws IOException 
+	 */
 	public void load() throws IOException {
 		// Material for reading the file
 		BufferedReader br = new BufferedReader(new FileReader(this.FilePath));
@@ -193,39 +198,66 @@ public class Loader {
 			//A little math is needed here
 			
 			Boolean met_o = Parser.intToBool(1-(Parser.parseInteg(values[SpeedDatingKey.met_o])-1)); 
-			//Tout fonctionne jusqu'ici (inclus)
+			
 			
 			//Scorecard of partner : 
 			ScoreCard scoreCard_o = new ScoreCard(Parser.intToBool(dec_o), attr_o, like_o, prob_o, met_o);
-			if(false){ 
+			
 			int age = Parser.parseInteg(values[SpeedDatingKey.age]);
+			
 			Field field = new Field(Parser.parseByte2(values[SpeedDatingKey.field_cd]));
-			int mnSAT = Parser.parseInteg(values[SpeedDatingKey.mn_sat]);
+			if(lineCount==3410){
+				System.out.println();
+			}
+			int mnSAT = Parser.parseTextFormat(values[SpeedDatingKey.mn_sat]);
+			
 			Race race = new Race(Parser.parseByte2(values[SpeedDatingKey.race]));
-			byte imprace = Parser.parseByte2(values[SpeedDatingKey.imprace]);
-			byte imprelig = Parser.parseByte2(values[SpeedDatingKey.imprelig]);
-			Goal goal = new Goal(Parser.parseByte2(values[SpeedDatingKey.goal]));
-			Frequency date = new Frequency(Parser.parseByte2(values[SpeedDatingKey.date]));
-			Frequency goOut = new Frequency(Parser.parseByte2(values[SpeedDatingKey.go_out]));
-			//TODO : enlever ca
+			
+			int imprace = Parser.parseInteg(values[SpeedDatingKey.imprace]);
+			
+			int imprelig = Parser.parseInteg(values[SpeedDatingKey.imprelig]);
+			
+			Goal goal = new Goal(Parser.parseInteg(values[SpeedDatingKey.goal]));
+			
+			Frequency date = new Frequency(Parser.parseInteg(values[SpeedDatingKey.date]));
+			
+			Frequency goOut = new Frequency(Parser.parseInteg(values[SpeedDatingKey.go_out]));//Tout fonctionne jusqu'ici (inclus)
 			
 			// TODO Career
+			
+			/*
+			 * Some lines do not go further than this point ...
+			 */
+			
+			if(false){ //For testing purpose obviously
 			InterestsBag interests = new InterestsBag(values, SpeedDatingKey.sports);
-			byte expHappy = Parser.parseByte2(values[SpeedDatingKey.exphappy]);
+			
+			int expHappy = Parser.parseInteg(values[SpeedDatingKey.exphappy]);
+			
 			byte expnum = Parser.parseByte2(values[SpeedDatingKey.expnum]);
+			
 			AttrBag looksFor_1 = new AttrBag(values, SpeedDatingKey.attr1_1, on100, false);
+			
 			AttrBag fellowLooksFor_1 = new AttrBag(values, SpeedDatingKey.attr4_1, on100, false);
+			
 			AttrBag oppSexlookFor_1 = new AttrBag(values, SpeedDatingKey.attr2_1, on100, false);
+			
 			AttrBag measureUp_1 = new AttrBag(values, SpeedDatingKey.attr3_1, on100, true);
+			
 			AttrBag otherPerceivesYou_1 = new AttrBag(values, SpeedDatingKey.attr5_1, on100, true);
+			
 			byte dec = Parser.parseByte2(values[SpeedDatingKey.dec]);
 			
 			// TODO: Toujours sur 10 apparemment. A verifier.
 			AttrBag notes = new AttrBag(values, SpeedDatingKey.attr, false, false);
+			
 			byte like = Parser.parseByte2(values[SpeedDatingKey.like]);
+			
 			byte prob = Parser.parseByte2(values[SpeedDatingKey.prob]);
 			// Same as before : yes=1 & no=0
+			
 			int met = (1 - (Parser.parseInteg(values[SpeedDatingKey.met]) - 1));
+			
 			//Scorecard of the person
 			ScoreCard scoreCard = new ScoreCard(Parser.intToBool(dec), notes, like, prob, Parser.intToBool(met));
 			
@@ -234,13 +266,17 @@ public class Loader {
 
 			// Pour la Person
 			AttrBag looksFor_s = new AttrBag(values, SpeedDatingKey.attr1_s, on100, false);
+			
 			AttrBag measureUp_s = new AttrBag(values, SpeedDatingKey.attr3_s, on100, true);
 
 			int satis_2 = Parser.parseInteg(values[SpeedDatingKey.satis_2]);
+			
 			int longueur = Parser.parseInteg(values[SpeedDatingKey.length]);
+			
 			int numDates = Parser.parseInteg(values[SpeedDatingKey.numdat_2]);
 			
 			AttrBag importance = new AttrBag(values, SpeedDatingKey.attr7_2, on100, false);
+			
 			System.out.println("erreur : " + Loader.erreurCount);
 			//TODO : Pour une raison inconnue, ces valeurs sont avec virgules ...
 			AttrBag looksFor_2 = new AttrBag(values, SpeedDatingKey.attr1_2, on100, false);
