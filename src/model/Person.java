@@ -60,7 +60,45 @@ public class Person {
 	}
 	
 	
-	//Constructeur de base
+	/**
+	 * Useful if we don't have enough information on a Person (because of the dataset)
+	 * @param iid
+	 */
+	public Person(int iid) {
+		super();
+		this.iid = iid;
+	}
+	
+
+	/**
+	 * Constructeur de base
+	 * @param iid
+	 * @param wave
+	 * @param age
+	 * @param sex
+	 * @param race
+	 * @param field
+	 * @param mnSAT
+	 * @param imprace
+	 * @param imprelig
+	 * @param exphappy
+	 * @param goal
+	 * @param date
+	 * @param goOut
+	 * @param interests
+	 * @param looksFor_1
+	 * @param fellowLooksFor_1
+	 * @param oppSexLooksFor_1
+	 * @param measureUp_1
+	 * @param otherPerceivesYou_1
+	 * @param looksFor_s
+	 * @param measureUp_s
+	 * @param looksFor_2
+	 * @param fellowLooksFor_2
+	 * @param oppSexLooksFor_2
+	 * @param measureUp_2
+	 * @param otherPerceivesYou_2
+	 */
 	public Person(int iid, int wave, int age, Sex sex, Race race, Field field,
 			int mnSAT, byte imprace, byte imprelig, byte exphappy, Goal goal,
 			Frequency date, Frequency goOut, InterestsBag interests,

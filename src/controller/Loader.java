@@ -32,7 +32,7 @@ import model.constants.SpeedDatingKey;
  * The loader class role is to take the CSV file and instantiate all the
  * java object with the right data
  * 
- * WARNING : If the value is -10, it means it is not in the csv !!!
+ * WARNING : If the value is -10, it means it is not in the original data !!!
  * 
  */
 public class Loader {
@@ -40,6 +40,8 @@ public class Loader {
 	// File path
 	private final String FilePath = "data/SpeedDatingExcel.txt";
 	private final String Delimitter = "\t";
+	public static int erreurCount = 0; 
+	private final int nbColumns = 195 ;
 	// The HashMap for keeping track of the persons with their iid;
 	private HashMap<Integer, Person> iidPersons = new HashMap<Integer, Person>();
 	
@@ -48,7 +50,7 @@ public class Loader {
 	public Loader() {
 		super();
 	}
-
+	
 	/**
 	 * writes in the SpeedDatingKey file. In data folder. 
 	 * @param id : Determines the file we get the data from, and the txt file in which we write
@@ -57,7 +59,7 @@ public class Loader {
 	public void writeSpeedDatingKey(String id) throws IOException{
 		
 		BufferedReader br = new BufferedReader(new FileReader("data/SpeedDatingExcel.txt"));
-		String line = "";
+		
 		// the first time, it's only the names of the columns
 		String nameString = br.readLine();
 		String[] names = nameString.split(this.Delimitter);
@@ -83,7 +85,7 @@ public class Loader {
 	public void writeConstantClass() throws IOException{
 		
 		BufferedReader br = new BufferedReader(new FileReader(this.FilePath));
-		String line = "";
+
 		// the first time, it's only the names of the columns
 		String nameString = br.readLine();
 		String[] names = nameString.split(this.Delimitter);
@@ -110,12 +112,11 @@ public class Loader {
 	 * @throws IOException
 	 */
 	public void printer() throws IOException{
-		BufferedReader br = new BufferedReader(new FileReader("data/SpeedDatingExcel.txt"));
+		BufferedReader br = new BufferedReader(new FileReader(this.FilePath));
 		String line = "";
 		int lineCount = 1;  
-		System.out.println(br.readLine().split(this.Delimitter).length);
-		int min = 1000;
-		int count = 0;
+		System.out.println("Nombre de colonnes en temps normal :" + br.readLine().split(this.Delimitter).length);
+		
 		while ((line = br.readLine()) != null){
 			String[] values = line.split(this.Delimitter);
 			lineCount++;
@@ -123,8 +124,9 @@ public class Loader {
 			 * Test in here
 			 */
 			
-			if(values.length<195){
-				System.out.println(lineCount);
+			if(values.length== 49){
+				System.out.println("min at " + lineCount);
+				
 			}
 			/*
 			 * Stop here
@@ -134,9 +136,8 @@ public class Loader {
 	}
 	
 	/*
-	 * TODO : Attention toutes les lignes ont pas la même taille.
-	 * Le minimum est atteint a la ligne 840. 
-	 * Il vaut 96 cellules... 
+	 * TODO : Attention toutes les lignes ont pas la meme taille.
+	 * Il vaut 49 cellules... 
 	 */
 	
 	// The main method
@@ -144,46 +145,61 @@ public class Loader {
 		// Material for reading the file
 		BufferedReader br = new BufferedReader(new FileReader(this.FilePath));
 		String line = "";
-		String splitter = ",";
 		// the first time, it's only the names of the columns
-		String[] names = br.readLine().split(splitter);
+		String[] names = br.readLine().split(this.Delimitter);
+		int lineCount= 1;
 		// Loops through the file
 		while ((line = br.readLine()) != null) {
+			lineCount++;
 			// Puts the cells values into an array
-			String[] values = line.split(splitter);
+			String[] values = line.split(this.Delimitter);
 			/*
 			 * Significant amount of work to be done right here
 			 */
 			
-			
-			int iid = Parser.parseInteg(values[SpeedDatingKey.iid]);
+			System.out.println("Longueur : " + values.length);
+			int iid = Parser.parseInteg(values[SpeedDatingKey.iid]); 
 			Sex sex = new Sex(Parser.parseBool(values[SpeedDatingKey.gender]));
 			int wave = Parser.parseInteg(values[SpeedDatingKey.wave]);
 			
-			//Wave 6 to 9 are different for the ratings 
-			boolean on100 = wave < 6 || wave > 9;
 			
+			//Wave 6 to 9 are different for the ratings 
+			boolean on100 = wave < 6 || wave > 9; 
 			int round = Parser.parseInteg(values[SpeedDatingKey.round]);
+			
 			int position = Parser.parseInteg(values[SpeedDatingKey.position]);
+			
 			int positin1 = Parser.parseInteg(values[SpeedDatingKey.positin1]);
+			
 			int order = Parser.parseInteg(values[SpeedDatingKey.order]);
+			
 			int pid = Parser.parseInteg(values[SpeedDatingKey.pid]);
-			int match = Parser.parseInteg(values[SpeedDatingKey.match]);
-			double int_corr = Double.parseDouble(values[SpeedDatingKey.int_corr]);
+			
+			int match = Parser.parseInteg(values[SpeedDatingKey.match]); 
+			
+			double int_corr = Parser.parseDouble2(values[SpeedDatingKey.int_corr]); 
+			
 			int dec_o = Parser.parseInteg(values[SpeedDatingKey.dec_o]);
+			
+			//Not really usefull if we have the pid ... But meanwhile ... 
 			AttrBag attr_o = new AttrBag(values, SpeedDatingKey.attr_o, on100, false);
 			
 			//Ils sont pas dans le pdf ... Mais vu leur nom, c'est vraisemblablement ca.
 			int like_o = Parser.parseInteg(values[SpeedDatingKey.like_o]);
+			
 			int prob_o = Parser.parseInteg(values[SpeedDatingKey.prob_o]);
+			
 			//In the dataset, met_o = 1 if not met, and met_o = 2 if met ... 
 			//A little math is needed here
-			boolean met_o = Parser.intToBool(1-(Parser.parseInteg(values[SpeedDatingKey.met_o])-1));
-			//Scorecard of partner : 
-			ScoreCard scoreCard_o = new ScoreCard(ScoreCard.intToBool(dec_o), attr_o, like_o, prob_o, met_o);
 			
+			Boolean met_o = Parser.intToBool(1-(Parser.parseInteg(values[SpeedDatingKey.met_o])-1)); 
+			//Tout fonctionne jusqu'ici (inclus)
+			
+			//Scorecard of partner : 
+			ScoreCard scoreCard_o = new ScoreCard(Parser.intToBool(dec_o), attr_o, like_o, prob_o, met_o);
+			if(false){ 
 			int age = Parser.parseInteg(values[SpeedDatingKey.age]);
-			Field field = new Field(Parser.parseByte2(values[SpeedDatingKey.field]));
+			Field field = new Field(Parser.parseByte2(values[SpeedDatingKey.field_cd]));
 			int mnSAT = Parser.parseInteg(values[SpeedDatingKey.mn_sat]);
 			Race race = new Race(Parser.parseByte2(values[SpeedDatingKey.race]));
 			byte imprace = Parser.parseByte2(values[SpeedDatingKey.imprace]);
@@ -191,6 +207,8 @@ public class Loader {
 			Goal goal = new Goal(Parser.parseByte2(values[SpeedDatingKey.goal]));
 			Frequency date = new Frequency(Parser.parseByte2(values[SpeedDatingKey.date]));
 			Frequency goOut = new Frequency(Parser.parseByte2(values[SpeedDatingKey.go_out]));
+			//TODO : enlever ca
+			
 			// TODO Career
 			InterestsBag interests = new InterestsBag(values, SpeedDatingKey.sports);
 			byte expHappy = Parser.parseByte2(values[SpeedDatingKey.exphappy]);
@@ -201,6 +219,7 @@ public class Loader {
 			AttrBag measureUp_1 = new AttrBag(values, SpeedDatingKey.attr3_1, on100, true);
 			AttrBag otherPerceivesYou_1 = new AttrBag(values, SpeedDatingKey.attr5_1, on100, true);
 			byte dec = Parser.parseByte2(values[SpeedDatingKey.dec]);
+			
 			// TODO: Toujours sur 10 apparemment. A verifier.
 			AttrBag notes = new AttrBag(values, SpeedDatingKey.attr, false, false);
 			byte like = Parser.parseByte2(values[SpeedDatingKey.like]);
@@ -220,9 +239,12 @@ public class Loader {
 			int satis_2 = Parser.parseInteg(values[SpeedDatingKey.satis_2]);
 			int longueur = Parser.parseInteg(values[SpeedDatingKey.length]);
 			int numDates = Parser.parseInteg(values[SpeedDatingKey.numdat_2]);
-
+			
 			AttrBag importance = new AttrBag(values, SpeedDatingKey.attr7_2, on100, false);
+			System.out.println("erreur : " + Loader.erreurCount);
+			//TODO : Pour une raison inconnue, ces valeurs sont avec virgules ...
 			AttrBag looksFor_2 = new AttrBag(values, SpeedDatingKey.attr1_2, on100, false);
+			System.out.println("erreur : " + Loader.erreurCount);
 			AttrBag fellowLooksFor_2 = new AttrBag(values, SpeedDatingKey.attr4_2, on100, false);
 			AttrBag oppSexLooksFor_2 = new AttrBag(values, SpeedDatingKey.attr2_2, on100, false);
 			AttrBag measureUp_2 = new AttrBag(values, SpeedDatingKey.attr3_2, on100, true);
@@ -231,8 +253,8 @@ public class Loader {
 			//TIME 3 
 			int youCall = Parser.parseInteg(values[SpeedDatingKey.you_call]);
 			int themCall = Parser.parseInteg(values[SpeedDatingKey.them_cal]);
+			boolean date_3 = Parser.parseBool(values[SpeedDatingKey.date_3]);
 			
-			boolean date_3 = Parser.intToBool(1-(Parser.parseInteg(values[SpeedDatingKey.date_3])-1));
 			//TODO : Quelle difference entre numdat_3 et num_in_3 ? 
 			int numDate3 = Parser.parseInteg(values[SpeedDatingKey.numdat_3]);
 			int numIn3 = Parser.parseInteg(values[SpeedDatingKey.num_in_3]);
@@ -243,26 +265,41 @@ public class Loader {
 			AttrBag oppSexLooksFor_3 = new AttrBag(values, SpeedDatingKey.attr2_3, on100, false);
 			AttrBag measureUp_3 = new AttrBag(values, SpeedDatingKey.attr3_3, on100, true);
 			AttrBag  otherPerceivesYou_3 = new AttrBag(values, SpeedDatingKey.attr5_3, on100, true);
-			
-			System.out.println("Fini la ligne !");
+			}
+			System.out.println("Fini la ligne : " + lineCount);
 			
 			if (!iidPersons.containsKey(iid)) { // If we don't know the person
 				// On ajoute la nouvelle personne a la liste des personnes.
-				iidPersons.put(iid, new Person(iid, wave, age, sex, race,
-						field, mnSAT, imprace, imprelig, expHappy, goal, date,
-						goOut, interests, looksFor_1, fellowLooksFor_1,
-						oppSexlookFor_1, measureUp_1, otherPerceivesYou_1,
-						looksFor_s, measureUp_s, looksFor_2, fellowLooksFor_2,
-						oppSexLooksFor_2, measureUp_2, otherPerceivesYou_2));				
+				iidPersons.put(iid, new Person(iid));				
 			}
 			
-			Date thisDate = new Date(iidPersons.get(iid),iidPersons.get(pid),position,order, int_corr, scoreCard, scoreCard_o);
-			iidPersons.get(iid).addDate(thisDate);
-			iidPersons.get(pid).addDate(thisDate);
+//			Date thisDate = new Date(iidPersons.get(iid),iidPersons.get(pid),position,order, int_corr, scoreCard, scoreCard_o);
+//			iidPersons.get(iid).addDate(thisDate);
+//			iidPersons.get(pid).addDate(thisDate);
+			System.out.println("Erreur : " + Loader.erreurCount);
+			Loader.erreurCount =0;
 		}
 		br.close();
 	}
 
+	
+	/**
+	 * Doesn't work for now.
+	 * Complete a line with blank fields. 
+	 * @param s
+	 * @return Completed line
+	 */
+	public String stringComplete(String s){
+		String ans = s;
+		String[] test =  s.split(this.Delimitter);
+		if(test.length>this.nbColumns){
+			System.err.println("ATTENTION !");
+		}
+		while(ans.split(Delimitter).length != this.nbColumns){
+			ans += "" + this.Delimitter ;
+		}
+		return ans;
+	}
 	
 	HashMap<Interest, Integer> avgInterestRateList(int age, Sex sex) {
 		HashMap<Interest, Integer> hash = new HashMap<Interest, Integer>(); 

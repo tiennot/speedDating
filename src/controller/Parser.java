@@ -21,7 +21,10 @@ public class Parser {
 			}
 			else{
 				int result = (int) Double.parseDouble(s);
-				if(Double.parseDouble(s) != result){System.out.println("Attention dans parseInteg");}
+				if(Double.parseDouble(s) != result){
+					Loader.erreurCount++;
+					System.out.println("Attention dans parseInteg");
+				}
 				return result;
 			}
 		}
@@ -67,7 +70,7 @@ public class Parser {
 		 * @return 0 -> false ; 1 -> yes (easy right?) 
 		 * @throws ClassFormatException
 		 */
-		public static boolean intToBool(int i) throws ClassFormatException{
+		public static Boolean intToBool(int i) throws ClassFormatException{
 			if(i==0){
 				return false;
 			}
@@ -75,7 +78,8 @@ public class Parser {
 				return true; 
 			}
 			else{
-				throw new ClassFormatException();
+				Loader.erreurCount ++;
+				return null;
 			}
 		}
 
