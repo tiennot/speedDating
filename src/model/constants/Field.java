@@ -4,6 +4,12 @@ public class Field {
 	private int field;
 	//Constructor
 	public Field(int field){
+		this.setField(field);
+	}
+	public int getField() {
+		return field;
+	}
+	public void setField(int field) {
 		this.field = field;
 	}
 	//Static constants
