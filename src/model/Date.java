@@ -28,6 +28,19 @@ public class Date {
 		this.herScoreCard = herScoreCard;
 	}
 	
+	/**
+	 * Minimal constructor
+	 * @param man
+	 * @param woman
+	 */
+	public Date(Person man, Person woman) {
+		super();
+		this.man = man;
+		this.woman = woman;
+	}
+
+
+
 	//Match method
 	public boolean match(){
 		return hisScoreCard.getDec() && herScoreCard.getDec();
