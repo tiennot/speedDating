@@ -320,7 +320,12 @@ public class Loader {
 			
 			if (!iidPersons.containsKey(iid)) { // If we don't know the person
 				// On ajoute la nouvelle personne a la liste des personnes.
-				iidPersons.put(iid, new Person(iid));				
+				iidPersons.put(iid, new Person(iid, wave, age, sex, race,
+						field, mnSAT, imprace, imprelig, expHappy, goal, date,
+						goOut, interests, looksFor_1, fellowLooksFor_1,
+						oppSexlookFor_1, measureUp_1, otherPerceivesYou_1,
+						looksFor_s, measureUp_s, looksFor_2, fellowLooksFor_2,
+						oppSexLooksFor_2, measureUp_2, otherPerceivesYou_2));
 			}
 			
 			/*

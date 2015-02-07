@@ -100,7 +100,7 @@ public class Person {
 	 * @param otherPerceivesYou_2
 	 */
 	public Person(int iid, int wave, int age, Sex sex, Race race, Field field,
-			int mnSAT, byte imprace, byte imprelig, byte exphappy, Goal goal,
+			int mnSAT, int imprace, int imprelig, int exphappy, Goal goal,
 			Frequency date, Frequency goOut, InterestsBag interests,
 			AttrBag looksFor_1, AttrBag fellowLooksFor_1,
 			AttrBag oppSexLooksFor_1, AttrBag measureUp_1,
