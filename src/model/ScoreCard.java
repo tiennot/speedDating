@@ -6,14 +6,14 @@ public class ScoreCard {
 	private AttrBag attrBag;
 	private int like ;
 	private int prob; // Probability that the other one says yes
-	private boolean met ;  
+	private Boolean met ;  
 
 	//Constructors
 	public ScoreCard() {
 		super();
 	}
 	
-	public ScoreCard(boolean dec, AttrBag attrBag, int like, int prob, boolean met) {
+	public ScoreCard(boolean dec, AttrBag attrBag, int like, int prob, Boolean met) {
 		super();
 		this.dec = dec;
 		this.attrBag = attrBag;
@@ -21,7 +21,8 @@ public class ScoreCard {
 		this.prob = prob;
 		this.met = met;
 	}
-	
+
+
 	public static boolean intToBool(int truc){
 		if(truc==0){
 			return false ;

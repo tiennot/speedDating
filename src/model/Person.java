@@ -20,7 +20,7 @@ public class Person {
 	private Race race;
 	private Field field;
 	private int mnSAT;
-	private byte imprace, imprelig, exphappy;
+	private int imprace, imprelig, exphappy;
 	
 	private Goal goal;
 	private Frequency date, goOut;
