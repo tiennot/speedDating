@@ -9,6 +9,8 @@ import view.DetailWindow;
 public class VInterests extends Visualization {
 	//Colors for display
 	int[] colors = new int[6];
+	//Tells if focused on an interest
+	int focus = 5;
 	//Array with the names of the interests
 	String[] labels = new String[]{
 			"Sports",
@@ -421,6 +423,7 @@ public class VInterests extends Visualization {
 	
 	@Override
 	public void draw(){		
+		int newFocus = -1;
 		p.textSize(12);
 		int diamGlobal = p.min(w, h);
 		p.fill(200,200,200,30);
@@ -436,17 +439,22 @@ public class VInterests extends Visualization {
 		//For each couple (interest, 1-10 mark) we draw a circle which size is
 		//Proportional to the amount of people
 		for(int i=0; i<17; i++){
+			int diam = focus >=0 && i==focus ? diamGlobal : diamGlobal;
 			/*
 			 * Draw for men
 			 */
-			p.fill(colors[i%6]);
+			if(focus<0 || i==focus){
+				p.fill(colors[i%6]);
+			}else{
+				p.fill(p.color(150,150,150,150));
+			}
 			int[] O = new int[]{
 				w/2,
 				h/2
 			};
 			int[] M = new int[]{
-				w/2 + (int)((float)(diamGlobal/2) * p.cos((float) (p.HALF_PI-p.PI*((1+i))/18.))),
-				h/2 - (int)((float)(diamGlobal/2) * p.sin((float)(p.HALF_PI-p.PI*((1+i))/18.)))
+				w/2 + (int)((float)(diam/2) * p.cos((float) (p.HALF_PI-p.PI*((1+i))/18.))),
+				h/2 - (int)((float)(diam/2) * p.sin((float)(p.HALF_PI-p.PI*((1+i))/18.)))
 			};
 			//The label & line
 			p.stroke(200);
@@ -461,17 +469,30 @@ public class VInterests extends Visualization {
 				p.noStroke();
 				p.ellipse(x + xi, y + yi , radius, radius);
 			}
+			//If mouse in the sector
+			if((p.mouseX-x-w/2)*(p.mouseX-x-w/2)+(p.mouseY-y-h/2)*(p.mouseY-y-h/2)<=diamGlobal*diamGlobal/4){
+				float cos = p.abs((float)((p.mouseX-(x+w/2))));
+				float sin = (float)((-p.mouseY+(y+h/2)));
+				if(sin/cos <= p.tan((float) (p.HALF_PI-p.PI*((i+0.5))/18.))
+						&& sin/cos >= p.tan((float) (p.HALF_PI-p.PI*((i+1.5))/18.))){
+					newFocus = i;
+				}	
+			}
 			/*
 			 * Draws for women
 			 */
-			p.fill(colors[i%6]);
+			if(focus<0 || i==focus){
+				p.fill(colors[i%6]);
+			}else{
+				p.fill(p.color(150,150,150,150));
+			}
 			O = new int[]{
 				w/2,
 				h/2
 			};
 			M = new int[]{
-				w/2 - (int)((float)(diamGlobal/2) * p.cos((float) (p.HALF_PI-p.PI*((1+i))/18.))),
-				h/2 - (int)((float)(diamGlobal/2) * p.sin((float)(p.HALF_PI-p.PI*((1+i))/18.)))
+				w/2 - (int)((float)(diam/2) * p.cos((float) (p.HALF_PI-p.PI*((1+i))/18.))),
+				h/2 - (int)((float)(diam/2) * p.sin((float)(p.HALF_PI-p.PI*((1+i))/18.)))
 			};
 			//The label & line
 			p.stroke(200);
@@ -487,5 +508,6 @@ public class VInterests extends Visualization {
 				p.ellipse(x + xi, y + yi , radius, radius);
 			}
 		}
+		focus = newFocus;
 	}
 }

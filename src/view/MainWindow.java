@@ -175,7 +175,7 @@ public class MainWindow {
 	    
 	    //The interest detail window
 	    interestsWindow = new DetailWindow(p, this, width-100, height-100, "Interests by gender");
-	    interestsTrigger = new XywhObject(p, 140, 20, 220, 100);
+	    interestsTrigger = new XywhObject(p, 23, 29, 474, 128);
 	    interestsVisualization = new VInterests(p, interestsWindow);
 	}
 
