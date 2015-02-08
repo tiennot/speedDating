@@ -12,7 +12,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
+
 import model.AttrBag;
+import model.Couple;
 import model.Date;
 import model.InterestsBag;
 import model.Person;
@@ -44,11 +46,21 @@ public class Loader {
 	private final int nbColumns = 195 ;
 	// The HashMap for keeping track of the persons with their iid;
 	private HashMap<Integer, Person> iidPersons = new HashMap<Integer, Person>();
+	//Keeping all the dates, and mapping them to a couple (iid, pid)
+	private HashMap<Couple, Date> coupleDate = new HashMap<>();
 	
 	private Stat stat;
 
 	public Loader() {
 		super();
+	}
+	
+	/**
+	 * Updates the stat attribute
+	 * to be called after load()
+	 */
+	public void update(){
+		this.stat = new Stat(iidPersons, coupleDate);
 	}
 	
 	/**
@@ -132,12 +144,9 @@ public class Loader {
 		br.close();
 	}
 	
-	/*
-	 * TODO : Attention toutes les lignes ont pas la meme taille.
-	 * Il vaut 49 cellules... 
-	 */
 	
 	/**
+	 * Instantiate all Persons and Date of the dataset
 	 * Some lines do not have any values for the columns. Therefore I just put
 	 * -10 for number values (int double ...) And null for other (Boolean,
 	 * AttrBag ...)
@@ -293,9 +302,6 @@ public class Loader {
 			int youCall = Parser.parseInteg(values,SpeedDatingKey.you_call);
 			
 			int themCall = Parser.parseInteg(values,SpeedDatingKey.them_cal);
-			if(lineCount==22){
-				System.out.println();
-			}
 			
 			Boolean date_3 = Parser.parseBool(values,SpeedDatingKey.date_3);
 			
@@ -333,12 +339,34 @@ public class Loader {
 			 * Probleme : Quand j'instancie la personne 1, je ne connais pas encore son partenaire... 
 			 * Donc difficile d'instancier un date avec une seule personne. 
 			 */
+			if(lineCount==102){
+				System.out.println();
+			}
+			/*
+			 * To keep a logic with the name of the attributes, 
+			 * The first argument of the construstor is the man. 
+			 */
+			if(iidPersons.containsKey(iid)&&iidPersons.containsKey(pid)){
+				if(iidPersons.get(iid).getSex().equals(Sex.MALE)){
+					Date thisDate = new Date(iidPersons.get(iid),iidPersons.get(pid), position, order, int_corr, scoreCard, scoreCard_o);
+					iidPersons.get(iid).addDate(thisDate);
+					iidPersons.get(pid).addDate(thisDate);
+					coupleDate.put(new Couple(iid, pid), thisDate);
+				}
+				else{
+					Date thisDate = new Date(iidPersons.get(pid),iidPersons.get(iid), position, order, int_corr, scoreCard, scoreCard_o);
+					iidPersons.get(iid).addDate(thisDate);
+					iidPersons.get(pid).addDate(thisDate);
+					coupleDate.put(new Couple(pid, iid), thisDate);
+				}
+			}
 			
 			System.out.println("Fini la ligne : " + lineCount);
 			System.out.println("Erreur : " + Loader.erreurCount);
 			Loader.erreurCount =0;
 		}
 		br.close();
+		this.update();
 	}
 
 	
@@ -397,4 +425,19 @@ public class Loader {
 		return -1;
 	}
 
+	//Getters
+	public HashMap<Integer, Person> getIidPersons() {
+		return iidPersons;
+	}
+
+	public HashMap<Couple, Date> getCoupleDate() {
+		return coupleDate;
+	}
+
+	public Stat getStat() {
+		return stat;
+	}
+
+	
+	
 }
