@@ -2,7 +2,9 @@ package controller;
 
 import java.io.IOException;
 
+import model.InterestsBag;
 import model.ScoreCard;
+import model.constants.Sex;
 import model.constants.SpeedDatingKey;
 import processing.core.*;
 import view.MainWindow;

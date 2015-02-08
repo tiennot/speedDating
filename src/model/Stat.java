@@ -1,6 +1,9 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
 
 import model.constants.Interest;
 import model.constants.Interests;
@@ -16,6 +19,25 @@ public class Stat {
 
 	public Stat(ArrayList<Person> personList) {
 		this.personList = personList;
+	}
+	
+	public Stat(HashMap<Integer, Person> iidPersons){
+		Collection<Person> collec = iidPersons.values() ;
+		Iterator<Person> it = collec.iterator();
+		this.personList = new ArrayList<>();
+		while(it.hasNext()){
+			personList.add(it.next());
+		}	
+	}
+	
+	public Stat(HashMap<Integer, Person> iidPersons, HashMap<Couple, Date> coupleDate){
+		this(iidPersons);
+		Collection<Date> collec = coupleDate.values() ;
+		Iterator<Date> it = collec.iterator();
+		this.dateList = new ArrayList<>();
+		while(it.hasNext()){
+			dateList.add(it.next());
+		}
 	}
 	
 	/**

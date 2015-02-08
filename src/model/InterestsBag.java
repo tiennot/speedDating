@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import controller.Parser;
 
@@ -118,4 +119,16 @@ public class InterestsBag {
 		this.interestsDouble = interestsDouble;
 	}
 
+	
+	public String toStringDouble() {
+		return "InterestsBag [interestsDouble="
+				+ Arrays.toString(interestsDouble) + "]";
+	}
+	
+	public String toStringInt() {
+		return "InterestsBag [interests="
+				+ Arrays.toString(this.interestsInt) + "]";
+	}
+
+	
 }
