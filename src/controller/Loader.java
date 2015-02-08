@@ -47,7 +47,7 @@ public class Loader {
 	// The HashMap for keeping track of the persons with their iid;
 	private HashMap<Integer, Person> iidPersons = new HashMap<Integer, Person>();
 	//Keeping all the dates, and mapping them to a couple (iid, pid)
-	private HashMap<Couple, Date> coupleDate = new HashMap<>();
+	private HashMap<Couple, Date> coupleDate = new HashMap<Couple, Date>();
 	
 	private Stat stat;
 

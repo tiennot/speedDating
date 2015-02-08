@@ -67,7 +67,7 @@ public class Person {
 	public Person(int iid) {
 		super();
 		this.iid = iid;
-		this.dates = new ArrayList<>();
+		this.dates = new ArrayList<Date>();
 	}
 	
 
@@ -136,7 +136,7 @@ public class Person {
 		this.oppSexLooksFor_2 = oppSexLooksFor_2;
 		this.measureUp_2 = measureUp_2;
 		this.otherPerceivesYou_2 = otherPerceivesYou_2;
-		this.dates = new ArrayList<>();
+		this.dates = new ArrayList<Date>();
 	}
 
 	//Getters and setters

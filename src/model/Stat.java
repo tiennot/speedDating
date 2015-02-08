@@ -24,7 +24,7 @@ public class Stat {
 	public Stat(HashMap<Integer, Person> iidPersons){
 		Collection<Person> collec = iidPersons.values() ;
 		Iterator<Person> it = collec.iterator();
-		this.personList = new ArrayList<>();
+		this.personList = new ArrayList<Person>();
 		while(it.hasNext()){
 			personList.add(it.next());
 		}	
@@ -34,7 +34,7 @@ public class Stat {
 		this(iidPersons);
 		Collection<Date> collec = coupleDate.values() ;
 		Iterator<Date> it = collec.iterator();
-		this.dateList = new ArrayList<>();
+		this.dateList = new ArrayList<Date>();
 		while(it.hasNext()){
 			dateList.add(it.next());
 		}
