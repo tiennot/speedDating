@@ -203,5 +203,46 @@ public class Stat {
 		
 		return avg;
 	}
+	
+	public int[] avgSearchRate(Sex sex, controller.Step step) {
+		ArrayList<Person> list = this.getPersonSex(sex);
+		int[] avg = {0, 0, 0, 0, 0, 0};
+		Method m;
+		
+		if(step == controller.Step.Debut) {
+			for(int i = 0 ; i < list.size() ; i++) {
+				avg[0] += list.get(i).getLooksFor_1().getAttr();
+				avg[1] += list.get(i).getLooksFor_1().getSinc();
+				avg[2] += list.get(i).getLooksFor_1().getIntel();
+				avg[3] += list.get(i).getLooksFor_1().getFun();
+				avg[4] += list.get(i).getLooksFor_1().getAmb();
+				avg[5] += list.get(i).getLooksFor_1().getShar();
+			}
+		} else if(step == controller.Step.Milieu) {
+			for(int i = 0 ; i < list.size() ; i++) {
+				avg[0] += list.get(i).getLooksFor_s().getAttr();
+				avg[1] += list.get(i).getLooksFor_s().getSinc();
+				avg[2] += list.get(i).getLooksFor_s().getIntel();
+				avg[3] += list.get(i).getLooksFor_s().getFun();
+				avg[4] += list.get(i).getLooksFor_s().getAmb();
+				avg[5] += list.get(i).getLooksFor_s().getShar();
+			}
+		} else { // Fin
+			for(int i = 0 ; i < list.size() ; i++) {
+				avg[0] += list.get(i).getLooksFor_2().getAttr();
+				avg[1] += list.get(i).getLooksFor_2().getSinc();
+				avg[2] += list.get(i).getLooksFor_2().getIntel();
+				avg[3] += list.get(i).getLooksFor_2().getFun();
+				avg[4] += list.get(i).getLooksFor_2().getAmb();
+				avg[5] += list.get(i).getLooksFor_2().getShar();
+			}
+		}
+		
+		for(int i = 0 ; i < 6 ; i++) {
+			avg[i] /= list.size();
+		}
+		
+		return avg;
+	}
 
 }

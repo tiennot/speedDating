@@ -418,7 +418,7 @@ public class Loader {
 	}
 
 	int[] avgSearchRates(Sex sex) {
-		return new int[0];
+		return stat.avgSearchRate(sex, step);
 	}
 	
 	int avgSatisfactionRate(int age, Sex sex) {
