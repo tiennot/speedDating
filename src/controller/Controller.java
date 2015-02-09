@@ -10,7 +10,7 @@ import model.constants.Interest;
 import model.constants.Sex;
 
 public class Controller implements ControllerInterface {
-	
+
 	private Loader loader;
 	private int age;
 
@@ -39,7 +39,7 @@ public class Controller implements ControllerInterface {
 	//Renvoie le pourcentage de match à la fin de la nuit pour les hommes (ou les femmes) de cet âge
 	//how many yes halfway. Pour un homme mettre Male
 	public double getMatchPercentage(Sex sex) {
-		
+
 		int totalNumberOfPeople=loader.nbrPersons(age, sex);
 		int numberOfPeopleThatMatched=loader.personsThatMatched(age, sex);
 		return (double)totalNumberOfPeople/(double)numberOfPeopleThatMatched;
@@ -61,7 +61,7 @@ public class Controller implements ControllerInterface {
 	//renvoie un enum (ChangementDePerception) qui indique combien la perception a changé
 	public ChangementDePerception hasPerceptionOfOhtersChanged(Sex sex) {
 		// TODO Auto-generated method stub
-		
+
 		return null;
 	}
 
@@ -89,7 +89,7 @@ public class Controller implements ControllerInterface {
 		case 0: return Satisfaction.Tres_Peu_Satisfait;
 		default : return Satisfaction.Tres_Peu_Satisfait;
 		}
-		
+
 	}
 
 	//On règle l'âge sur lequel on filtre
@@ -100,7 +100,7 @@ public class Controller implements ControllerInterface {
 
 	//Ouvrir une fenêtre lorsqu'on clique sur les goûts d'un genre particulier
 	public void handleClickOnTaste(Sex sex) {
-	
+
 
 	}
 
@@ -120,7 +120,7 @@ public class Controller implements ControllerInterface {
 			}
 			map.put(interest, tab);
 		}
-		
+
 		return map;
 	}
 
@@ -128,22 +128,24 @@ public class Controller implements ControllerInterface {
 
 	public void handleClickOnPerception(Sex sex, TypeDePerception type,
 			Step step) {
-		
+
 
 	}
 
 	//renvoie les différentes notes aux questions de perception 
-	public HashMap<String, AttrBag> getPerception(Sex sex,
+	public AttrBag getPerception(Sex sex,
 			TypeDePerception type, Step step) {
-		// TODO Auto-generated method stub
-		//int[] avgSearchRates(Sex sex, Step step); 
-		HashMap<String,AttrBag> map = new HashMap<String,AttrBag>();
+		int[] rates = {5,5,5,5,5,5};
 		switch(type){
-		case Perception_de_soi_meme : ;break;
-		case Recherche_personnelle_dans_le_sexe_opposé : ; break;
-		
+		case Perception_de_soi_meme : 
+			rates = loader.avgSelfRate(sex, step);break;
+		case Recherche_personnelle_dans_le_sexe_opposé :
+			rates = loader.avgSearchRates(sex);break ;
+
 		}
-		return map;
+
+		return new AttrBag(rates[0],rates[1],rates[2],rates[3],rates[4],rates[5]);
+
 	}
 
 }

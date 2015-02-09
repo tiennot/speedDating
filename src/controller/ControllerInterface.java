@@ -19,6 +19,6 @@ public interface ControllerInterface {
 	void handleClickOnTaste(Sex sex);
 	HashMap<Interest,double[]> getTaste(Sex sex);
 	void handleClickOnPerception(Sex sex, TypeDePerception type, Step step);
-	HashMap<String,AttrBag> getPerception(Sex sex, TypeDePerception type, Step step);
+	AttrBag getPerception(Sex sex, TypeDePerception type, Step step);
 
 }
