@@ -103,7 +103,7 @@ public class Controller implements ControllerInterface {
 		//HashMap<Integer, Integer> peopleByRate(Sex sex, Interest interest);
 		HashMap<Interest, double[]> map = new HashMap<Interest, double[]>();
 		for (Interest interest : Interest.values()){
-			HashMap<Integer, Integer> rates = loader.peopleByRate(sex, interest);
+			HashMap<Integer, Integer> rates = loader.peopleByRate(0,sex, interest);
 		}
 		
 		return null;
