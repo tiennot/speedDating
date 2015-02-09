@@ -424,6 +424,10 @@ public class Loader {
 	int avgSatisfactionRate(int age, Sex sex) {
 		return -1;
 	}
+	
+	HashMap<Integer, Integer> peopleByRate(int age, Sex sex, Interest interest) {
+		return null;
+	}
 
 	//Getters
 	public HashMap<Integer, Person> getIidPersons() {
