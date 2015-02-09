@@ -6,6 +6,7 @@ import java.util.HashMap;
 import com.sun.xml.internal.ws.api.streaming.XMLStreamReaderFactory.Default;
 
 import model.AttrBag;
+import model.constants.Interest;
 import model.constants.Sex;
 
 public class Controller implements ControllerInterface {
@@ -92,13 +93,19 @@ public class Controller implements ControllerInterface {
 
 	//Ouvrir une fenêtre lorsqu'on clique sur les goûts d'un genre particulier
 	public void handleClickOnTaste(Sex sex) {
-		// TODO Auto-generated method stub
+	
 
 	}
 
 	//Renvoie les vecteurs correspondants aux informations pour la fenêtre detailedView
-	public HashMap<String, double[]> getTaste(Sex sex) {
+	public HashMap<Interest, double[]> getTaste(Sex sex) {
 		// TODO Auto-generated method stub
+		//HashMap<Integer, Integer> peopleByRate(Sex sex, Interest interest);
+		HashMap<Interest, double[]> map = new HashMap<Interest, double[]>();
+		for (Interest interest : Interest.values()){
+			HashMap<Integer, Integer> rates = loader.peopleByRate(sex, interest);
+		}
+		
 		return null;
 	}
 
@@ -106,7 +113,7 @@ public class Controller implements ControllerInterface {
 
 	public void handleClickOnPerception(Sex sex, TypeDePerception type,
 			Step step) {
-		// TODO Auto-generated method stub
+		
 
 	}
 
