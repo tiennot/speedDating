@@ -1,9 +1,12 @@
 package model;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+
+import com.sun.org.apache.xerces.internal.impl.xpath.XPath.Step;
 
 import model.constants.Interest;
 import model.constants.Interests;
@@ -65,6 +68,21 @@ public class Stat {
 		ArrayList<Person> list = new ArrayList<Person>();
 		for (int i = 0; i< personList.size(); i++){
 			if(personList.get(i).getAge()==age && personList.get(i).getSex().equals(sex)){
+				list.add(personList.get(i));
+			}
+		}
+		return list;
+	}
+	
+	/**
+	 * 
+	 * @parm sex
+	 * @return liste des personnes suivant leur sexe
+	 */
+	public ArrayList<Person> getPersonSex(Sex sex) {
+		ArrayList<Person> list = new ArrayList<Person>();
+		for (int i = 0; i< personList.size(); i++){
+			if(personList.get(i).getSex().equals(sex)){
 				list.add(personList.get(i));
 			}
 		}
@@ -143,6 +161,47 @@ public class Stat {
 		}
 		
 		return array;
+	}
+	
+	public int[] avgSelfRate(Sex sex, controller.Step step) {
+		ArrayList<Person> list = this.getPersonSex(sex);
+		int[] avg = {0, 0, 0, 0, 0, 0};
+		Method m;
+		
+		if(step == controller.Step.Debut) {
+			for(int i = 0 ; i < list.size() ; i++) {
+				avg[0] += list.get(i).getMeasureUp_1().getAttr();
+				avg[1] += list.get(i).getMeasureUp_1().getSinc();
+				avg[2] += list.get(i).getMeasureUp_1().getIntel();
+				avg[3] += list.get(i).getMeasureUp_1().getFun();
+				avg[4] += list.get(i).getMeasureUp_1().getAmb();
+				avg[5] += list.get(i).getMeasureUp_1().getShar();
+			}
+		} else if(step == controller.Step.Milieu) {
+			for(int i = 0 ; i < list.size() ; i++) {
+				avg[0] += list.get(i).getMeasureUp_s().getAttr();
+				avg[1] += list.get(i).getMeasureUp_s().getSinc();
+				avg[2] += list.get(i).getMeasureUp_s().getIntel();
+				avg[3] += list.get(i).getMeasureUp_s().getFun();
+				avg[4] += list.get(i).getMeasureUp_s().getAmb();
+				avg[5] += list.get(i).getMeasureUp_s().getShar();
+			}
+		} else { // Fin
+			for(int i = 0 ; i < list.size() ; i++) {
+				avg[0] += list.get(i).getMeasureUp_2().getAttr();
+				avg[1] += list.get(i).getMeasureUp_2().getSinc();
+				avg[2] += list.get(i).getMeasureUp_2().getIntel();
+				avg[3] += list.get(i).getMeasureUp_2().getFun();
+				avg[4] += list.get(i).getMeasureUp_2().getAmb();
+				avg[5] += list.get(i).getMeasureUp_2().getShar();
+			}
+		}
+		
+		for(int i = 0 ; i < 6 ; i++) {
+			avg[i] /= list.size();
+		}
+		
+		return avg;
 	}
 
 }

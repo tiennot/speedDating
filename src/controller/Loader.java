@@ -414,7 +414,7 @@ public class Loader {
 	}
 	
 	int[] avgSelfRate(Sex sex, Step step) {
-		return new int[0];
+		return stat.avgSelfRate(sex, step);
 	}
 
 	int[] avgSearchRates(Sex sex) {
