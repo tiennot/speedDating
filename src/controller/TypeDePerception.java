@@ -1,5 +1,9 @@
 package controller;
 
 public enum TypeDePerception {
-
+	Perception_de_soi_meme,
+	Perception_supposée_que_le_sexe_opposé_a_de_soi,
+	Recherche_personnelle_dans_le_sexe_opposé,
+	Recherche_générale_dans_le_sexe_opposé,
+	Recherche_supposée_du_sexe_opposé
 }
