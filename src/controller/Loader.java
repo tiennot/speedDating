@@ -413,11 +413,11 @@ public class Loader {
 		return stat.predictionRateYesAnswers(age,sex);
 	}
 	
-	int[] avgSelfRate(int age, Sex sex, Step step) {
+	int[] avgSelfRate(Sex sex, Step step) {
 		return new int[0];
 	}
 
-	int[] avgSearchRates(int age, Sex sex) {
+	int[] avgSearchRates(Sex sex) {
 		return new int[0];
 	}
 	
