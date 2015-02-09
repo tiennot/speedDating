@@ -97,7 +97,7 @@ public class Controller implements ControllerInterface {
 
 	}
 
-	//Renvoie les vecteurs correspondants aux informations pour la fenêtre detailedView
+	//Renvoie les vecteurs normalisés correspondants aux informations pour la fenêtre detailedView
 	public HashMap<Interest, double[]> getTaste(Sex sex) {
 		HashMap<Interest, double[]> map = new HashMap<Interest, double[]>();
 		for (Interest interest : Interest.values()){
@@ -129,7 +129,14 @@ public class Controller implements ControllerInterface {
 	public HashMap<String, AttrBag> getPerception(Sex sex,
 			TypeDePerception type, Step step) {
 		// TODO Auto-generated method stub
-		return null;
+		//int[] avgSearchRates(Sex sex, Step step); 
+		HashMap<String,AttrBag> map = new HashMap<String,AttrBag>();
+		switch(type){
+		case Perception_de_soi_meme : ;break;
+		case Recherche_personnelle_dans_le_sexe_opposé : ; break;
+		
+		}
+		return map;
 	}
 
 }
