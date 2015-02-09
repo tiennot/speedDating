@@ -44,6 +44,7 @@ public class Person {
 	private AttrBag oppSexLooksFor_2;
 	private AttrBag measureUp_2;
 	private AttrBag otherPerceivesYou_2;
+	private int		satis_2;
 	
 	//Adds a date to the ArrayList of dates
 	public void addDate(Date date){
@@ -108,7 +109,8 @@ public class Person {
 			AttrBag otherPerceivesYou_1, AttrBag looksFor_s,
 			AttrBag measureUp_s, AttrBag looksFor_2, AttrBag fellowLooksFor_2,
 			AttrBag oppSexLooksFor_2, AttrBag measureUp_2,
-			AttrBag otherPerceivesYou_2) {
+			AttrBag otherPerceivesYou_2,
+			int satis_2) {
 		super();
 		this.iid = iid;
 		this.wave = wave;
@@ -137,6 +139,7 @@ public class Person {
 		this.measureUp_2 = measureUp_2;
 		this.otherPerceivesYou_2 = otherPerceivesYou_2;
 		this.dates = new ArrayList<Date>();
+		this.satis_2 = satis_2;
 	}
 
 	//Getters and setters
@@ -261,4 +264,11 @@ public class Person {
 		this.interests = interests;
 	}
 	
+	public int getSatis_2() {
+		return satis_2;
+	}
+
+	public void setSatis_2(int satis_2) {
+		this.satis_2 = satis_2;
+	}
 }
