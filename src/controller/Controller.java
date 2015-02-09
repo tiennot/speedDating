@@ -23,9 +23,16 @@ public class Controller implements ControllerInterface {
 		this.loader = loader;
 	}
 
+
 	//Renvoie une liste des goûts préférés des hommes ou des femmes de cet âge.
 	public ArrayList<String> getPreferredTaste(Sex sex) {
-		// TODO Auto-generated method stub
+		HashMap<Interest, Integer> h = loader.avgInterestRateList(age, sex) ;
+		ArrayList<Interest> listeOfInterest = new ArrayList<Interest>() ;
+		for (Interest interest : Interest.values()) {
+			listeOfInterest.add(interest) ;
+		}
+		
+		
 		return null;
 	}
 
