@@ -253,10 +253,10 @@ public class Stat {
 		int sum = 0;
 		
 		for(int i = 0 ; i < list.size() ; i++) {
-			//sum += list.get(i).
+			sum += list.get(i).getSatis_2();
 		}
 		
-		return -1;
+		return sum / list.size();
 	}
 	
 	public HashMap<Integer, Integer> peopleByRate(Sex sex, Interest interest) {
