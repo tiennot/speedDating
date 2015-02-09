@@ -99,14 +99,22 @@ public class Controller implements ControllerInterface {
 
 	//Renvoie les vecteurs correspondants aux informations pour la fenêtre detailedView
 	public HashMap<Interest, double[]> getTaste(Sex sex) {
-		// TODO Auto-generated method stub
-		//HashMap<Integer, Integer> peopleByRate(Sex sex, Interest interest);
 		HashMap<Interest, double[]> map = new HashMap<Interest, double[]>();
 		for (Interest interest : Interest.values()){
 			HashMap<Integer, Integer> rates = loader.peopleByRate(sex, interest);
+			double[] tab = new double[11];
+			int numberOfPerson=0;
+			for (int i =0; i <11; i++){
+				tab[i]= rates.get(i);
+				numberOfPerson+= rates.get(i);
+			}
+			for(int i=0; i<11;i++){
+				tab[i]=(double)tab[i]/(double)numberOfPerson;
+			}
+			map.put(interest, tab);
 		}
 		
-		return null;
+		return map;
 	}
 
 	//ouvre la fenêtre correspondant l’évolution des différentes perceptions (de soi même, que les autres ont de soi même, de celle de son genre et de celle du genre opposé, recherche)
