@@ -101,7 +101,7 @@ public class Stat {
 		for (int i=0; i<list.size(); i++){
 			interests.addInterestsBag(list.get(i).getInterests()); //On ajoute les interets de tout le monde
 		}
-		interests.intToDouble(); // On passe en double pour avoir des valeurs exactes quand on divise.
+		interests.intToDouble(); // On passavgSatisfactionRatee en double pour avoir des valeurs exactes quand on divise.
 		interests.divise(list.size());
 		return interests;
 	}
@@ -243,6 +243,42 @@ public class Stat {
 		}
 		
 		return avg;
+	}
+	
+	/*
+	 * TODO : demander à Martin comment on trouve satis_2 (cf p.10 du pdf)
+	 */
+	public int avgSatisfactionRate(int age, Sex sex) {
+		ArrayList<Person> list = this.getPersonAgeSex(age, sex);
+		int sum = 0;
+		
+		for(int i = 0 ; i < list.size() ; i++) {
+			//sum += list.get(i).
+		}
+		
+		return -1;
+	}
+	
+	public HashMap<Integer, Integer> peopleByRate(Sex sex, Interest interest) {
+		ArrayList<Person> list = this.getPersonSex(sex);
+		HashMap<Integer, Integer> hm = new HashMap<Integer, Integer>();
+		
+		//Setting up hashmap with 0 person fo each rate
+		for(int i = 1 ; i <= 10 ; i++) {
+			hm.put(i, 0);
+		}
+		
+		for(int i = 0 ; i < list.size() ; i++) {
+			//interests = array of rates, interestInt = n° of the interest we are looking for
+			int[] interests = list.get(i).getInterests().getInterests();
+			int interestInt = interest.ordinal();
+			int rate = interests[interestInt];
+			
+			hm.put(rate, hm.get(rate) + 1);
+		}
+		
+		return hm;
+		
 	}
 
 }

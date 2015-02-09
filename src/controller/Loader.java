@@ -422,11 +422,11 @@ public class Loader {
 	}
 	
 	int avgSatisfactionRate(int age, Sex sex) {
-		return -1;
+		return stat.avgSatisfactionRate(age, sex);
 	}
 	
 	HashMap<Integer, Integer> peopleByRate(Sex sex, Interest interest) {
-		return null;
+		return stat.peopleByRate(sex, interest);
 	}
 
 	//Getters
