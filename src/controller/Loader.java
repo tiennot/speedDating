@@ -425,7 +425,7 @@ public class Loader {
 		return -1;
 	}
 	
-	HashMap<Integer, Integer> peopleByRate(int age, Sex sex, Interest interest) {
+	HashMap<Integer, Integer> peopleByRate(Sex sex, Interest interest) {
 		return null;
 	}
 
