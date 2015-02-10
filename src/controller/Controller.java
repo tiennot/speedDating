@@ -25,7 +25,7 @@ public class Controller implements ControllerInterface {
 	}
 
 
-	//Renvoie une liste des goûts préférés des hommes ou des femmes de cet âge.
+	//Renvoie une liste des goûts preferes des hommes ou des femmes de cet âge.
 	public ArrayList<String> getPreferredTaste(Sex sex) {
 		HashMap<Interest, Integer> h = loader.avgInterestRateList(age, sex) ;
 		ArrayList<Interest> listeOfInterest = new ArrayList<Interest>() ;
@@ -62,7 +62,7 @@ public class Controller implements ControllerInterface {
 		return (double)totalNumberOfPeople/(double)numberOfPeopleThatMatched;
 	}
 
-	//Renvoie le nombre de yes que la personne pense avoir obtenu (réponse supérieure à 5) dans la nuit (si on ne fait pas halfway).
+	//Renvoie le nombre de yes que la personne pense avoir obtenu (reponse superieure à 5) dans la nuit (si on ne fait pas halfway).
 	public int getAmountOfYess(Sex sex) {
 		ArrayList<Integer> array = loader.predictionRateYesAnswers(age, sex);
 		int totalNumberOfYes = 0;
@@ -75,8 +75,8 @@ public class Controller implements ControllerInterface {
 		return totalNumberOfYes/totalNumberOfPeople;
 	}
 
-	//renvoie un enum (ChangementDePerception) qui indique combien la perception a changé
-	//entre le début et la fin
+	//renvoie un enum (ChangementDePerception) qui indique combien la perception a change
+	//entre le debut et la fin
 	public ChangementDePerception hasPerceptionChanged(Sex sex, TypeDePerception type) {
 		switch (type) {
 		case Perception_de_soi_meme: 
@@ -92,22 +92,22 @@ public class Controller implements ControllerInterface {
 			double fun = (double)diff.getFun() ;
 			double intel = (double)diff.getIntel() ;
 			double shar = (double)diff.getShar();
-			// a1 correspond à la distance non normalisée entre les deux perceptions
+			// a1 correspond à la distance non normalisee entre les deux perceptions
 			double a = Math.sqrt(attr*attr + amb*amb + sinc*sinc + intel*intel + shar*shar + fun*fun ) ;
 		
 			if (a < 3.5) {
-				return ChangementDePerception.A_gardé_la_meme_perception ;
+				return ChangementDePerception.AGardeLaMemePerception ;
 			}
 			else {
 				if (a < 7) {
-					return ChangementDePerception.A_évolué_dans_sa_perception ;
+					return ChangementDePerception.AEvolueDansSaPerception ;
 				}
 				else {
-					return ChangementDePerception.A_radicalement_changé_de_perception ;
+					return ChangementDePerception.ARadicalementChangeDePerception ;
 				}
 			}
 			
-		case Recherche_personnelle_dans_le_sexe_opposé :
+		case Recherche_personnelle_dans_le_sexe_oppose :
 			int[] deb1 = loader.avgSearchRates(sex, Step.Debut) ;
 			int[] fin1 = loader.avgSearchRates(sex, Step.Fin) ;
 			AttrBag d1 = new AttrBag(deb1[0], deb1[1], deb1[2], deb1[3], deb1[4], deb1[5]);
@@ -120,24 +120,24 @@ public class Controller implements ControllerInterface {
 			double fun1 = (double)diff1.getFun() ;
 			double intel1 = (double)diff1.getIntel() ;
 			double shar1 = (double)diff1.getShar();
-			// a1 correspond à la distance non normalisée entre les deux perceptions
+			// a1 correspond à la distance non normalisee entre les deux perceptions
 			double a1 = Math.sqrt(attr1*attr1 + amb1*amb1 + sinc1*sinc1 + intel1*intel1 + shar1*shar1 + fun1*fun1 ) ;
 		
 			if (a1 < 3.5) {
-				return ChangementDePerception.A_gardé_la_meme_perception ;
+				return ChangementDePerception.AGardeLaMemePerception;
 			}
 			else {
 				if (a1 < 7) {
-					return ChangementDePerception.A_évolué_dans_sa_perception ;
+					return ChangementDePerception.AEvolueDansSaPerception ;
 				}
 				else {
-					return ChangementDePerception.A_radicalement_changé_de_perception ;
+					return ChangementDePerception.ARadicalementChangeDePerception ;
 				}
 			}
 			
 			
 			
-		default : return ChangementDePerception.A_gardé_la_meme_perception ;
+		default : return ChangementDePerception.AGardeLaMemePerception ;
 		}
 	}
 
@@ -175,7 +175,7 @@ public class Controller implements ControllerInterface {
 
 	}
 
-	//Renvoie les vecteurs normalisés correspondants aux informations pour la fenêtre detailedView
+	//Renvoie les vecteurs normalises correspondants aux informations pour la fenêtre detailedView
 	public HashMap<Interest, double[]> getTaste(Sex sex) {
 		HashMap<Interest, double[]> map = new HashMap<Interest, double[]>();
 		for (Interest interest : Interest.values()){
@@ -195,7 +195,7 @@ public class Controller implements ControllerInterface {
 		return map;
 	}
 
-	//ouvre la fenêtre correspondant l’évolution des différentes perceptions (de soi même, que les autres ont de soi même, de celle de son genre et de celle du genre opposé, recherche)
+	//ouvre la fenêtre correspondant l’evolution des differentes perceptions (de soi même, que les autres ont de soi même, de celle de son genre et de celle du genre oppose, recherche)
 
 	public void handleClickOnPerception(Sex sex, TypeDePerception type,
 			Step step) {
@@ -203,14 +203,14 @@ public class Controller implements ControllerInterface {
 
 	}
 
-	//renvoie les différentes notes aux questions de perception 
+	//renvoie les differentes notes aux questions de perception 
 	public AttrBag getPerception(Sex sex,
 			TypeDePerception type, Step step) {
 		int[] rates = {5,5,5,5,5,5};
 		switch(type){
 		case Perception_de_soi_meme : 
 			rates = loader.avgSelfRate(sex, step);break;
-		case Recherche_personnelle_dans_le_sexe_opposé :
+		case Recherche_personnelle_dans_le_sexe_oppose :
 			rates = loader.avgSearchRates(sex, step);break ;
 
 		}
