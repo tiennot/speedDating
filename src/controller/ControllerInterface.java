@@ -12,8 +12,7 @@ public interface ControllerInterface {
 	ArrayList<String> getPreferredTaste(Sex sex);
 	double getMatchPercentage (Sex sex);
 	int getAmountOfYess(Sex sex);
-	ChangementDePerception hasPerceptionOfOhtersChanged(Sex sex);
-	ChangementDePerception hasSelfPerceptionChanged(Sex sex);
+	ChangementDePerception hasPerceptionChanged(Sex sex, TypeDePerception type);
 	Satisfaction getSatisfactionOverall(Sex sex);
 	void setAge(int age);
 	void handleClickOnTaste(Sex sex);

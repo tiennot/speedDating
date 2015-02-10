@@ -78,7 +78,7 @@ public class AttrBag {
 				this.costFunction(this.getSinc(),anotherOne.getSinc()),
 				this.costFunction(this.getIntel(),anotherOne.getIntel()),
 				this.costFunction(this.getFun(),anotherOne.getFun()),
-				this.costFunction(this.getFun(),anotherOne.getFun()),
+				this.costFunction(this.getAmb(),anotherOne.getAmb()),
 				this.costFunction(this.getShar(),anotherOne.getShar())) ;
 	}
 	

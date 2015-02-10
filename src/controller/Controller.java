@@ -2,6 +2,7 @@ package controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 import com.sun.xml.internal.ws.api.streaming.XMLStreamReaderFactory.Default;
 
@@ -32,8 +33,24 @@ public class Controller implements ControllerInterface {
 			listeOfInterest.add(interest) ;
 		}
 		
+		for (int i = 1; i <listeOfInterest.size(); i++) {
+			Interest x = listeOfInterest.get(i) ;
+			for (int j = i-1 ; j>=0; j--) {
+				Interest y = listeOfInterest.get(j);
+				if (h.get(x)>h.get(y)) {
+					listeOfInterest.add(j, x);
+					listeOfInterest.remove(i+1);
+				}
+			}
+		}
 		
-		return null;
+		ArrayList<String> liste = new ArrayList<String>() ;
+		Iterator<Interest> it = listeOfInterest.iterator();
+		while (it.hasNext()) {
+			liste.add(it.next().toString()) ;
+		}
+			
+		return liste;
 	}
 
 	//Renvoie le pourcentage de match à la fin de la nuit pour les hommes (ou les femmes) de cet âge
@@ -59,17 +76,71 @@ public class Controller implements ControllerInterface {
 	}
 
 	//renvoie un enum (ChangementDePerception) qui indique combien la perception a changé
-	public ChangementDePerception hasPerceptionOfOhtersChanged(Sex sex) {
-		// TODO Auto-generated method stub
-
-		return null;
+	//entre le début et la fin
+	public ChangementDePerception hasPerceptionChanged(Sex sex, TypeDePerception type) {
+		switch (type) {
+		case Perception_de_soi_meme: 
+			int[] deb = loader.avgSelfRate(sex, Step.Debut) ;
+			int[] fin = loader.avgSelfRate(sex, Step.Fin) ;
+			AttrBag d = new AttrBag(deb[0], deb[1], deb[2], deb[3], deb[4], deb[5]);
+			AttrBag f = new AttrBag(fin[0], fin[1], fin[2], fin[3], fin[4], fin[5]);
+			AttrBag diff = d.AttrBagDifference(f) ;
+			
+			double attr = (double)diff.getAttr() ;
+			double amb = (double)diff.getAmb() ;
+			double sinc = (double)diff.getSinc() ;
+			double fun = (double)diff.getFun() ;
+			double intel = (double)diff.getIntel() ;
+			double shar = (double)diff.getShar();
+			// a1 correspond à la distance non normalisée entre les deux perceptions
+			double a = Math.sqrt(attr*attr + amb*amb + sinc*sinc + intel*intel + shar*shar + fun*fun ) ;
+		
+			if (a < 3.5) {
+				return ChangementDePerception.A_gardé_la_meme_perception ;
+			}
+			else {
+				if (a < 7) {
+					return ChangementDePerception.A_évolué_dans_sa_perception ;
+				}
+				else {
+					return ChangementDePerception.A_radicalement_changé_de_perception ;
+				}
+			}
+			
+		case Recherche_personnelle_dans_le_sexe_opposé :
+			int[] deb1 = loader.avgSearchRates(sex, Step.Debut) ;
+			int[] fin1 = loader.avgSearchRates(sex, Step.Fin) ;
+			AttrBag d1 = new AttrBag(deb1[0], deb1[1], deb1[2], deb1[3], deb1[4], deb1[5]);
+			AttrBag f1 = new AttrBag(fin1[0], fin1[1], fin1[2], fin1[3], fin1[4], fin1[5]);
+			AttrBag diff1 = d1.AttrBagDifference(f1) ;
+			
+			double attr1 = (double)diff1.getAttr() ;
+			double amb1 = (double)diff1.getAmb() ;
+			double sinc1 = (double)diff1.getSinc() ;
+			double fun1 = (double)diff1.getFun() ;
+			double intel1 = (double)diff1.getIntel() ;
+			double shar1 = (double)diff1.getShar();
+			// a1 correspond à la distance non normalisée entre les deux perceptions
+			double a1 = Math.sqrt(attr1*attr1 + amb1*amb1 + sinc1*sinc1 + intel1*intel1 + shar1*shar1 + fun1*fun1 ) ;
+		
+			if (a1 < 3.5) {
+				return ChangementDePerception.A_gardé_la_meme_perception ;
+			}
+			else {
+				if (a1 < 7) {
+					return ChangementDePerception.A_évolué_dans_sa_perception ;
+				}
+				else {
+					return ChangementDePerception.A_radicalement_changé_de_perception ;
+				}
+			}
+			
+			
+			
+		default : return ChangementDePerception.A_gardé_la_meme_perception ;
+		}
 	}
 
-	//idem
-	public ChangementDePerception hasSelfPerceptionChanged(Sex sex) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	//renvoie un enum(Satisfaction) qui donne la satisfaction sur toute la nuit.
 
@@ -140,7 +211,7 @@ public class Controller implements ControllerInterface {
 		case Perception_de_soi_meme : 
 			rates = loader.avgSelfRate(sex, step);break;
 		case Recherche_personnelle_dans_le_sexe_opposé :
-			rates = loader.avgSearchRates(sex);break ;
+			rates = loader.avgSearchRates(sex, step);break ;
 
 		}
 
