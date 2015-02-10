@@ -331,7 +331,7 @@ public class Loader {
 						goOut, interests, looksFor_1, fellowLooksFor_1,
 						oppSexlookFor_1, measureUp_1, otherPerceivesYou_1,
 						looksFor_s, measureUp_s, looksFor_2, fellowLooksFor_2,
-						oppSexLooksFor_2, measureUp_2, otherPerceivesYou_2));
+						oppSexLooksFor_2, measureUp_2, otherPerceivesYou_2, satis_2));
 			}
 			
 			/*
