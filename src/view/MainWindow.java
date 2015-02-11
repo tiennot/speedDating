@@ -113,7 +113,7 @@ public class MainWindow {
 			//Sets the age of Katy
 			this.ageKatyValue = ageKaty.getValueForMousePos();
 			ageKaty.setValue(this.ageKatyValue);
-			this.randomizedData();
+			//this.randomizedData();
 			//Calls for update
 			this.updateData();
 		}
@@ -186,8 +186,8 @@ public class MainWindow {
 	    labelTom = new TextLabel(p, 205, 60, 100, 30, 16, BLUE, p.LEFT, p.CENTER);
 	    
 	    //Initializes interests icons
-	    interestTom = new InterestIcon(p, 55, 96, Interest.TVSPORTS, Sex.MALE);
-	    interestKaty = new InterestIcon(p, 417, 42, Interest.MOVIES, Sex.FEMALE);
+	    interestTom = new InterestIcon(p, 0, 60, Interest.TVSPORTS, Sex.MALE);
+	    interestKaty = new InterestIcon(p, 359, 24, Interest.MOVIES, Sex.FEMALE);
 	    
 	    //Smileys
 	    halfwayKatySmiley = new Smiley(p, 352, 436, PINK, Smiley.HAPPY);
@@ -257,8 +257,8 @@ public class MainWindow {
 	//For debug purposes only
 	public void randomizedData(){
 		Random rand = new Random();
-		this.interestKaty.setInterest(new Interest(rand.nextInt(16)));
-		this.interestTom.setInterest(new Interest(rand.nextInt(16)));
+		//this.interestKaty.setInterest(new Interest(rand.nextInt(16)));
+		//this.interestTom.setInterest(new Interest(rand.nextInt(16)));
 		this.halfwayKatySmiley.setHumor((byte) (rand.nextInt((3 - 0) + 1)+1));
 		this.halfwayTomSmiley.setHumor((byte) (rand.nextInt((3 - 0) + 1)+1));
 		this.endPieChartKaty.setValue(rand.nextFloat());
