@@ -25,13 +25,15 @@ public class Controller implements ControllerInterface {
 	}
 
 
-	//Renvoie une liste des goûts preferes des hommes ou des femmes de cet âge.
-	public ArrayList<String> getPreferredTaste(Sex sex) {
-		HashMap<Interest, Integer> h = loader.avgInterestRateList(age, sex) ;
-		ArrayList<Interest> listeOfInterest = new ArrayList<Interest>() ;
-		for (Interest interest : Interest.values()) {
-			listeOfInterest.add(interest) ;
+	//Returns a list with favorite tasted of men or women this age.
+	public ArrayList<Interest> getPreferredTaste(Sex sex) {
+		HashMap<Interest, Double> h = loader.avgInterestRateList(age, sex) ;
+		
+		for(Interest i: Interest.getInterestsList()){
+			//System.out.println("Avg for "+i.toString()+":"+h.get(i));
 		}
+		
+		ArrayList<Interest> listeOfInterest = Interest.getInterestsList();
 		
 		for (int i = 1; i <listeOfInterest.size(); i++) {
 			Interest x = listeOfInterest.get(i) ;
@@ -44,13 +46,13 @@ public class Controller implements ControllerInterface {
 			}
 		}
 		
-		ArrayList<String> liste = new ArrayList<String>() ;
+		/*ArrayList<String> liste = new ArrayList<String>() ;
 		Iterator<Interest> it = listeOfInterest.iterator();
 		while (it.hasNext()) {
 			liste.add(it.next().toString()) ;
-		}
+		}*/
 			
-		return liste;
+		return listeOfInterest;
 	}
 
 	//Renvoie le pourcentage de match à la fin de la nuit pour les hommes (ou les femmes) de cet âge
@@ -178,7 +180,8 @@ public class Controller implements ControllerInterface {
 	//Renvoie les vecteurs normalises correspondants aux informations pour la fenêtre detailedView
 	public HashMap<Interest, double[]> getTaste(Sex sex) {
 		HashMap<Interest, double[]> map = new HashMap<Interest, double[]>();
-		for (Interest interest : Interest.values()){
+		
+		for (Interest interest : Interest.getInterestsList()){
 			HashMap<Integer, Integer> rates = loader.peopleByRate(sex, interest);
 			double[] tab = new double[11];
 			int numberOfPerson=0;

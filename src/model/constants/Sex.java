@@ -15,6 +15,13 @@ public class Sex {
 		return "Sex [sex=" + sex + "]";
 	}
 	
+	public boolean isEqualTo(Sex sex){
+		return this.sex.equals(sex.getSexBol());
+	}
+	
+	public boolean getSexBol(){
+		return this.sex;
+	}
 	
 	
 }

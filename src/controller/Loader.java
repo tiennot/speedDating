@@ -25,7 +25,7 @@ import model.constants.Field;
 import model.constants.Frequency;
 import model.constants.Goal;
 import model.constants.Interest;
-import model.constants.Interests;
+import model.constants.Interest;
 import model.constants.Race;
 import model.constants.Sex;
 import model.constants.SpeedDatingKey;
@@ -75,7 +75,7 @@ public class Loader {
 		// the first time, it's only the names of the columns
 		String nameString = br.readLine();
 		String[] names = nameString.split(this.Delimitter);
-		System.out.println("Longeur: "+ names.length);
+		//System.out.println("Longeur: "+ names.length);
 		String pathname = "data/SpeedDating"+ id+".txt" ;
 		File file = new File(pathname);
 		if(!file.exists()){
@@ -127,7 +127,7 @@ public class Loader {
 		BufferedReader br = new BufferedReader(new FileReader(this.FilePath));
 		String line = "";
 		int lineCount = 1;  
-		System.out.println("Nombre de colonnes en temps normal :" + br.readLine().split(this.Delimitter).length);
+		//System.out.println("Nombre de colonnes en temps normal :" + br.readLine().split(this.Delimitter).length);
 		long taillemoy = 0;
 		while ((line = br.readLine()) != null){
 			String[] values = line.split(this.Delimitter);
@@ -140,7 +140,7 @@ public class Loader {
 			 * Stop here
 			 */
 		}
-		System.out.println(((double)taillemoy)/(lineCount-1));
+		//System.out.println(((double)taillemoy)/(lineCount-1));
 		br.close();
 	}
 	
@@ -169,7 +169,7 @@ public class Loader {
 			 * Significant amount of work to be done right here
 			 */
 			
-			int iid = Parser.parseInteg(values,SpeedDatingKey.iid); 
+			int iid = Parser.parseInteg(values,SpeedDatingKey.iid);
 			Sex sex = new Sex(Parser.parseBool(values[SpeedDatingKey.gender]));
 			int wave = Parser.parseInteg(values,SpeedDatingKey.wave);
 			
@@ -340,7 +340,7 @@ public class Loader {
 			 * Donc difficile d'instancier un date avec une seule personne. 
 			 */
 			if(lineCount==102){
-				System.out.println();
+				//System.out.println();
 			}
 			/*
 			 * To keep a logic with the name of the attributes, 
@@ -361,8 +361,8 @@ public class Loader {
 				}
 			}
 			
-			System.out.println("Fini la ligne : " + lineCount);
-			System.out.println("Erreur : " + Loader.erreurCount);
+			//System.out.println("Fini la ligne : " + lineCount);
+			//System.out.println("Erreur : " + Loader.erreurCount);
 			Loader.erreurCount =0;
 		}
 		br.close();
@@ -388,12 +388,12 @@ public class Loader {
 		return ans;
 	}
 	
-	HashMap<Interest, Integer> avgInterestRateList(int age, Sex sex) {
-		HashMap<Interest, Integer> hash = new HashMap<Interest, Integer>(); 
+	HashMap<Interest, Double> avgInterestRateList(int age, Sex sex) {
+		HashMap<Interest, Double> hash = new HashMap<Interest, Double>(); 
 		int count = 0;
 		
-		for(Interest i : Interest.values()) {
-			hash.put(i, stat.avgInterestRate(age, sex, count));
+		for(Interest i : Interest.getInterestsList()) {
+			hash.put(i, stat.avgInterestRate(age, sex, i));
 			count++;
 		}
 		

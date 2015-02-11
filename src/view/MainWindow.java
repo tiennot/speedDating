@@ -3,7 +3,8 @@ package view;
 import java.util.Random;
 
 import controller.Controller;
-import model.constants.Interests;
+import model.constants.Interest;
+import model.constants.Interest;
 import model.constants.Sex;
 import processing.core.PApplet;
 import processing.core.PImage;
@@ -25,6 +26,10 @@ public class MainWindow {
 	PImage background, blurBackground;
 	DetailWindow activeDetailWindow = null;
 	boolean mousePressedHandled = false;
+	boolean updatingData = false;
+	
+	//The ages for Tom and Katy
+	int ageTomValue, ageKatyValue;
 	
 	//The two cursors for ages
 	private Cursor ageKaty;
@@ -105,12 +110,20 @@ public class MainWindow {
 		
 		//Interaction with the age cursors
 		if(p.mousePressed && ageKaty.over()){
-			ageKaty.setValue(ageKaty.getValueForMousePos());
+			//Sets the age of Katy
+			this.ageKatyValue = ageKaty.getValueForMousePos();
+			ageKaty.setValue(this.ageKatyValue);
 			this.randomizedData();
+			//Calls for update
+			this.updateData();
 		}
 		else if(p.mousePressed && ageTom.over()){
-			ageTom.setValue(ageTom.getValueForMousePos());
+			//Sets the age of Tom
+			this.ageTomValue = ageTom.getValueForMousePos();
+			ageTom.setValue(this.ageTomValue);
 			this.randomizedData();
+			//Calls for update
+			this.updateData();
 		}
 		
 		//Draws Tom & Katy's labels
@@ -173,8 +186,8 @@ public class MainWindow {
 	    labelTom = new TextLabel(p, 205, 60, 100, 30, 16, BLUE, p.LEFT, p.CENTER);
 	    
 	    //Initializes interests icons
-	    interestTom = new InterestIcon(p, 55, 96, Interests.TVSPORTS, Sex.MALE);
-	    interestKaty = new InterestIcon(p, 417, 42, Interests.MOVIES, Sex.FEMALE);
+	    interestTom = new InterestIcon(p, 55, 96, Interest.TVSPORTS, Sex.MALE);
+	    interestKaty = new InterestIcon(p, 417, 42, Interest.MOVIES, Sex.FEMALE);
 	    
 	    //Smileys
 	    halfwayKatySmiley = new Smiley(p, 352, 436, PINK, Smiley.HAPPY);
@@ -216,11 +229,36 @@ public class MainWindow {
 		this.mousePressedHandled = mousePressedHandled;
 	}
 	
+	
+	/*
+	 * This methods updates the data when age is changed by calling the controller, etc.
+	 */
+	public void updateData(){
+		if(updatingData) return;
+		updatingData = true;
+		//Set the age for Tom in the controller
+		this.controller.setAge(this.ageTomValue);	
+		this.interestTom.setInterest(this.controller.getPreferredTaste(Sex.MALE).get(0));
+		/*System.out.println(
+				this.controller.getPreferredTaste(Sex.MALE).get(0).toString()+" "+
+				this.controller.getPreferredTaste(Sex.MALE).get(1).toString()+" "+
+				this.controller.getPreferredTaste(Sex.MALE).get(2).toString()+" "+
+				this.controller.getPreferredTaste(Sex.MALE).get(3).toString()+" "
+				);*/
+		
+		//Set the age for Katy in the controller
+		this.controller.setAge(this.ageKatyValue);
+		this.interestKaty.setInterest(this.controller.getPreferredTaste(Sex.FEMALE).get(0));
+		
+		//We are done
+		updatingData = false;
+	}
+	
 	//For debug purposes only
 	public void randomizedData(){
 		Random rand = new Random();
-		this.interestKaty.setInterest((byte) (rand.nextInt((16 - 0) + 1)));
-		this.interestTom.setInterest((byte) (rand.nextInt((16 - 0) + 1)));
+		this.interestKaty.setInterest(new Interest(rand.nextInt(16)));
+		this.interestTom.setInterest(new Interest(rand.nextInt(16)));
 		this.halfwayKatySmiley.setHumor((byte) (rand.nextInt((3 - 0) + 1)+1));
 		this.halfwayTomSmiley.setHumor((byte) (rand.nextInt((3 - 0) + 1)+1));
 		this.endPieChartKaty.setValue(rand.nextFloat());

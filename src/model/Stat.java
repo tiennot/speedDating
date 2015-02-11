@@ -9,7 +9,7 @@ import java.util.Iterator;
 import com.sun.org.apache.xerces.internal.impl.xpath.XPath.Step;
 
 import model.constants.Interest;
-import model.constants.Interests;
+import model.constants.Interest;
 import model.constants.Sex;
 
 public class Stat {
@@ -46,7 +46,7 @@ public class Stat {
 	/**
 	 * 
 	 * @param age
-	 * @return liste des personnes qui ont l'age donn� en param�tre
+	 * @return List of people with the given age
 	 */
 	public ArrayList<Person> getPersonAge(int age){
 		ArrayList<Person> list = new ArrayList<Person>();
@@ -62,12 +62,14 @@ public class Stat {
 	 * 
 	 * @param age
 	 * @param sex
-	 * @return liste des personnes qui ont l'age et le sex demand�
+	 * @return list of people who are the given age and the given sex
 	 */
 	public ArrayList<Person> getPersonAgeSex(int age, Sex sex){
 		ArrayList<Person> list = new ArrayList<Person>();
+
 		for (int i = 0; i< personList.size(); i++){
-			if(personList.get(i).getAge()==age && personList.get(i).getSex().equals(sex)){
+			System.out.println(i+" "+personList.get(i).getAge()+" "+personList.get(i).getSex());
+			if(personList.get(i).getAge()==age && personList.get(i).getSex().isEqualTo(sex)){
 				list.add(personList.get(i));
 			}
 		}
@@ -77,7 +79,7 @@ public class Stat {
 	/**
 	 * 
 	 * @parm sex
-	 * @return liste des personnes suivant leur sexe
+	 * @return List of person with the given sex
 	 */
 	public ArrayList<Person> getPersonSex(Sex sex) {
 		ArrayList<Person> list = new ArrayList<Person>();
@@ -93,7 +95,7 @@ public class Stat {
 	 * 
 	 * @param age
 	 * @param sex
-	 * @return les interets moyens des personnes de l'age et du sex choisi
+	 * @return Interests of person from given age and sex
 	 */
 	public InterestsBag getPreferences(int age, Sex sex){
 		ArrayList<Person> list = this.getPersonAgeSex(age, sex);
@@ -106,21 +108,20 @@ public class Stat {
 		return interests;
 	}
 	
-	public int avgInterestRate(int age, Sex sex, int interest) {
+	public double avgInterestRate(int age, Sex sex, Interest interest) {
 		int sum = 0;
 		int ansNbr = 0;
 		int rate;
 		ArrayList<Person> list = this.getPersonAgeSex(age, sex);
-		
 		for (int i = 0 ; i < list.size() ; i++) {
-			rate = (int)(list.get(i).getInterests().getInterests())[interest];
+			rate = (int)(list.get(i).getInterests().getInterests())[interest.getInterestNb()];
 			if(rate >= 0) {
 				sum += rate;
 				ansNbr++;
 			}
 		}
 		
-		return sum / ansNbr;
+		return (double)(sum) / Math.max((double) ansNbr, 1);
 	}
 	
 	public int numberPerson(int age, Sex sex) {
@@ -271,7 +272,7 @@ public class Stat {
 		for(int i = 0 ; i < list.size() ; i++) {
 			//interests = array of rates, interestInt = n° of the interest we are looking for
 			int[] interests = list.get(i).getInterests().getInterests();
-			int interestInt = interest.ordinal();
+			int interestInt = interest.getInterestNb();
 			int rate = interests[interestInt];
 			
 			hm.put(rate, hm.get(rate) + 1);

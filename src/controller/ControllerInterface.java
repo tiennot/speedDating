@@ -9,7 +9,7 @@ import model.constants.Sex;
 
 public interface ControllerInterface {
 	
-	ArrayList<String> getPreferredTaste(Sex sex);
+	ArrayList<Interest> getPreferredTaste(Sex sex);
 	double getMatchPercentage (Sex sex);
 	int getAmountOfYess(Sex sex);
 	ChangementDePerception hasPerceptionChanged(Sex sex, TypeDePerception type);

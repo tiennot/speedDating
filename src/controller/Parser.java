@@ -21,7 +21,7 @@ public class Parser {
 			int result = (int) Double.parseDouble(s);
 			if (Double.parseDouble(s) != result) {
 				Loader.erreurCount++;
-				System.out.println("Attention dans parseInteg");
+				//System.out.println("Attention dans parseInteg");
 			}
 			return result;
 		}
@@ -66,6 +66,8 @@ public class Parser {
 		if (s.equals("")) {
 			return null;
 		} else {
+			if(s.equals("1")) return true;
+			if(s.equals("0")) return false;
 			return Boolean.parseBoolean(s);
 		}
 	}

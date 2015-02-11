@@ -1,6 +1,7 @@
 package view;
 
-import model.constants.Interests;
+import model.constants.Interest;
+import model.constants.Interest;
 import model.constants.Sex;
 import processing.core.PApplet;
 import processing.core.PImage;
@@ -13,7 +14,7 @@ import processing.core.PImage;
 public class InterestIcon extends XywhObject{
 
 	//See models.constants.Interests
-	int interest = Interests.CONCERTS;
+	int interest = 1;
 	//See models.constants.Sex
 	Sex sex = Sex.FEMALE;
 	PImage icon;
@@ -24,7 +25,7 @@ public class InterestIcon extends XywhObject{
 	} 
 	
 	//Overloaded constructor
-	public InterestIcon(PApplet p, int x, int y, int interest, Sex sex) {
+	public InterestIcon(PApplet p, int x, int y, Interest interest, Sex sex) {
 		super(p, x, y, 50, 50);
 		this.setInterest(interest);
 		this.setSex(sex);
@@ -44,8 +45,8 @@ public class InterestIcon extends XywhObject{
 		return interest;
 	}
 
-	public void setInterest(int interest) {
-		this.interest = interest;
+	public void setInterest(Interest interest) {
+		this.interest = interest.getInterestNb()+1;
 		loadIcon();
 	}
 
