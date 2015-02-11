@@ -68,7 +68,6 @@ public class Stat {
 		ArrayList<Person> list = new ArrayList<Person>();
 
 		for (int i = 0; i< personList.size(); i++){
-			System.out.println(i+" "+personList.get(i).getAge()+" "+personList.get(i).getSex());
 			if(personList.get(i).getAge()==age && personList.get(i).getSex().isEqualTo(sex)){
 				list.add(personList.get(i));
 			}

@@ -30,7 +30,6 @@ public class Controller implements ControllerInterface {
 		HashMap<Interest, Double> h = loader.avgInterestRateList(age, sex) ;
 		
 		for(Interest i: Interest.getInterestsList()){
-			//System.out.println("Avg for "+i.toString()+":"+h.get(i));
 		}
 		
 		ArrayList<Interest> listeOfInterest = Interest.getInterestsList();

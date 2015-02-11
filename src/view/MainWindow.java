@@ -238,17 +238,17 @@ public class MainWindow {
 		updatingData = true;
 		//Set the age for Tom in the controller
 		this.controller.setAge(this.ageTomValue);	
-		this.interestTom.setInterest(this.controller.getPreferredTaste(Sex.MALE).get(0));
-		/*System.out.println(
-				this.controller.getPreferredTaste(Sex.MALE).get(0).toString()+" "+
-				this.controller.getPreferredTaste(Sex.MALE).get(1).toString()+" "+
-				this.controller.getPreferredTaste(Sex.MALE).get(2).toString()+" "+
-				this.controller.getPreferredTaste(Sex.MALE).get(3).toString()+" "
-				);*/
+		this.interestTom.setInterest(
+				DataBuffer.isInterestBufferized(this.ageTomValue, Sex.MALE) ?
+						DataBuffer.Interest(ageTomValue,  Sex.MALE)
+						: this.controller.getPreferredTaste(Sex.MALE).get(0));
 		
 		//Set the age for Katy in the controller
 		this.controller.setAge(this.ageKatyValue);
-		this.interestKaty.setInterest(this.controller.getPreferredTaste(Sex.FEMALE).get(0));
+		this.interestKaty.setInterest(
+				DataBuffer.isInterestBufferized(this.ageKatyValue, Sex.FEMALE) ?
+						DataBuffer.Interest(ageKatyValue,  Sex.FEMALE)
+						: this.controller.getPreferredTaste(Sex.FEMALE).get(0));
 		
 		//We are done
 		updatingData = false;
