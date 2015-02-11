@@ -2,6 +2,7 @@ package view;
 
 import java.util.Random;
 
+import controller.Controller;
 import model.constants.Interests;
 import model.constants.Sex;
 import processing.core.PApplet;
@@ -19,6 +20,7 @@ import view.visualizations.VInterests;
  */
 public class MainWindow {
 	private PApplet p;
+	private Controller controller;
 	private int width, height;
 	PImage background, blurBackground;
 	DetailWindow activeDetailWindow = null;
@@ -223,5 +225,9 @@ public class MainWindow {
 		this.halfwayTomSmiley.setHumor((byte) (rand.nextInt((3 - 0) + 1)+1));
 		this.endPieChartKaty.setValue(rand.nextFloat());
 		this.endPieChartTom.setValue(rand.nextFloat());
+	}
+
+	public void setController(Controller controller) {
+		this.controller = controller;
 	}
 }
