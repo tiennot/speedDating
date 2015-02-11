@@ -19,6 +19,7 @@ public class DetailWindow extends XywhObject{
 	TextLabel leftTitle;
 	//Description
 	TextLabel description;
+	String descriptionText;
 	
 	//Object for the visualization itself
 	Visualization visualization = null;
@@ -53,7 +54,7 @@ public class DetailWindow extends XywhObject{
 		leftTitle.draw();
 		
 		//Draw description
-		description.draw("A dot represents the number of people who rated one of the 17 interest with a given mark (from 1 to 10 from center to edges on a scale of 10). We can see that men are more likely to express interest in things such as sport, TV and concert while women are strongly attracted by diner and art. It’s interesting to see not only the differences between the two opposite sexes but also the repartition of interests among people generally speaking. Also keep in mind that people don’t necessarily tell the truth.");
+		description.draw(descriptionText);
 		
 		//Draws separator line
 		p.stroke(p.color(150,150,150));
@@ -68,6 +69,10 @@ public class DetailWindow extends XywhObject{
 			parent.setActiveDetailWindow(null);
 			parent.setMousePressedHandled(true);
 		}
+	}
+
+	public void setDescriptionText(String descriptionText) {
+		this.descriptionText = descriptionText;
 	}
 
 	public XywhObject getVisualization() {
