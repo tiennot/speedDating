@@ -60,7 +60,11 @@ public class VGraph extends Visualization {
 			//Checks if circle under mouse
 			if(MainWindow.overCircle(p, x, y+liney(age), 10)){
 				if(p.mousePressed && !this.mousePressed){
-					setSelected(age, !isSelected(age));
+					if(p.keyPressed && p.keyCode==17){
+						setSelected(age, !isSelected(age));
+					}else{
+						setOnlySelected(age, !isSelected(age));
+					}
 				}
 			}
 		}
@@ -142,5 +146,12 @@ public class VGraph extends Visualization {
 	private boolean ageFiltering(){
 		//Reminder: The last boolean tells if at least one age is true
 		return this.selectedAges[ageMax-ageMin+1];
+	}
+	
+	private void setOnlySelected(int age, boolean b){
+		for(int a=ageMin; a<=ageMax; a++){
+			if(a!=age) setSelected(a, false);
+		}
+		setSelected(age, b);
 	}
 }
