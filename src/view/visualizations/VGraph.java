@@ -12,8 +12,8 @@ import view.DetailWindow;
 import view.MainWindow;
 
 public class VGraph extends Visualization {
-	private final int ageMin = 25; 
-	private final int ageMax = 35;
+	private final int ageMin = 22; 
+	private final int ageMax = 33;
 	//Person, int{perX, perY}
 	private ArrayList<Person> people;
 	private HashMap<Person, int[]> coords =  new HashMap<Person, int[]>();
@@ -22,6 +22,11 @@ public class VGraph extends Visualization {
 	private boolean mousePressed = false;
 	 //+2 for last boolean that tells if at least one age is true
 	private boolean[] selectedAges = new boolean[ageMax-ageMin+2];
+	private boolean displayGirls = true;
+	private boolean displayBoys = true;
+	private boolean displayMatches = true;
+	private boolean displayHMGirls = true;
+	private boolean displayHMBoys = true;
 	
 	public VGraph(PApplet p, DetailWindow parent, Controller controller) {
 		super(p, parent, controller);
@@ -78,23 +83,29 @@ public class VGraph extends Visualization {
 			for(Date d: pers.getDates()){
 				//Sanity check
 				if(!coords.containsKey(d.getMan()) || !coords.containsKey(d.getWoman())) continue;
-				//If someone is hovered we don't display connections for other than him/her
+				//We display someone's connection only if hovered or belongs to 
+				//currently selected age
 				if(d.getMan()!=hovered
 						&& d.getWoman()!=hovered
-						&& !this.isSelected(d.getMan().getAge())
-						&& !this.isSelected(d.getWoman().getAge())) continue;
+						&& !(this.isSelected(d.getMan().getAge()) && this.displayBoys)
+						&& !(this.isSelected(d.getWoman().getAge()) && this.displayGirls))
+				continue;
 				
 				int xy1[] = coords.get(d.getMan());
 				int xy2[] = coords.get(d.getWoman());
 				//Draws line for a match
-				if(d.match()){
+				if(this.displayMatches && d.match()){
 					p.strokeWeight(1);
 					p.stroke(p.color(0,0,0));
 					p.line(x+xy1[0], y+xy1[1], x+xy2[0], y+xy2[1]);
 				//Or a "half match"
-				}else if(d.hisDec() || d.herDec()){
+				}else if(this.displayHMBoys && !d.match() && d.hisDec()){
 					p.strokeWeight(1/2);
-					p.stroke(d.hisDec() ? MainWindow.BLUE : MainWindow.PINK);
+					p.stroke(MainWindow.BLUE);
+					p.line(x+xy1[0], y+xy1[1], x+xy2[0], y+xy2[1]);
+				}else if(this.displayHMGirls && !d.match() && d.herDec()){
+					p.strokeWeight(1/2);
+					p.stroke(MainWindow.PINK);
 					p.line(x+xy1[0], y+xy1[1], x+xy2[0], y+xy2[1]);
 				}
 			}
@@ -110,6 +121,52 @@ public class VGraph extends Visualization {
 				newHovered = pers;
 			}
 		}
+		
+		/*
+		 * Now we draw the 5 little tiny buttons at the bottom of the screen
+		 */
+		//The display boys button
+		p.strokeWeight(1);
+		if(this.displayBoys) p.fill(MainWindow.BLUE);
+		else p.noFill();
+		p.stroke(MainWindow.BLUE);
+		p.ellipse(x+w/2-60,  y+h, 10, 10);
+		if(MainWindow.overCircle(p, x+w/2-60,  y+h, 7) && !mousePressed && p.mousePressed){
+			this.displayBoys = !this.displayBoys;
+		}
+		//The display half matches girls line
+		if(this.displayHMGirls) p.fill(MainWindow.PINK);
+		else p.noFill();
+		p.stroke(MainWindow.PINK);
+		p.rect(x+w/2-35-10, y+h-2, 20, 4);	
+		if(MainWindow.overRect(p, x+w/2-35-10, y+h-4, 20, 8) && !mousePressed && p.mousePressed){
+			this.displayHMGirls = !this.displayHMGirls;
+		}
+		//The display matches line
+		if(this.displayMatches) p.fill(p.color(0,0,0));
+		else p.noFill();
+		p.stroke(p.color(0,0,0));
+		p.rect(x+w/2-10, y+h-2, 20, 4);
+		if(MainWindow.overRect(p, x+w/2-10, y+h-4, 20, 8) && !mousePressed && p.mousePressed){
+			this.displayMatches = !this.displayMatches;
+		}
+		//The display half matches boys line
+		if(this.displayHMBoys) p.fill(MainWindow.BLUE);
+		else p.noFill();
+		p.stroke(MainWindow.BLUE);
+		p.rect(x+w/2+35-10, y+h-2, 20, 4);
+		if(MainWindow.overRect(p, x+w/2+35-10, y+h-4, 20, 8) && !mousePressed && p.mousePressed){
+			this.displayHMBoys = !this.displayHMBoys;
+		}
+		//The display girls button
+		if(this.displayGirls) p.fill(MainWindow.PINK);
+		else p.noFill();
+		p.stroke(MainWindow.PINK);
+		p.ellipse(x+w/2+60,  y+h, 10, 10);
+		if(MainWindow.overCircle(p, x+w/2+60,  y+h, 7) && !mousePressed && p.mousePressed){
+			this.displayGirls = !this.displayGirls;
+		}
+		
 		//Pass on
 		hovered = newHovered;
 		//Marks mouse as pressed if it's the case

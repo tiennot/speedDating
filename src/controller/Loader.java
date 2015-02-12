@@ -346,7 +346,7 @@ public class Loader {
 			 * The first argument of the constructor is the man. 
 			 */
 			if(iidPersons.containsKey(iid)&&iidPersons.containsKey(pid)){
-				if(iidPersons.get(iid).getSex().equals(Sex.MALE)){
+				if(iidPersons.get(iid).getSex().isEqualTo(Sex.MALE)){
 					Date thisDate = new Date(iidPersons.get(iid),iidPersons.get(pid), position, order, int_corr, scoreCard, scoreCard_o);
 					iidPersons.get(iid).addDate(thisDate);
 					iidPersons.get(pid).addDate(thisDate);

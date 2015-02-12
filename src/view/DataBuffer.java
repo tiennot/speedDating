@@ -20,7 +20,7 @@ public class DataBuffer {
 		if(!interestsByAge.containsKey(age)){
 			interestsByAge.put(age, new Interest[]{ null, null});
 		}
-		interestsByAge.get(age)[sex==Sex.MALE?1:0] = interest;
+		interestsByAge.get(age)[sex.isEqualTo(Sex.MALE)?1:0] = interest;
 	}
 	
 	//To get an interest given age and sex

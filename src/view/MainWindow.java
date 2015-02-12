@@ -122,7 +122,7 @@ public class MainWindow {
 			//Sets the age of Tom
 			this.ageTomValue = ageTom.getValueForMousePos();
 			ageTom.setValue(this.ageTomValue);
-			this.randomizedData();
+			//this.randomizedData();
 			//Calls for update
 			this.updateData();
 		}
@@ -187,8 +187,8 @@ public class MainWindow {
 	    labelTom = new TextLabel(p, 205, 60, 100, 30, 16, BLUE, p.LEFT, p.CENTER);
 	    
 	    //Initializes interests icons
-	    interestTom = new InterestIcon(p, 0, 60, Interest.TVSPORTS, Sex.MALE);
-	    interestKaty = new InterestIcon(p, 359, 24, Interest.MOVIES, Sex.FEMALE);
+	    interestTom = new InterestIcon(p, 0, 60, Interest.MUSEUMS, Sex.MALE);
+	    interestKaty = new InterestIcon(p, 359, 24, Interest.CONCERTS, Sex.FEMALE);
 	    
 	    //Smileys
 	    halfwayKatySmiley = new Smiley(p, 352, 436, PINK, Satisfaction.Tres_satisfait);
@@ -210,6 +210,9 @@ public class MainWindow {
 	    halfwayTrigger = new XywhObject(p,200, 404, 167, 70);
 	    halfwayVisualization = new VGraph(p, halfwayWindow, controller);
 	    halfwayWindow.setDescriptionText("The key of understanding the speed dating dataset is matches. Here we try to help you understand how matches work according to gender and age by displaying them in a \"graph\" style. Each line is an age, pink dots are women and blue dots men. Hover a dot and you'll see who this person matches with - thick line - and who he/she half matched. Click a gray cicle on the left to activate age filtering.");
+	
+	    //At the end of the setup we "update" data for the first time
+	    this.updateData();
 	}
 
 	public DetailWindow getActiveDetailWindow() {
@@ -276,5 +279,10 @@ public class MainWindow {
 	//Just tells if the mouse is over a circle (x, y, radius)
 	public static boolean overCircle(PApplet p, int x, int y, int radius){
 		return (p.mouseX-x)*(p.mouseX-x)+(p.mouseY-y)*(p.mouseY-y) <= radius*radius;
+	}
+	
+	//Just tells if the mouse is over a rectangle (x, y, w, h)
+	public static boolean overRect(PApplet p, int x, int y, int w, int h){
+		return p.mouseX>=x && p.mouseY>=y && p.mouseX<=x+w && p.mouseY<=y+h;
 	}
 }
