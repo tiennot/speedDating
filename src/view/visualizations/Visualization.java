@@ -10,8 +10,11 @@ import view.XywhObject;
  */
 public abstract class Visualization extends XywhObject{
 
+	protected Controller controller;
+	
 	public Visualization(PApplet p, DetailWindow parent, Controller controller) {
 		super(p,0,0,0,0);
+		this.controller = controller;
 		//Calls the parent (sets dimensions)
 		parent.setVisualization(this);
 	}

@@ -40,7 +40,7 @@ import model.constants.SpeedDatingKey;
 public class Loader {
 	
 	// File path
-	private final String FilePath = "data/SpeedDatingExcel.txt";
+	private final String FilePath = "data/dataset";
 	private final String Delimitter = "\t";
 	public static int erreurCount = 0; 
 	private final int nbColumns = 195 ;
@@ -75,7 +75,6 @@ public class Loader {
 		// the first time, it's only the names of the columns
 		String nameString = br.readLine();
 		String[] names = nameString.split(this.Delimitter);
-		//System.out.println("Longeur: "+ names.length);
 		String pathname = "data/SpeedDating"+ id+".txt" ;
 		File file = new File(pathname);
 		if(!file.exists()){
@@ -190,7 +189,7 @@ public class Loader {
 			
 			double int_corr = Parser.parseDouble2(values[SpeedDatingKey.int_corr]); 
 			
-			int dec_o = Parser.parseInteg(values,SpeedDatingKey.dec_o);
+			boolean dec_o = Parser.parseBool(values[SpeedDatingKey.dec_o]);
 			
 			//Not really usefull if we have the pid ... But meanwhile ... 
 			AttrBag attr_o = new AttrBag(values, SpeedDatingKey.attr_o, on100, false);
@@ -206,8 +205,8 @@ public class Loader {
 			Boolean met_o = Parser.intToBool(1-(Parser.parseInteg(values,SpeedDatingKey.met_o)-1)); 
 			
 			//Scorecard of partner : 
-			ScoreCard scoreCard_o = new ScoreCard(Parser.intToBool(dec_o), attr_o, like_o, prob_o, met_o);
-			
+			ScoreCard scoreCard_o = new ScoreCard(dec_o, attr_o, like_o, prob_o, met_o);
+
 			int age = Parser.parseInteg(values,SpeedDatingKey.age);
 			
 			Field field = new Field(Parser.parseInteg(values,SpeedDatingKey.field_cd));
@@ -250,7 +249,7 @@ public class Loader {
 			
 			AttrBag otherPerceivesYou_1 = new AttrBag(values, SpeedDatingKey.attr5_1, on100, true);
 			
-			Boolean dec = Parser.intToBool(Parser.parseInteg(values,SpeedDatingKey.dec));
+			Boolean dec = Parser.parseBool(values[SpeedDatingKey.dec]);
 			
 			// TODO: Toujours sur 10 apparemment. A verifier.
 			AttrBag notes = new AttrBag(values, SpeedDatingKey.attr, false, false);

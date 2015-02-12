@@ -9,7 +9,7 @@ import model.constants.Interest;
 import model.constants.Sex;
 import processing.core.PApplet;
 import processing.core.PImage;
-import view.visualizations.VHalfway;
+import view.visualizations.VGraph;
 import view.visualizations.VInterests;
 
 
@@ -61,7 +61,7 @@ public class MainWindow {
 	//The halfway window
 	XywhObject halfwayTrigger;
 	DetailWindow halfwayWindow;
-	VHalfway halfwayVisualization;
+	VGraph halfwayVisualization;
 		
 	//Our two main colors
 	public static int PINK;
@@ -206,10 +206,10 @@ public class MainWindow {
 	    interestsWindow.setDescriptionText("A dot represents the number of people who rated one of the 17 interest with a given mark (from 1 to 10 from center to edges on a scale of 10). We can see that men are more likely to express interest in things such as sport, TV and concert while women are strongly attracted by diner and art. It’s interesting to see not only the differences between the two opposite sexes but also the repartition of interests among people generally speaking. Also keep in mind that people don’t necessarily tell the truth.");
 	    
 	    //The halfway detail window
-	    halfwayWindow = new DetailWindow(p, this, width-100, height-100, "Perception halfway");
+	    halfwayWindow = new DetailWindow(p, this, width-100, height-100, "Match \"graph\" display");
 	    halfwayTrigger = new XywhObject(p,200, 404, 167, 70);
-	    halfwayVisualization = new VHalfway(p, halfwayWindow, controller);
-	    halfwayWindow.setDescriptionText("Let's take a look at the evolution of the perception of the other sex between the beginning of the night and halfway.");
+	    halfwayVisualization = new VGraph(p, halfwayWindow, controller);
+	    halfwayWindow.setDescriptionText("The key of understanding the speed dating dataset is matches. Here we try to help you understand how matches work according to gender and age by displaying them in a \"graph\" style. Each line is an age, pink dots are women and blue dots men. Hover a dot and you'll see who this person matches with - thick line - and who he/she half matched. Click a gray cicle on the left to activate age filtering.");
 	}
 
 	public DetailWindow getActiveDetailWindow() {
@@ -254,7 +254,6 @@ public class MainWindow {
 						: this.controller.getPreferredTaste(Sex.FEMALE).get(0));
 		//Sets the first smiley for Katy
 		halfwayKatySmiley.setSatisfaction(controller.getSatisfactionOverall(Sex.FEMALE));
-		
 		//We are done
 		updatingData = false;
 	}
@@ -272,5 +271,10 @@ public class MainWindow {
 
 	public void setController(Controller controller) {
 		this.controller = controller;
+	}
+	
+	//Just tells if the mouse is over a circle (x, y, radius)
+	public static boolean overCircle(PApplet p, int x, int y, int radius){
+		return (p.mouseX-x)*(p.mouseX-x)+(p.mouseY-y)*(p.mouseY-y) <= radius*radius;
 	}
 }

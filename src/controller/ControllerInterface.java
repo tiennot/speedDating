@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import model.AttrBag;
+import model.Person;
 import model.constants.Interest;
 import model.constants.Sex;
 
@@ -17,5 +18,7 @@ public interface ControllerInterface {
 	void setAge(int age);
 	HashMap<Interest,int[]> getTaste(Sex sex);
 	AttrBag getPerception(Sex sex, TypeDePerception type, Step step);
+	ArrayList<Person> getListOfPersons();
+	ArrayList<Person> getListOfPersons(int age, Sex sex);
 
 }

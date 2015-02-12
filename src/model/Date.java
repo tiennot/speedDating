@@ -45,7 +45,16 @@ public class Date {
 	public boolean match(){
 		return hisScoreCard.getDec() && herScoreCard.getDec();
 	}
-
+	
+	//Returns man's decision
+	public boolean hisDec(){
+		return hisScoreCard.getDec();
+	}
+	
+	//returns woman's decision
+	public boolean herDec(){
+		return herScoreCard.getDec();
+	}
 
 	//Getters and setters
 	public Person getMan() {

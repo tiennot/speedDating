@@ -281,4 +281,8 @@ public class Stat {
 		
 	}
 
+	public ArrayList<Person> getPersonList() {
+		return personList;
+	}
+
 }

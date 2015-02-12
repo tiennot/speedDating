@@ -7,6 +7,7 @@ import java.util.Iterator;
 import com.sun.xml.internal.ws.api.streaming.XMLStreamReaderFactory.Default;
 
 import model.AttrBag;
+import model.Person;
 import model.constants.Interest;
 import model.constants.Sex;
 
@@ -121,7 +122,7 @@ public class Controller implements ControllerInterface {
 			double fun1 = (double)diff1.getFun() ;
 			double intel1 = (double)diff1.getIntel() ;
 			double shar1 = (double)diff1.getShar();
-			// a1 correspond à la distance non normalisee entre les deux perceptions
+			// a1 is the non-normalized distance between the two perceptions
 			double a1 = Math.sqrt(attr1*attr1 + amb1*amb1 + sinc1*sinc1 + intel1*intel1 + shar1*shar1 + fun1*fun1 ) ;
 		
 			if (a1 < 3.5) {
@@ -202,6 +203,18 @@ public class Controller implements ControllerInterface {
 
 		return new AttrBag(rates[0],rates[1],rates[2],rates[3],rates[4],rates[5]);
 
+	}
+
+	public ArrayList<Person> getListOfPersons() {
+		return loader.getStat().getPersonList();
+	}
+
+	public ArrayList<Person> getListOfPersons(int age, Sex sex) {
+		return loader.getStat().getPersonAgeSex(age, sex);
+	}
+	
+	public ArrayList<Person> getListOfPersons(int age) {
+		return loader.getStat().getPersonAge(age);
 	}
 
 }
