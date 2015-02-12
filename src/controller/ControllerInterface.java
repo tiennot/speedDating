@@ -15,9 +15,7 @@ public interface ControllerInterface {
 	ChangementDePerception hasPerceptionChanged(Sex sex, TypeDePerception type);
 	Satisfaction getSatisfactionOverall(Sex sex);
 	void setAge(int age);
-	void handleClickOnTaste(Sex sex);
-	HashMap<Interest,double[]> getTaste(Sex sex);
-	void handleClickOnPerception(Sex sex, TypeDePerception type, Step step);
+	HashMap<Interest,int[]> getTaste(Sex sex);
 	AttrBag getPerception(Sex sex, TypeDePerception type, Step step);
 
 }

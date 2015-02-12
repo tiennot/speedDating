@@ -201,13 +201,13 @@ public class MainWindow {
 	    //The interest detail window
 	    interestsWindow = new DetailWindow(p, this, width-100, height-100, "Interests by gender");
 	    interestsTrigger = new XywhObject(p, 23, 29, 474, 128);
-	    interestsVisualization = new VInterests(p, interestsWindow);
+	    interestsVisualization = new VInterests(p, interestsWindow, controller);
 	    interestsWindow.setDescriptionText("A dot represents the number of people who rated one of the 17 interest with a given mark (from 1 to 10 from center to edges on a scale of 10). We can see that men are more likely to express interest in things such as sport, TV and concert while women are strongly attracted by diner and art. It’s interesting to see not only the differences between the two opposite sexes but also the repartition of interests among people generally speaking. Also keep in mind that people don’t necessarily tell the truth.");
 	    
 	    //The halfway detail window
 	    halfwayWindow = new DetailWindow(p, this, width-100, height-100, "Perception halfway");
 	    halfwayTrigger = new XywhObject(p,200, 404, 167, 70);
-	    halfwayVisualization = new VHalfway(p, halfwayWindow);
+	    halfwayVisualization = new VHalfway(p, halfwayWindow, controller);
 	    halfwayWindow.setDescriptionText("Let's take a look at the evolution of the perception of the other sex between the beginning of the night and halfway.");
 	}
 

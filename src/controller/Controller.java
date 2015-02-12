@@ -164,48 +164,31 @@ public class Controller implements ControllerInterface {
 
 	}
 
-	//On règle l'âge sur lequel on filtre
+	//Sets the filter age
 	public void setAge(int age) {
 		this.age=age;
 
 	}
 
-	//Ouvrir une fenêtre lorsqu'on clique sur les goûts d'un genre particulier
-	public void handleClickOnTaste(Sex sex) {
-
-
-	}
-
-	//Renvoie les vecteurs normalises correspondants aux informations pour la fenêtre detailedView
-	public HashMap<Interest, double[]> getTaste(Sex sex) {
-		HashMap<Interest, double[]> map = new HashMap<Interest, double[]>();
+	/*
+	 * Returns a hash map with the number of people that gave a given mark
+	 * to each interest for the sex passed as parameter
+	 */
+	public HashMap<Interest, int[]> getTaste(Sex sex) {
+		HashMap<Interest, int[]> map = new HashMap<Interest, int[]>();
 		
 		for (Interest interest : Interest.getInterestsList()){
 			HashMap<Integer, Integer> rates = loader.peopleByRate(sex, interest);
-			double[] tab = new double[11];
-			int numberOfPerson=0;
-			for (int i =0; i <11; i++){
+			int[] tab = new int[11];
+			for (int i =0; i<11; i++){
 				tab[i]= rates.get(i);
-				numberOfPerson+= rates.get(i);
-			}
-			for(int i=0; i<11;i++){
-				tab[i]=(double)tab[i]/(double)numberOfPerson;
 			}
 			map.put(interest, tab);
 		}
-
 		return map;
 	}
 
-	//ouvre la fenêtre correspondant l’evolution des differentes perceptions (de soi même, que les autres ont de soi même, de celle de son genre et de celle du genre oppose, recherche)
-
-	public void handleClickOnPerception(Sex sex, TypeDePerception type,
-			Step step) {
-
-
-	}
-
-	//renvoie les differentes notes aux questions de perception 
+	//Returns marks for perception questions 
 	public AttrBag getPerception(Sex sex,
 			TypeDePerception type, Step step) {
 		int[] rates = {5,5,5,5,5,5};

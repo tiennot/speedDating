@@ -82,9 +82,9 @@ public class Stat {
 	 */
 	public ArrayList<Person> getPersonSex(Sex sex) {
 		ArrayList<Person> list = new ArrayList<Person>();
-		for (int i = 0; i< personList.size(); i++){
-			if(personList.get(i).getSex().equals(sex)){
-				list.add(personList.get(i));
+		for (Person p: personList){
+			if(p.getSex().isEqualTo(sex)){
+				list.add(p);
 			}
 		}
 		return list;
@@ -262,18 +262,19 @@ public class Stat {
 	public HashMap<Integer, Integer> peopleByRate(Sex sex, Interest interest) {
 		ArrayList<Person> list = this.getPersonSex(sex);
 		HashMap<Integer, Integer> hm = new HashMap<Integer, Integer>();
-		
-		//Setting up hashmap with 0 person fo each rate
-		for(int i = 1 ; i <= 10 ; i++) {
+		//Setting up hash map with 0 person for each rate
+		for(int i = 0 ; i <= 10 ; i++) {
 			hm.put(i, 0);
 		}
 		
-		for(int i = 0 ; i < list.size() ; i++) {
-			//interests = array of rates, interestInt = n° of the interest we are looking for
-			int[] interests = list.get(i).getInterests().getInterests();
+		for(Person p: list) {
+			//interests = array of rates, interestInt = number of the interest we are looking for
+			int[] interests = p.getInterests().getInterests();
 			int interestInt = interest.getInterestNb();
-			int rate = interests[interestInt];
 			
+			//Sanity check
+			int rate = interests[interestInt];
+			if(rate>10 || rate<0) continue;
 			hm.put(rate, hm.get(rate) + 1);
 		}
 		

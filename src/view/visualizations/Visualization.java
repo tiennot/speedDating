@@ -1,5 +1,6 @@
 package view.visualizations;
 
+import controller.Controller;
 import processing.core.PApplet;
 import view.DetailWindow;
 import view.XywhObject;
@@ -9,7 +10,7 @@ import view.XywhObject;
  */
 public abstract class Visualization extends XywhObject{
 
-	public Visualization(PApplet p, DetailWindow parent) {
+	public Visualization(PApplet p, DetailWindow parent, Controller controller) {
 		super(p,0,0,0,0);
 		//Calls the parent (sets dimensions)
 		parent.setVisualization(this);
