@@ -9,6 +9,7 @@ import model.constants.Interest;
 import model.constants.Sex;
 import processing.core.PApplet;
 import processing.core.PImage;
+import view.visualizations.VBarchart;
 import view.visualizations.VGraph;
 import view.visualizations.VInterests;
 
@@ -62,6 +63,11 @@ public class MainWindow {
 	XywhObject halfwayTrigger;
 	DetailWindow halfwayWindow;
 	VGraph halfwayVisualization;
+	
+	//The barchart window
+	XywhObject barchartTrigger;
+	DetailWindow barchartWindow;
+	VBarchart barchartVisualization;
 		
 	//Our two main colors
 	public static int PINK;
@@ -153,13 +159,18 @@ public class MainWindow {
 			//"Opens" the interest detail window
 			setActiveDetailWindow(halfwayWindow);
 			setMousePressedHandled(true);
+		}else if(p.mousePressed && this.barchartTrigger.over()){
+			//"Opens" the bar chart detail window
+			setActiveDetailWindow(barchartWindow);
+			setMousePressedHandled(true);
 		}
 	}
 	
 	/*
 	 * Should be called from PApplet p setup method
 	 */
-	public void setup(){		
+	public void setup(){
+		p.frameRate(60);
 		//Sets up height and width (16/9 ratio)
 		width = 960;
 		height = 540;
@@ -210,6 +221,12 @@ public class MainWindow {
 	    halfwayTrigger = new XywhObject(p,200, 404, 167, 70);
 	    halfwayVisualization = new VGraph(p, halfwayWindow, controller);
 	    halfwayWindow.setDescriptionText("The key of understanding the speed dating dataset is matches. Here we try to help you understand how matches work according to gender and age by displaying them in a \"graph\" style. Each line is an age, pink dots are women and blue dots men. Hover a dot and you'll see who this person matches with - thick line - and who he/she half matched. Click a gray cicle on the left to activate age filtering.");
+	
+	    //The barchart detail window
+	    barchartWindow = new DetailWindow(p, this, width-100, height-100, "Bar Chart display");
+	    barchartTrigger = new XywhObject(p,630,390, 200,70);
+	    barchartVisualization = new VBarchart(p, barchartWindow, controller);
+	    barchartWindow.setDescriptionText("//TODO");
 	
 	    //At the end of the setup we "update" data for the first time
 	    this.updateData();

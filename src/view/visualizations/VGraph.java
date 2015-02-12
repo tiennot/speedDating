@@ -53,15 +53,16 @@ public class VGraph extends Visualization {
 		Person newHovered = null;
 		//draws the age lines
 		for(int age=ageMin; age<=ageMax; age++){
-			//Draws the circle for the age
 			p.noFill();
 			p.stroke(p.color(200,200,200));
 			p.strokeWeight(1);
-			p.line(x, y+liney(age), x+w, y+liney(age));
-			//A circle to hover an entire age
-			p.fill(this.isSelected(age) ? p.color(255,0,0) : p.color(200,200,200));
+			p.line(x+10, y+liney(age), x+w, y+liney(age));
+			p.fill(this.isSelected(age) ? p.color(0,0,0) : p.color(200,200,200));
+			p.textAlign(p.CENTER,  p.CENTER);
+			p.text(String.valueOf(age), x-2, y+liney(age)-1);
+			//A circle to select the age
 			p.noStroke();
-			p.ellipse(x, y+liney(age), 15,15);
+				//p.ellipse(x, y+liney(age), 15,15);
 			//Checks if circle under mouse
 			if(MainWindow.overCircle(p, x, y+liney(age), 10)){
 				if(p.mousePressed && !this.mousePressed){
