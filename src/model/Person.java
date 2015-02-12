@@ -13,7 +13,10 @@ import model.constants.*;
 public class Person {
 	//Unique identifier
 	private int iid;
+	//Characteristics of the wave, this person was in : 
+	private int totalNumberPeopleMet;
 	//Characteristics of the person
+	private int positin1 ;
 	private int wave;
 	private int age;
 	private Sex sex; 
@@ -24,12 +27,13 @@ public class Person {
 	
 	private Goal goal;
 	private Frequency date, goOut;
-	
+	private Career career;
 	//Interests in 17 activities
 	private InterestsBag interests;
 	//Dates this person has had during the night
 	ArrayList<Date> dates;
 	//His/her ratings before the night
+	private int expectedNumber;
 	private AttrBag looksFor_1;
 	private AttrBag fellowLooksFor_1;
 	private AttrBag oppSexLooksFor_1;
@@ -38,13 +42,31 @@ public class Person {
 	//His/her ratings halfway through the night
 	private AttrBag looksFor_s;
 	private AttrBag measureUp_s;
+	
 	//His/her ratings the day after
+	private int estimNumberOfMatch;
+	private int rateLength;
+	private int rateNumDates;
+	private AttrBag importance;
 	private AttrBag looksFor_2;
 	private AttrBag fellowLooksFor_2;
 	private AttrBag oppSexLooksFor_2;
 	private AttrBag measureUp_2;
 	private AttrBag otherPerceivesYou_2;
 	private int		satis_2;
+	
+	//Time 3: a week later 
+	private int numDate;
+	private int numIn3;
+	private int youCall;
+	private int themCall;
+	private Boolean onADate;
+	private AttrBag looksFor_3;
+	private AttrBag importance_3;
+	private AttrBag fellowLooksFor_3;
+	private AttrBag oppSexLooksFor_3;
+	private AttrBag measureUp_3;
+	private AttrBag otherPerceivesYou_3;
 	
 	//Adds a date to the ArrayList of dates
 	public void addDate(Date date){
@@ -110,7 +132,7 @@ public class Person {
 			AttrBag measureUp_s, AttrBag looksFor_2, AttrBag fellowLooksFor_2,
 			AttrBag oppSexLooksFor_2, AttrBag measureUp_2,
 			AttrBag otherPerceivesYou_2,
-			int satis_2) {
+			int satis_2, int totalNumberPeopleMet) {
 		super();
 		this.iid = iid;
 		this.wave = wave;
@@ -140,6 +162,7 @@ public class Person {
 		this.otherPerceivesYou_2 = otherPerceivesYou_2;
 		this.dates = new ArrayList<Date>();
 		this.satis_2 = satis_2;
+		this.totalNumberPeopleMet = totalNumberPeopleMet;
 	}
 
 	//Getters and setters
@@ -271,4 +294,151 @@ public class Person {
 	public void setSatis_2(int satis_2) {
 		this.satis_2 = satis_2;
 	}
+	
+	public int getPositin1() {
+		return positin1;
+	}
+
+	public void setPositin1(int positin1) {
+		this.positin1 = positin1;
+	}
+
+	public Career getCareer() {
+		return career;
+	}
+
+	public void setCareer(Career career) {
+		this.career = career;
+	}
+
+	public int getExpectedNumber() {
+		return expectedNumber;
+	}
+
+	public void setExpectedNumber(int expectedNumber) {
+		this.expectedNumber = expectedNumber;
+	}
+
+	public int getEstimNumberOfMatch() {
+		return estimNumberOfMatch;
+	}
+
+	public void setEstimNumberOfMatch(int estimNumberOfMatch) {
+		this.estimNumberOfMatch = estimNumberOfMatch;
+	}
+
+	public int getRateLength() {
+		return rateLength;
+	}
+
+	public void setRateLength(int rateLength) {
+		this.rateLength = rateLength;
+	}
+
+	public int getRateNumDates() {
+		return rateNumDates;
+	}
+
+	public void setRateNumDates(int rateNumDates) {
+		this.rateNumDates = rateNumDates;
+	}
+
+	public AttrBag getImportance() {
+		return importance;
+	}
+
+	public void setImportance(AttrBag importance) {
+		this.importance = importance;
+	}
+
+	public int getNumDate() {
+		return numDate;
+	}
+
+	public void setNumDate(int numDate) {
+		this.numDate = numDate;
+	}
+
+	public int getNumIn3() {
+		return numIn3;
+	}
+
+	public void setNumIn3(int numIn3) {
+		this.numIn3 = numIn3;
+	}
+
+	public AttrBag getLooksFor_3() {
+		return looksFor_3;
+	}
+
+	public void setLooksFor_3(AttrBag looksFor_3) {
+		this.looksFor_3 = looksFor_3;
+	}
+
+	public AttrBag getFellowLooksFor_3() {
+		return fellowLooksFor_3;
+	}
+
+	public void setFellowLooksFor_3(AttrBag fellowLooksFor_3) {
+		this.fellowLooksFor_3 = fellowLooksFor_3;
+	}
+
+	public AttrBag getOppSexLooksFor_3() {
+		return oppSexLooksFor_3;
+	}
+
+	public void setOppSexLooksFor_3(AttrBag oppSexLooksFor_3) {
+		this.oppSexLooksFor_3 = oppSexLooksFor_3;
+	}
+
+	public AttrBag getMeasureUp_3() {
+		return measureUp_3;
+	}
+
+	public void setMeasureUp_3(AttrBag measureUp_3) {
+		this.measureUp_3 = measureUp_3;
+	}
+
+	public AttrBag getOtherPerceivesYou_3() {
+		return otherPerceivesYou_3;
+	}
+
+	public void setOtherPerceivesYou_3(AttrBag otherPerceivesYou_3) {
+		this.otherPerceivesYou_3 = otherPerceivesYou_3;
+	}
+
+	public int getYouCall() {
+		return youCall;
+	}
+
+	public void setYouCall(int youCall) {
+		this.youCall = youCall;
+	}
+
+	public int getThemCall() {
+		return themCall;
+	}
+
+	public void setThemCall(int themCall) {
+		this.themCall = themCall;
+	}
+
+	public Boolean getOnADate() {
+		return onADate;
+	}
+
+	public void setOnADate(Boolean onADate) {
+		this.onADate = onADate;
+	}
+
+	public AttrBag getImportance_3() {
+		return importance_3;
+	}
+
+	public void setImportance_3(AttrBag importance_3) {
+		this.importance_3 = importance_3;
+	}
+	
+	
+
 }

@@ -127,14 +127,12 @@ public class Loader {
 		String line = "";
 		int lineCount = 1;  
 		//System.out.println("Nombre de colonnes en temps normal :" + br.readLine().split(this.Delimitter).length);
-		long taillemoy = 0;
 		while ((line = br.readLine()) != null){
 			String[] values = line.split(this.Delimitter);
 			lineCount++;
 			/*
 			 * Test in here
 			 */
-			taillemoy += values.length;
 			/*
 			 * Stop here
 			 */
@@ -158,50 +156,53 @@ public class Loader {
 		String line = "";
 		// the first time, it's only the names of the columns
 		String[] names = br.readLine().split(this.Delimitter);
-		int lineCount= 1;
 		// Loops through the file
 		while ((line = br.readLine()) != null) {
-			lineCount++;
 			// Puts the cells values into an array
 			String[] values = line.split(this.Delimitter);
 			/*
 			 * Significant amount of work to be done right here
 			 */
 			
+			//Unique identifier of a person : 
 			int iid = Parser.parseInteg(values,SpeedDatingKey.iid);
+			
 			Sex sex = new Sex(Parser.parseBool(values[SpeedDatingKey.gender]));
+			//Wave on which the person was :
 			int wave = Parser.parseInteg(values,SpeedDatingKey.wave);
 			
 			
-			//Wave 6 to 9 are different for the ratings 
-			boolean on100 = wave < 6 || wave > 9; 
+			//Wave 6 to 9 are different for the ratings (scale on 1-10, vs scale on a 100 ...)
+			boolean on100 = wave < 6 || wave > 9;
+			
+			//Number of people that met in wave in total : 
 			int round = Parser.parseInteg(values,SpeedDatingKey.round);
-			
+			//Station number where met
 			int position = Parser.parseInteg(values,SpeedDatingKey.position);
-			
+			//station number where started
 			int positin1 = Parser.parseInteg(values,SpeedDatingKey.positin1);
-			
+			//Number of date before this one
 			int order = Parser.parseInteg(values,SpeedDatingKey.order);
-			
+			//partner's iid
 			int pid = Parser.parseInteg(values,SpeedDatingKey.pid);
 			
 			int match = Parser.parseInteg(values,SpeedDatingKey.match); 
-			
+			//Correlation between interests
 			double int_corr = Parser.parseDouble2(values[SpeedDatingKey.int_corr]); 
-			
+			//Decision of the partner
 			boolean dec_o = Parser.parseBool(values[SpeedDatingKey.dec_o]);
 			
-			//Not really usefull if we have the pid ... But meanwhile ... 
+			//Not really usefull if we have the pid ... But we never know... 
 			AttrBag attr_o = new AttrBag(values, SpeedDatingKey.attr_o, on100, false);
 			
-			//Ils sont pas dans le pdf ... Mais vu leur nom, c'est vraisemblablement ca.
+			//On 10 : how much he/she liked the person
 			int like_o = Parser.parseInteg(values,SpeedDatingKey.like_o);
-			
+			//How probably will the other person say yes
 			int prob_o = Parser.parseInteg(values,SpeedDatingKey.prob_o);
 			
 			//In the dataset, met_o = 1 if not met, and met_o = 2 if met ... 
 			//A little math is needed here
-			
+			//Have you met before ? 
 			Boolean met_o = Parser.intToBool(1-(Parser.parseInteg(values,SpeedDatingKey.met_o)-1)); 
 			
 			//Scorecard of partner : 
@@ -236,7 +237,7 @@ public class Loader {
 			InterestsBag interests = new InterestsBag(values, SpeedDatingKey.sports);
 			
 			int expHappy = Parser.parseInteg(values,SpeedDatingKey.exphappy);
-			
+			//Estimation of number of people that'll be interested in dating
 			int expnum = Parser.parseInteg(values,SpeedDatingKey.expnum);
 			
 			AttrBag looksFor_1 = new AttrBag(values, SpeedDatingKey.attr1_1, on100, false);
@@ -251,7 +252,6 @@ public class Loader {
 			
 			Boolean dec = Parser.parseBool(values[SpeedDatingKey.dec]);
 			
-			// TODO: Toujours sur 10 apparemment. A verifier.
 			AttrBag notes = new AttrBag(values, SpeedDatingKey.attr, false, false);
 			
 			int like = Parser.parseInteg(values,SpeedDatingKey.like);
@@ -261,15 +261,10 @@ public class Loader {
 			// Same as before : yes=1 & no=0
 			Boolean met = Parser.intToBool(Parser.parseInteg(values,SpeedDatingKey.met));
 			
-			/*
-			 *Tout fonctionne jusqu'ici (inclus)
-			 */
-			
-			
 			//Scorecard of the person
 			ScoreCard scoreCard = new ScoreCard(dec, notes, like, prob, met);
 			
-			//TODO : Where can we put this ?
+			//Estimate the number of matches he/she will get :
 			int match_es = Parser.parseInteg(values,SpeedDatingKey.match_es);
 
 			
@@ -286,7 +281,7 @@ public class Loader {
 			
 			AttrBag importance = new AttrBag(values, SpeedDatingKey.attr7_2, on100, false);
 			
-			//TODO : Pour une raison inconnue, ces valeurs sont avec virgules ...
+			//TODO : Pour une raison inconnue, ces valeurs sont avec virgules ... Qu'en fait on ? On tronque ? 
 			AttrBag looksFor_2 = new AttrBag(values, SpeedDatingKey.attr1_2, on100, false);
 			
 			AttrBag fellowLooksFor_2 = new AttrBag(values, SpeedDatingKey.attr4_2, on100, false);
@@ -325,27 +320,38 @@ public class Loader {
 			
 			if (!iidPersons.containsKey(iid)) { // If we don't know the person
 				// We add the new person to the list of persons.
-				iidPersons.put(iid, new Person(iid, wave, age, sex, race,
+				Person person = new Person(iid, wave, age, sex, race,
 						field, mnSAT, imprace, imprelig, expHappy, goal, date,
 						goOut, interests, looksFor_1, fellowLooksFor_1,
 						oppSexlookFor_1, measureUp_1, otherPerceivesYou_1,
 						looksFor_s, measureUp_s, looksFor_2, fellowLooksFor_2,
-						oppSexLooksFor_2, measureUp_2, otherPerceivesYou_2, satis_2));
+						oppSexLooksFor_2, measureUp_2, otherPerceivesYou_2, satis_2,round);
+				person.setPositin1(positin1);
+				person.setCareer(career);
+				person.setExpectedNumber(expnum);
+				person.setEstimNumberOfMatch(match_es);
+				person.setRateLength(longueur);
+				person.setNumDate(numDates);
+				person.setImportance(importance);
+				person.setYouCall(youCall);
+				person.setThemCall(themCall);
+				person.setOnADate(date_3);
+				person.setNumDate(numDate3);
+				person.setNumIn3(numIn3);
+				person.setLooksFor_3(looksFor_3);
+				person.setImportance_3(importance_3);
+				person.setFellowLooksFor_3(fellowLooksFor_3);
+				person.setOppSexLooksFor_3(oppSexLooksFor_3);
+				person.setMeasureUp_3(measureUp_3);
+				person.setOtherPerceivesYou_3(otherPerceivesYou_3);
+				iidPersons.put(iid, person);
 			}
 			
-			/*
-			 * TODO : Instancier les Date ...
-			 * Probleme : Quand j'instancie la personne 1, je ne connais pas encore son partenaire... 
-			 * Donc difficile d'instancier un date avec une seule personne. 
-			 */
-			if(lineCount==102){
-				//System.out.println();
-			}
 			/*
 			 * To keep a logic with the name of the attributes, 
 			 * The first argument of the constructor is the man. 
 			 */
-			if(iidPersons.containsKey(iid)&&iidPersons.containsKey(pid)){
+			if(iidPersons.containsKey(iid)&&iidPersons.containsKey(pid)){ //If we know both persons, we create a new Date corresponding to those two persons
 				if(iidPersons.get(iid).getSex().isEqualTo(Sex.MALE)){
 					Date thisDate = new Date(iidPersons.get(iid),iidPersons.get(pid), position, order, int_corr, scoreCard, scoreCard_o);
 					iidPersons.get(iid).addDate(thisDate);
@@ -359,9 +365,6 @@ public class Loader {
 					coupleDate.put(new Couple(pid, iid), thisDate);
 				}
 			}
-			
-			//System.out.println("Fini la ligne : " + lineCount);
-			//System.out.println("Erreur : " + Loader.erreurCount);
 			Loader.erreurCount =0;
 		}
 		br.close();
