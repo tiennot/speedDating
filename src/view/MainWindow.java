@@ -3,6 +3,7 @@ package view;
 import java.util.Random;
 
 import controller.Controller;
+import controller.Satisfaction;
 import model.constants.Interest;
 import model.constants.Interest;
 import model.constants.Sex;
@@ -190,8 +191,8 @@ public class MainWindow {
 	    interestKaty = new InterestIcon(p, 359, 24, Interest.MOVIES, Sex.FEMALE);
 	    
 	    //Smileys
-	    halfwayKatySmiley = new Smiley(p, 352, 436, PINK, Smiley.HAPPY);
-	    halfwayTomSmiley = new Smiley(p, 212, 436, BLUE, Smiley.SAD);
+	    halfwayKatySmiley = new Smiley(p, 352, 436, PINK, Satisfaction.Tres_satisfait);
+	    halfwayTomSmiley = new Smiley(p, 212, 436, BLUE, Satisfaction.Peu_Satisfait);
 	    
 	    //Pie charts
 	    endPieLabel = new TextLabel(p, 775, 400, 170, 20, 14, p.color(150,150,150), p.CENTER, "Chances of match");
@@ -242,6 +243,8 @@ public class MainWindow {
 				DataBuffer.isInterestBufferized(this.ageTomValue, Sex.MALE) ?
 						DataBuffer.Interest(ageTomValue,  Sex.MALE)
 						: this.controller.getPreferredTaste(Sex.MALE).get(0));
+		//Sets the first smiley for tom
+		halfwayTomSmiley.setSatisfaction(controller.getSatisfactionOverall(Sex.MALE));
 		
 		//Set the age for Katy in the controller
 		this.controller.setAge(this.ageKatyValue);
@@ -249,6 +252,8 @@ public class MainWindow {
 				DataBuffer.isInterestBufferized(this.ageKatyValue, Sex.FEMALE) ?
 						DataBuffer.Interest(ageKatyValue,  Sex.FEMALE)
 						: this.controller.getPreferredTaste(Sex.FEMALE).get(0));
+		//Sets the first smiley for Katy
+		halfwayKatySmiley.setSatisfaction(controller.getSatisfactionOverall(Sex.FEMALE));
 		
 		//We are done
 		updatingData = false;
@@ -259,8 +264,8 @@ public class MainWindow {
 		Random rand = new Random();
 		//this.interestKaty.setInterest(new Interest(rand.nextInt(16)));
 		//this.interestTom.setInterest(new Interest(rand.nextInt(16)));
-		this.halfwayKatySmiley.setHumor((byte) (rand.nextInt((3 - 0) + 1)+1));
-		this.halfwayTomSmiley.setHumor((byte) (rand.nextInt((3 - 0) + 1)+1));
+		//this.halfwayKatySmiley.setHumor((byte) (rand.nextInt((3 - 0) + 1)+1));
+		//this.halfwayTomSmiley.setHumor((byte) (rand.nextInt((3 - 0) + 1)+1));
 		this.endPieChartKaty.setValue(rand.nextFloat());
 		this.endPieChartTom.setValue(rand.nextFloat());
 	}

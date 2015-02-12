@@ -1,19 +1,16 @@
 package view;
 
+import controller.Satisfaction;
 import processing.core.PApplet;
 
 public class Smiley extends XywhObject{
 	int color;
-	private byte humor;
+	private Satisfaction s;
 	
-	public static byte HAPPY = 1;
-	public static byte SAD = 2;
-	public static byte EQUAL = 3;
-	
-	public Smiley(PApplet p, int x, int y, int color, byte humor){
+	public Smiley(PApplet p, int x, int y, int color, Satisfaction s){
 		super(p, x, y, 24, 24); //Smiley's dimension is 24, 24
 		this.color = color;
-		this.humor = humor;
+		this.s = s;
 	}
 	
 	public void draw(){
@@ -30,9 +27,9 @@ public class Smiley extends XywhObject{
 		p.ellipse(x-w/6, y-h/6, 1,1);
 		
 		//Draws the mouth according to humor
-		if(humor==Smiley.HAPPY){
+		if(s==Satisfaction.Tres_satisfait || s==Satisfaction.Satisfait){
 			p.arc(x, y+h/10, 5, 5, 0, p.PI);
-		}else if(humor==Smiley.SAD){
+		}else if(s==Satisfaction.Peu_Satisfait || s==Satisfaction.Tres_Peu_Satisfait){
 			p.arc(x, y+h/10+4, 5, 5, p.PI, p.PI*2);
 		}else{
 			p.line(x-w/6,  y+w/6,  x+w/6,  y+w/6);
@@ -43,11 +40,11 @@ public class Smiley extends XywhObject{
 		return ((p.mouseX-x)*(p.mouseX-x) + (p.mouseY-y)*(p.mouseY-y)) <= ((w/2+1)*(w/2+1));
 	}
 
-	public byte getHumor() {
-		return humor;
+	public Satisfaction getSatisfaction() {
+		return s;
 	}
 
-	public void setHumor(byte humor) {
-		this.humor = humor;
+	public void setSatisfaction(Satisfaction s) {
+		this.s = s;
 	}
 }

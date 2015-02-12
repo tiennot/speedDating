@@ -251,12 +251,11 @@ public class Stat {
 	public int avgSatisfactionRate(int age, Sex sex) {
 		ArrayList<Person> list = this.getPersonAgeSex(age, sex);
 		int sum = 0;
-		
 		for(int i = 0 ; i < list.size() ; i++) {
 			sum += list.get(i).getSatis_2();
 		}
 		
-		return sum / list.size();
+		return sum / Math.max(list.size(), 1);
 	}
 	
 	public HashMap<Integer, Integer> peopleByRate(Sex sex, Interest interest) {
