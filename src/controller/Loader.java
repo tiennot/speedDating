@@ -273,7 +273,7 @@ public class Loader {
 			int match_es = Parser.parseInteg(values,SpeedDatingKey.match_es);
 
 			
-			// Pour la Person
+			// For the person
 			AttrBag looksFor_s = new AttrBag(values, SpeedDatingKey.attr1_s, on100, false);
 			
 			AttrBag measureUp_s = new AttrBag(values, SpeedDatingKey.attr3_s, on100, true);
@@ -324,7 +324,7 @@ public class Loader {
 			
 			
 			if (!iidPersons.containsKey(iid)) { // If we don't know the person
-				// On ajoute la nouvelle personne a la liste des personnes.
+				// We add the new person to the list of persons.
 				iidPersons.put(iid, new Person(iid, wave, age, sex, race,
 						field, mnSAT, imprace, imprelig, expHappy, goal, date,
 						goOut, interests, looksFor_1, fellowLooksFor_1,
@@ -343,7 +343,7 @@ public class Loader {
 			}
 			/*
 			 * To keep a logic with the name of the attributes, 
-			 * The first argument of the construstor is the man. 
+			 * The first argument of the constructor is the man. 
 			 */
 			if(iidPersons.containsKey(iid)&&iidPersons.containsKey(pid)){
 				if(iidPersons.get(iid).getSex().equals(Sex.MALE)){

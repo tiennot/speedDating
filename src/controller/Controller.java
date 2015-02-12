@@ -45,18 +45,11 @@ public class Controller implements ControllerInterface {
 				}
 			}
 		}
-		
-		/*ArrayList<String> liste = new ArrayList<String>() ;
-		Iterator<Interest> it = listeOfInterest.iterator();
-		while (it.hasNext()) {
-			liste.add(it.next().toString()) ;
-		}*/
 			
 		return listeOfInterest;
 	}
 
-	//Renvoie le pourcentage de match à la fin de la nuit pour les hommes (ou les femmes) de cet âge
-	//how many yes halfway. Pour un homme mettre Male
+	//Return match percentage halfway for women or men this age
 	public double getMatchPercentage(Sex sex) {
 
 		int totalNumberOfPeople=loader.nbrPersons(age, sex);
@@ -64,7 +57,7 @@ public class Controller implements ControllerInterface {
 		return (double)totalNumberOfPeople/(double)numberOfPeopleThatMatched;
 	}
 
-	//Renvoie le nombre de yes que la personne pense avoir obtenu (reponse superieure à 5) dans la nuit (si on ne fait pas halfway).
+	//Returns number of yes the person thinks he/she got (answer > 5) during the night
 	public int getAmountOfYess(Sex sex) {
 		ArrayList<Integer> array = loader.predictionRateYesAnswers(age, sex);
 		int totalNumberOfYes = 0;
@@ -77,8 +70,7 @@ public class Controller implements ControllerInterface {
 		return totalNumberOfYes/totalNumberOfPeople;
 	}
 
-	//renvoie un enum (ChangementDePerception) qui indique combien la perception a change
-	//entre le debut et la fin
+	//Returns enum (ChangementDePerception) indicating how much perception has changed through the night
 	public ChangementDePerception hasPerceptionChanged(Sex sex, TypeDePerception type) {
 		switch (type) {
 		case Perception_de_soi_meme: 
@@ -94,7 +86,7 @@ public class Controller implements ControllerInterface {
 			double fun = (double)diff.getFun() ;
 			double intel = (double)diff.getIntel() ;
 			double shar = (double)diff.getShar();
-			// a1 correspond à la distance non normalisee entre les deux perceptions
+			// a1 is the non normalized distance between two perceptions
 			double a = Math.sqrt(attr*attr + amb*amb + sinc*sinc + intel*intel + shar*shar + fun*fun ) ;
 		
 			if (a < 3.5) {
@@ -144,7 +136,7 @@ public class Controller implements ControllerInterface {
 	}
 
 
-	//renvoie un enum(Satisfaction) qui donne la satisfaction sur toute la nuit.
+	//Returns enum(Satisfaction) giving satisfaction for the whole night
 
 	public Satisfaction getSatisfactionOverall(Sex sex) {
 		int satisfaction = loader.avgSatisfactionRate(age, sex);

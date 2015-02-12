@@ -14,10 +14,10 @@ import model.constants.Sex;
 
 public class Stat {
 	
-	//Liste exhaustive des personnes presentes dans le dataset
+	//Exhaustive list of people in the data set
 	private ArrayList<Person> personList ;
 	
-	//Liste exhaustive des Dates effectue dans le dataset
+	//Exhaustive list of dates in the data set
 	private ArrayList<Date> dateList;
 
 	public Stat(ArrayList<Person> personList) {

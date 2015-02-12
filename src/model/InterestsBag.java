@@ -12,9 +12,7 @@ public class InterestsBag {
 	//Interests values
 	private int[] interestsInt = new int[17];
 	
-	/* Probleme avec les entiers si l'on veut repr�senter des moyennes etc... 
-	 * Solution : on utilise une liste de double. Plus lourd en m�moire, mais on essaye au max de pas l'utiliser.  
-	 */
+	//More accurate for average values
 	private double[] interestsDouble = new double[17];
 	
 	//Constructor
@@ -54,7 +52,7 @@ public class InterestsBag {
 	}
 	
 	/**
-	 * Constructeur avec offset, a utiliser pour loader les data (String-> int)
+	 * Constructor with offset, should be user to load data (String -> int)
 	 * <strong>Catches IndexOutOfBoundExceptions<strong>
 	 * @param interests It is the row data
 	 * @param offset Where to begin in the table
@@ -74,7 +72,7 @@ public class InterestsBag {
 	
 
 	/**
-	 * Methode qui permet d'ajouter deux InterestsBag
+	 * Method to allow to add interestbag
 	 * @param interestsBag
 	 */
 	public void addInterestsBag(InterestsBag interestsBag){
@@ -94,7 +92,7 @@ public class InterestsBag {
 	}
 	
 	/**
-	 * Copy les donn�es du vecteur "Int" dans le "Double". 
+	 * Copies data from int vector to double vector
 	 */
 	public void intToDouble(){
 		for(int i =0; i<17; i++){
