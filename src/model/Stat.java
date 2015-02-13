@@ -127,12 +127,15 @@ public class Stat {
 		return this.getPersonAge(age).size();
 	}
 	
-	public int nbrRealDaters(int age){
-		int n = 0;
-		for(Person p: this.getPersonAge(age)){
-			n += p.getOnADate() ? 1 : 0;
+	public double percentRealDaters(int age, Sex sex){
+		int nTotal = 0, nRealDater = 0;
+		for(Person p: this.getPersonAgeSex(age, sex)){
+			if(p.getOnADate()==null) continue;
+			if(p.getOnADate()) nRealDater++;
+			nTotal++;
 		}
-		return n;
+		System.out.println(nTotal + " " + nRealDater);
+		return nTotal < 3 ? -1 : (double)nRealDater / (double)nTotal;
 	}
 	
 	public int numberPerson(int age, Sex sex) {

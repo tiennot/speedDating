@@ -411,8 +411,8 @@ public class Loader {
 		return stat.numberPerson(age);
 	}
 	
-	int nbrRealDaters(int age){
-		return stat.nbrRealDaters(age);
+	double percentRealDaters(int age, Sex sex){
+		return stat.percentRealDaters(age, sex);
 	}
 	
 	int personsThatMatched(int age, Sex sex) {

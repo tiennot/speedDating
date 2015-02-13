@@ -57,6 +57,10 @@ public class TextLabel extends XywhObject{
 		p.text(value, x, y, w, h);
 	}
 	
+	public void setValue(String value) {
+		this.value = value;
+	}
+
 	public void draw(){
 		draw(value);
 	}

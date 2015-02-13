@@ -20,5 +20,5 @@ public interface ControllerInterface {
 	AttrBag getPerception(Sex sex, TypeDePerception type, Step step);
 	ArrayList<Person> getListOfPersons();
 	ArrayList<Person> getListOfPersons(int age, Sex sex);
-	double getRealDatePercentage();
+	double getRealDatePercentage(Sex sex);
 }

@@ -68,6 +68,10 @@ public class MainWindow {
 	XywhObject barchartTrigger;
 	DetailWindow barchartWindow;
 	VBarchart barchartVisualization;
+	
+	//The label for percentage of real dates
+	TextLabel realDateKatyLabel;
+	TextLabel realDateTomLabel;
 		
 	//Our two main colors
 	public static int PINK;
@@ -149,6 +153,10 @@ public class MainWindow {
 		endPieLabel.draw();
 		endPieChartKaty.draw();
 		endPieChartTom.draw();
+		
+		//Draws label for real dates percentage
+		realDateKatyLabel.draw();
+		realDateTomLabel.draw();
 
 		//Handles trigger zones for detail windows
 		if(p.mousePressed && this.interestsTrigger.over()){
@@ -210,6 +218,10 @@ public class MainWindow {
 	    endPieChartKaty = new PieChart(p, 805, 422, 50, PINK);
 	    endPieChartTom = new PieChart(p, 865, 422, 50, BLUE);
 	    
+	    //The label for real dates
+	    realDateKatyLabel = new TextLabel(p, 890, 170, 50, 20, 14, MainWindow.PINK, p.LEFT);
+	    realDateTomLabel = new TextLabel(p, 850, 170, 50, 20, 14, MainWindow.BLUE, p.LEFT);
+	    
 	    //The interest detail window
 	    interestsWindow = new DetailWindow(p, this, width-100, height-100, "Interests by gender");
 	    interestsTrigger = new XywhObject(p, 23, 29, 474, 128);
@@ -267,6 +279,10 @@ public class MainWindow {
 		halfwayTomSmiley.setSatisfaction(controller.getSatisfactionOverall(Sex.MALE));
 		//Set the match percentage for tom
 		endPieChartTom.setValue(controller.getMatchPercentage(Sex.MALE));
+		//Updates the label for real dates percentage of Katy
+		int percent = (int) Math.round(controller.getRealDatePercentage(Sex.MALE)*100);
+		String rdString = percent >= 0 ? percent+"%" : "N.A";
+		realDateTomLabel.setValue(rdString);
 		
 		//Set the age for Katy in the controller
 		this.controller.setAge(this.ageKatyValue);
@@ -276,8 +292,13 @@ public class MainWindow {
 						: this.controller.getPreferredTaste(Sex.FEMALE).get(0));
 		//Sets the first smiley for Katy
 		halfwayKatySmiley.setSatisfaction(controller.getSatisfactionOverall(Sex.FEMALE));
-		//Set the match percentage for tom
+		//Set the match percentage for katy
 		endPieChartKaty.setValue(controller.getMatchPercentage(Sex.FEMALE));
+		//Updates the label for real dates percentage of Katy
+		percent = (int) Math.round(controller.getRealDatePercentage(Sex.FEMALE)*100);
+		rdString = percent >= 0 ? percent+"%" : "N.A";
+		realDateKatyLabel.setValue(rdString);
+		
 		//We are done
 		updatingData = false;
 	}

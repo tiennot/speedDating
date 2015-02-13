@@ -210,11 +210,8 @@ public class Controller implements ControllerInterface {
 	}
 
 	//Returns the percentage of people this age who have been on a real date after the SD
-	public double getRealDatePercentage() {
-		int totalNb = loader.nbrPersons(age);
-		int realDaterNb = loader.nbrRealDaters(age);
-		//If less than 5 people we consider it as no accurate
-		return totalNb < 5 ? -1 : realDaterNb / totalNb;
+	public double getRealDatePercentage(Sex sex) {
+		return loader.percentRealDaters(age, sex);
 	}
 
 }
