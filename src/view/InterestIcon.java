@@ -22,26 +22,32 @@ public class InterestIcon extends XywhObject{
 	int progress = 0; //Should be between 0 & 100
 	Interest waitingInterest = null;
 	//See models.constants.Interests
-	int interest = 1;
+	Interest interest = Interest.SPORTS;
 	//See models.constants.Sex
 	Sex sex = Sex.FEMALE;
 	PImage icon;
+	//Infobulle
+	InfoBulle infoBulle;
 	
 	//Constructor
 	public InterestIcon(PApplet p, int x, int y, Interest interest, Sex sex) {
 		super(p, x, y, 50, 50);
-		this.setInterest(interest);
+		int ibColor;
 		if(sex==Sex.MALE){
 			this.setH(110);
 			this.setW(162);
 			backImg = p.loadImage("maskInterestM.png");
 			iconX = 36; iconY = 43;
+			ibColor = MainWindow.BLUE;
 		}else{
 			this.setH(85);
 			this.setW(217);
 			backImg = p.loadImage("maskInterestW.png");
 			iconX = 83; iconY = 18;
+			ibColor = MainWindow.PINK;
 		}
+		this.infoBulle = new InfoBulle(p, x+iconX+50, y+iconY+25, ibColor, "...");
+		this.setInterest(interest);
 		this.setSex(sex);
 	}
 	
@@ -79,30 +85,37 @@ public class InterestIcon extends XywhObject{
 		}
 		//Draws mask
 		p.image(backImg, x, y);
+		//If we are over the icon draws infobulle
+		if(this.over()){
+			this.infoBulle.draw();
+		}
 	}
 	
 	//Load image
 	private void loadIcon(){
-		this.icon = p.loadImage("data/interests-icons/" + (interest+1) + (sex==Sex.MALE ? "m" : "w") + ".png");
+		this.icon = p.loadImage("data/interests-icons/" + (interest.getInterestNb()+1) + (sex==Sex.MALE ? "m" : "w") + ".png");
 	}
 	
-	public int getInterest() {
+	public Interest getInterest() {
 		return interest;
 	}
 
+	//Custom setter for interest
 	public void setInterest(Interest interest) {
+		System.out.println(interest.toString()+interest.getInterestNb());
 		//If animating we wait
 		if(this.isAnimating){
 			this.waitingInterest = interest;
 			return;
 		}
 		//If the interest has not changed don't do anything
-		if(this.interest==interest.getInterestNb()+1){
+		if(this.interest==interest){
 			return;
 		}
 		//Else standard stuff
-		this.interest = interest.getInterestNb()+1;
+		this.interest = interest;
 		this.oldIcon = this.icon;
+		this.infoBulle.setText(interest.toString());
 		loadIcon();
 		this.isAnimating = true;
 	}
