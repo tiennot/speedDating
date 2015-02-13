@@ -278,7 +278,6 @@ public class MainWindow {
 		halfwayKatySmiley.setSatisfaction(controller.getSatisfactionOverall(Sex.FEMALE));
 		//Set the match percentage for tom
 		endPieChartKaty.setValue(controller.getMatchPercentage(Sex.FEMALE));
-		System.out.println(controller.getMatchPercentage(Sex.FEMALE));
 		//We are done
 		updatingData = false;
 	}

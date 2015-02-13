@@ -27,6 +27,11 @@ public class PieChart extends XywhObject{
 		if(value!=-1){
 			p.noStroke();
 			p.arc(x+w/2,  y+h/2,  w/2,  h/2, p.PI*3/2, p.PI*3/2+angle);
+			//Adds a tiny caption below to tell the value
+			String vString = String.valueOf(Math.round(value*100))+"%";
+			p.textAlign(p.CENTER, p.TOP);
+			p.textSize(12);
+			p.text(vString, x+w/2, y+h);
 		//Else just put NA in center of the pie
 		}else{
 			p.textAlign(p.CENTER, p.CENTER);
