@@ -128,19 +128,15 @@ public class Stat {
 	}
 	
 	public int numberOfPersonThatMatched(int age, Sex sex) {
-		ArrayList<Person> list = this.getPersonAgeSex(age, sex);
-		int n = 0;
-		
-		for(int i = 0 ; i < list.size() ; i++) {
-			ArrayList<Date> dates = list.get(i).dates;
-			for(int j = 0 ; j < dates.size() ; j++) {
-				if(dates.get(i).match()) {
+		int n = 0;		
+		for(Person p: this.getPersonAgeSex(age, sex)) {
+			for(Date d: p.getDates()){
+				if(d.match()){
 					n++;
 					break;
 				}
 			}
 		}
-		
 		return n;
 	}
 	
