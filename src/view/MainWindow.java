@@ -265,6 +265,8 @@ public class MainWindow {
 						: this.controller.getPreferredTaste(Sex.MALE).get(0));
 		//Sets the first smiley for tom
 		halfwayTomSmiley.setSatisfaction(controller.getSatisfactionOverall(Sex.MALE));
+		//Set the match percentage for tom
+		endPieChartTom.setValue(controller.getMatchPercentage(Sex.MALE));
 		
 		//Set the age for Katy in the controller
 		this.controller.setAge(this.ageKatyValue);
@@ -274,6 +276,9 @@ public class MainWindow {
 						: this.controller.getPreferredTaste(Sex.FEMALE).get(0));
 		//Sets the first smiley for Katy
 		halfwayKatySmiley.setSatisfaction(controller.getSatisfactionOverall(Sex.FEMALE));
+		//Set the match percentage for tom
+		endPieChartKaty.setValue(controller.getMatchPercentage(Sex.FEMALE));
+		System.out.println(controller.getMatchPercentage(Sex.FEMALE));
 		//We are done
 		updatingData = false;
 	}

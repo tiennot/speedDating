@@ -51,10 +51,10 @@ public class Controller implements ControllerInterface {
 
 	//Return match percentage halfway for women or men this age
 	public double getMatchPercentage(Sex sex) {
-
-		int totalNumberOfPeople=loader.nbrPersons(age, sex);
-		int numberOfPeopleThatMatched=loader.personsThatMatched(age, sex);
-		return (double)totalNumberOfPeople/(double)numberOfPeopleThatMatched;
+		int totalNb=loader.nbrPersons(age, sex);
+		int matchNb=loader.personsThatMatched(age, sex);
+		//If there are less than 5 people this kind we consider it's no relevant
+		return totalNb < 5 ? -1 : (double)matchNb/(double)totalNb;
 	}
 
 	//Returns number of yes the person thinks he/she got (answer > 5) during the night

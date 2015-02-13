@@ -5,7 +5,7 @@ import processing.core.PApplet;
 public class PieChart extends XywhObject{
 	int bgColor;
 	int dataColor;
-	float value = (float) 0.75; //From 0 to 1;
+	double value = (float) 0.75; //From 0 to 1;
 	
 	public PieChart(PApplet p, int x, int y, int size, int dataColor) {
 		super(p, x, y, size, size);
@@ -21,17 +21,25 @@ public class PieChart extends XywhObject{
 		p.stroke(dataColor);
 		p.strokeWeight(1);
 		p.arc(x+w/2,  y+h/2,  w/2-1,  h/2-1,  0, p.PI*2);
-		//Draw the colored circle
-		p.noStroke();
+		
 		p.fill(dataColor);
-		p.arc(x+w/2,  y+h/2,  w/2,  h/2, p.PI*3/2, p.PI*3/2+angle);
+		//if values is not -1, draw the colored circle
+		if(value!=-1){
+			p.noStroke();
+			p.arc(x+w/2,  y+h/2,  w/2,  h/2, p.PI*3/2, p.PI*3/2+angle);
+		//Else just put NA in center of the pie
+		}else{
+			p.textAlign(p.CENTER, p.CENTER);
+			p.text("N.A", x+w/2, y+h/2);
+		}
+		
 	}
 
 	public double getValue() {
 		return value;
 	}
 
-	public void setValue(float value) {
+	public void setValue(double value) {
 		this.value = value;
 	}
 }
