@@ -30,9 +30,6 @@ public class MainWindow {
 	boolean mousePressedHandled = false;
 	boolean updatingData = false;
 	
-	//The ages for Tom and Katy
-	int ageTomValue, ageKatyValue;
-	
 	//The two cursors for ages
 	private Cursor ageKaty;
 	private Cursor ageTom;
@@ -122,16 +119,14 @@ public class MainWindow {
 		//Interaction with the age cursors
 		if(p.mousePressed && ageKaty.over()){
 			//Sets the age of Katy
-			this.ageKatyValue = ageKaty.getValueForMousePos();
-			ageKaty.setValue(this.ageKatyValue);
+			ageKaty.setValue(ageKaty.getValueForMousePos());
 			//this.randomizedData();
 			//Calls for update
 			this.updateData();
 		}
 		else if(p.mousePressed && ageTom.over()){
 			//Sets the age of Tom
-			this.ageTomValue = ageTom.getValueForMousePos();
-			ageTom.setValue(this.ageTomValue);
+			ageTom.setValue(ageTom.getValueForMousePos());
 			//this.randomizedData();
 			//Calls for update
 			this.updateData();
@@ -241,6 +236,9 @@ public class MainWindow {
 	    barchartWindow.setDescriptionText("//TODO");
 	
 	    //At the end of the setup we "update" data for the first time
+	    this.ageKaty.setValue(24);
+	    System.out.println("24");
+	    this.ageTom.setValue(24);
 	    this.updateData();
 	}
 
@@ -270,11 +268,8 @@ public class MainWindow {
 		if(updatingData) return;
 		updatingData = true;
 		//Set the age for Tom in the controller
-		this.controller.setAge(this.ageTomValue);	
-		this.interestTom.setInterest(
-				DataBuffer.isInterestBufferized(this.ageTomValue, Sex.MALE) ?
-						DataBuffer.Interest(ageTomValue,  Sex.MALE)
-						: this.controller.getPreferredTaste(Sex.MALE).get(0));
+		this.controller.setAge(this.ageTom.getValue());	
+		this.interestTom.setInterest(this.controller.getPreferredTaste(Sex.MALE).get(0));
 		//Sets the first smiley for tom
 		halfwayTomSmiley.setSatisfaction(controller.getSatisfactionOverall(Sex.MALE));
 		//Set the match percentage for tom
@@ -285,11 +280,8 @@ public class MainWindow {
 		realDateTomLabel.setValue(rdString);
 		
 		//Set the age for Katy in the controller
-		this.controller.setAge(this.ageKatyValue);
-		this.interestKaty.setInterest(
-				DataBuffer.isInterestBufferized(this.ageKatyValue, Sex.FEMALE) ?
-						DataBuffer.Interest(ageKatyValue,  Sex.FEMALE)
-						: this.controller.getPreferredTaste(Sex.FEMALE).get(0));
+		this.controller.setAge(this.ageKaty.getValue());
+		this.interestKaty.setInterest(this.controller.getPreferredTaste(Sex.FEMALE).get(0));
 		//Sets the first smiley for Katy
 		halfwayKatySmiley.setSatisfaction(controller.getSatisfactionOverall(Sex.FEMALE));
 		//Set the match percentage for katy

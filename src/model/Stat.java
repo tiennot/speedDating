@@ -134,7 +134,7 @@ public class Stat {
 			if(p.getOnADate()) nRealDater++;
 			nTotal++;
 		}
-		System.out.println(nTotal + " " + nRealDater);
+		//System.out.println(nTotal + " " + nRealDater);
 		return nTotal < 3 ? -1 : (double)nRealDater / (double)nTotal;
 	}
 	

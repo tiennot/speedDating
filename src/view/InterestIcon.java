@@ -102,7 +102,6 @@ public class InterestIcon extends XywhObject{
 
 	//Custom setter for interest
 	public void setInterest(Interest interest) {
-		System.out.println(interest.toString()+interest.getInterestNb());
 		//If animating we wait
 		if(this.isAnimating){
 			this.waitingInterest = interest;

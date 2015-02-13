@@ -40,7 +40,7 @@ import model.constants.SpeedDatingKey;
 public class Loader {
 	
 	// File path
-	private final String FilePath = "data/dataset";
+	private final String FilePath = "./data/dataset";
 	private final String Delimitter = "\t";
 	public static int erreurCount = 0; 
 	private final int nbColumns = 195 ;

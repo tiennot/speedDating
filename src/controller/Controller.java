@@ -144,12 +144,12 @@ public class Controller implements ControllerInterface {
 		case 10 : ;
 		case 9: return Satisfaction.Tres_satisfait;
 		case 8:;
-		case 7:; return Satisfaction.Satisfait; 
-		case 6:;
-		case 5:; return Satisfaction.Moyennement_Satisfait;
-		case 4:;
-		case 3: return Satisfaction.Peu_Satisfait;
-		case 2:;
+		case 7:; 
+		case 6: return Satisfaction.Satisfait;
+		case 5: ;
+		case 4: return Satisfaction.Moyennement_Satisfait;
+		case 3: ;
+		case 2: return Satisfaction.Peu_Satisfait;
 		case 1:;
 		case 0: return Satisfaction.Tres_Peu_Satisfait;
 		default : return Satisfaction.Tres_Peu_Satisfait;
