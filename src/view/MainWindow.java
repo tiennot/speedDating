@@ -60,9 +60,9 @@ public class MainWindow {
 	VInterests interestsVisualization;
 	
 	//The halfway window
-	XywhObject halfwayTrigger;
-	DetailWindow halfwayWindow;
-	VGraph halfwayVisualization;
+	XywhObject graphTrigger;
+	DetailWindow graphWindow;
+	VGraph graphVisualization;
 	
 	//The barchart window
 	XywhObject barchartTrigger;
@@ -155,9 +155,9 @@ public class MainWindow {
 			//"Opens" the interest detail window
 			setActiveDetailWindow(interestsWindow);
 			setMousePressedHandled(true);
-		}else if(p.mousePressed && this.halfwayTrigger.over()){
+		}else if(p.mousePressed && this.graphTrigger.over()){
 			//"Opens" the interest detail window
-			setActiveDetailWindow(halfwayWindow);
+			setActiveDetailWindow(graphWindow);
 			setMousePressedHandled(true);
 		}else if(p.mousePressed && this.barchartTrigger.over()){
 			//"Opens" the bar chart detail window
@@ -216,11 +216,11 @@ public class MainWindow {
 	    interestsVisualization = new VInterests(p, interestsWindow, controller);
 	    interestsWindow.setDescriptionText("A dot represents the number of people who rated one of the 17 interest with a given mark (from 1 to 10 from center to edges on a scale of 10). We can see that men are more likely to express interest in things such as sport, TV and concert while women are strongly attracted by diner and art. It’s interesting to see not only the differences between the two opposite sexes but also the repartition of interests among people generally speaking. Also keep in mind that people don’t necessarily tell the truth.");
 	    
-	    //The halfway detail window
-	    halfwayWindow = new DetailWindow(p, this, width-100, height-100, "Match \"graph\" display");
-	    halfwayTrigger = new XywhObject(p,200, 404, 167, 70);
-	    halfwayVisualization = new VGraph(p, halfwayWindow, controller);
-	    halfwayWindow.setDescriptionText("The key of understanding the speed dating dataset is matches. Here we try to help you understand how matches work according to gender and age by displaying them in a \"graph\" style. Each line is an age, pink dots are women and blue dots men. Hover a dot and you'll see who this person matches with - thick line - and who he/she half matched. Click a gray cicle on the left to activate age filtering.");
+	    //The match graph detail window
+	    graphWindow = new DetailWindow(p, this, width-100, height-100, "Match \"graph\" display");
+	    graphTrigger = new XywhObject(p,790, 400, 140, 100);
+	    graphVisualization = new VGraph(p, graphWindow, controller);
+	    graphWindow.setDescriptionText("The key of understanding the speed dating dataset is matches. Here we try to help you understand how matches work according to gender and age by displaying them in a \"graph\" style. Each line is an age, pink dots are women and blue dots men. Hover a dot and you'll see who this person matches with - thick line - and who he/she half matched. Click a gray cicle on the left to activate age filtering.");
 	
 	    //The barchart detail window
 	    barchartWindow = new DetailWindow(p, this, width-100, height-100, "Bar Chart display");
