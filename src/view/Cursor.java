@@ -31,6 +31,10 @@ public class Cursor {
 		p.rect(x, y-2, width, 4);
 		//Draws the cursor
 		p.rect(x+((value-min)*width/(max-min))-1, y-height/2, 6, height);
+		//Draws a label with the value
+		p.textAlign(p.CENTER, p.BOTTOM);
+		p.textSize(12);
+		p.text(value, x+((value-min)*width/(max-min))-1 + 3/2, y-height/2);
 	}
 
 	public void setMax(int max) {
