@@ -25,8 +25,8 @@ public class VGraph extends Visualization {
 	private boolean displayGirls = true;
 	private boolean displayBoys = true;
 	private boolean displayMatches = true;
-	private boolean displayHMGirls = true;
-	private boolean displayHMBoys = true;
+	private boolean displayHMGirls = false;
+	private boolean displayHMBoys = false;
 	
 	public VGraph(PApplet p, DetailWindow parent, Controller controller) {
 		super(p, parent, controller);

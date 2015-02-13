@@ -232,7 +232,7 @@ public class MainWindow {
 	    graphWindow = new DetailWindow(p, this, width-100, height-100, "Match \"graph\" display");
 	    graphTrigger = new XywhObject(p,790, 400, 140, 100);
 	    graphVisualization = new VGraph(p, graphWindow, controller);
-	    graphWindow.setDescriptionText("The key of understanding the speed dating dataset is matches. Here we try to help you understand how matches work according to gender and age by displaying them in a \"graph\" style. Each line is an age, pink dots are women and blue dots men. Hover a dot and you'll see who this person matches with - thick line - and who he/she half matched. Click a gray cicle on the left to activate age filtering.");
+	    graphWindow.setDescriptionText("The key of understanding the speed dating dataset is matches. Here we display matches in a \"graph\" style. Each line is an age, pink dots are women and blue dots men. Thick black lines represent a match between a man and a woman, blue lines represent a man says \"yes\" and the woman says \"no\" and a pink line a man says \"no\" and the woman says \"yes\". Use the ages values on the left to age-filter (several ages using ctrl key) and the filters at the bottom to display only matches of woman/men this age and only matche/half-matches. Hover a person to see his/her matches.");
 	
 	    //The barchart detail window
 	    barchartWindow = new DetailWindow(p, this, width-100, height-100, "Bar Chart display");
