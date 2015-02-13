@@ -407,6 +407,14 @@ public class Loader {
 		return stat.numberPerson(age, sex);
 	}
 	
+	int nbrPersons(int age) {
+		return stat.numberPerson(age);
+	}
+	
+	int nbrRealDaters(int age){
+		return stat.nbrRealDaters(age);
+	}
+	
 	int personsThatMatched(int age, Sex sex) {
 		return stat.numberOfPersonThatMatched(age, sex);
 	}

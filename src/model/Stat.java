@@ -123,6 +123,18 @@ public class Stat {
 		return (double)(sum) / Math.max((double) ansNbr, 1);
 	}
 	
+	public int numberPerson(int age) {
+		return this.getPersonAge(age).size();
+	}
+	
+	public int nbrRealDaters(int age){
+		int n = 0;
+		for(Person p: this.getPersonAge(age)){
+			n += p.getOnADate() ? 1 : 0;
+		}
+		return n;
+	}
+	
 	public int numberPerson(int age, Sex sex) {
 		return this.getPersonAgeSex(age, sex).size();
 	}
